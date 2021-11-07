@@ -1,5 +1,5 @@
 import React from 'react';
-import { Tab, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { Tab, CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
 import { data } from '../../utils/data';
 import burgerIngredientsStyle from './burger-ingredients.module.css';
 
@@ -7,15 +7,15 @@ export default function BurgerIngredients() {
   const [current, setCurrent] = React.useState('bun')
 
   const itemTemplate = ({ image, price, name }) => {
-    return <div className={burgerIngredientsStyle.ingredient}>
-      <img src={image} className={`${burgerIngredientsStyle.image} ml-4 mr-4`}/>
+    return <li className={burgerIngredientsStyle.list_item}>
+      <img src={image} className={`${burgerIngredientsStyle.image} ml-4 mr-4`} />
       <div className={`${burgerIngredientsStyle.price_info} mt-4 mb-4`}>
         <span className="text text_type_digits-default mr-2">{price}</span>
         <CurrencyIcon type="primary" />
       </div>
       <h3 className={`${burgerIngredientsStyle.text} text text_type_main-default`}>{name}</h3>
-      <span className={`${burgerIngredientsStyle.count} text text_type_digits-default`}>1</span>
-    </div>
+      <Counter count={1} size="default" />
+    </li>
   }
 
   return (
@@ -34,16 +34,16 @@ export default function BurgerIngredients() {
       </div>
       <div className={`${burgerIngredientsStyle.ingredients_container} mt-10 ingredients-container`}>
         <h2 className="mb-6 text text_type_main-medium">Булки</h2>
-        <div className={`${burgerIngredientsStyle.container} pt-6 pb-10 pr-4 pl-4`}>
+        <ul className={`${burgerIngredientsStyle.list} pt-6 pb-10 pr-4 pl-4`}>
           {data.map(item => {
             if (item.type === 'bun') {
               return itemTemplate(item)
             }
           })
           }
-        </div>
+        </ul>
         <h2 className="mb-6 text text_type_main-medium">Соусы</h2>
-        <div className={`${burgerIngredientsStyle.container} pt-6 pb-10 pr-4 pl-4`}>
+        <div className={`${burgerIngredientsStyle.list} pt-6 pb-10 pr-4 pl-4`}>
           {data.map(item => {
             if (item.type === 'sauce') {
               return itemTemplate(item)
@@ -52,7 +52,7 @@ export default function BurgerIngredients() {
           }
         </div>
         <h2 className="mb-6 text text_type_main-medium">Начинки</h2>
-        <div className={`${burgerIngredientsStyle.container} pt-6 pb-10 pr-4 pl-4`}>
+        <div className={`${burgerIngredientsStyle.list} pt-6 pb-10 pr-4 pl-4`}>
           {data.map(item => {
             if (item.type === 'main') {
               return itemTemplate(item)

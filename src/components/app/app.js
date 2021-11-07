@@ -7,7 +7,7 @@ import Main from '../main/main';
 
 export default function App() {
   return (
-    <div className={appStyles.app}>
+    <div className={`${appStyles.app} pb-10`}>
       <AppHeader />
       <Main />
     </div>

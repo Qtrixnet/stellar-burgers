@@ -3,12 +3,14 @@
   max-width: 600px;
 }
 
-.container {
+.list {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   justify-items: center;
   align-content: center;
   grid-gap: 32px 24px;
+  margin: 0;
+  list-style: none;
 }
 
 .ingredients_container {
@@ -17,22 +19,8 @@
   max-height: 720px;
 }
 
-.ingredient {
+.list_item {
   position: relative;
-}
-
-.count {
-  position: absolute;
-  content: "";
-  width: 32px;
-  height: 32px;
-  background-color: rgba(76, 76, 255, 1);
-  border-radius: 50%;
-  top: 0;
-  right: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .price_info {
