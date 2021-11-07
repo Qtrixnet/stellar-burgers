@@ -1,0 +1,62 @@
+.main_container {
+  width: 100%;
+  max-width: 600px;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  justify-items: center;
+  align-content: center;
+  grid-gap: 32px 24px;
+}
+
+.ingredients_container {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  max-height: 720px;
+}
+
+.ingredient {
+  position: relative;
+}
+
+.count {
+  position: absolute;
+  content: "";
+  width: 32px;
+  height: 32px;
+  background-color: rgba(76, 76, 255, 1);
+  border-radius: 50%;
+  top: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.price_info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.text {
+  text-align: center;
+}
+
+/* полоса прокрутки (скроллбар) */
+.ingredients_container::-webkit-scrollbar {
+  width: 8px; /* ширина для вертикального скролла */
+  height: 664px; /* высота для горизонтального скролла */
+  background-color: rgba(47, 47, 55, 1);
+}
+
+.ingredients_container::-webkit-scrollbar-thumb {
+  height: 492px;
+  background-color: rgba(133, 133, 173, 1);
+}
+
+.ingredients_container::-webkit-scrollbar-thumb:hover {
+  background-color: rgb(99, 99, 128);
+}
