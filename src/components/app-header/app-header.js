@@ -9,21 +9,23 @@ function AppHeader() {
       <nav>
         <ul className={headerStyles.list}>
           <li>
-            <NavLink className={`p-5 ${headerStyles.link_active} ${headerStyles.link}`} to="/">
+            <NavLink className={`pt-5 pr-5 pb-5 ${headerStyles.link_active} ${headerStyles.link}`} to="/">
               <BurgerIcon type="primary" />
               <span className={`ml-2`}>Конструктор</span>
             </NavLink>
           </li>
           <li>
-            <NavLink className={`p-5 ${headerStyles.link}`} to="/fdg">
+            <NavLink className={`p-5 ${headerStyles.link}`} to="/">
               <ListIcon type="secondary" />
               <span className={`ml-2`}>Лента заказов</span>
             </NavLink>
           </li>
         </ul>
       </nav>
-      <Logo className={headerStyles.logo} />
-      <Link className={`p-5 ${headerStyles.link} ${headerStyles.profile}`} to="#">
+      <div className={headerStyles.logo}>
+        <Logo />
+      </div>
+      <Link className={`p-5 ${headerStyles.link} ${headerStyles.profile}`} to="/">
         <ProfileIcon type="secondary" />
         <span className={`ml-2`}>Личный кабинет</span>
       </Link>

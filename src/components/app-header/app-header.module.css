@@ -1,9 +1,8 @@
 .header {
   width: 100%;
   display: grid;
-  grid-template-rows: 1fr;
   grid-template-columns: repeat(3, 1fr);
-  justify-items: center;
+  justify-items: flex-start;
   align-items: center;
   position: relative;
   max-width: 1240px;
@@ -12,6 +11,10 @@
 
 .profile {
   justify-self: flex-end;
+}
+
+.logo {
+  justify-self: center;
 }
 
 .link {

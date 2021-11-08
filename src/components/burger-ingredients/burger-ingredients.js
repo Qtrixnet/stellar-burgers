@@ -6,9 +6,9 @@ import burgerIngredientsStyle from './burger-ingredients.module.css';
 export default function BurgerIngredients() {
   const [current, setCurrent] = React.useState('bun')
 
-  const itemTemplate = ({ image, price, name }) => {
-    return <li className={burgerIngredientsStyle.list_item}>
-      <img src={image} className={`${burgerIngredientsStyle.image} ml-4 mr-4`} />
+  const itemTemplate = ({ image, price, name }, idx) => {
+    return <li key={idx} className={burgerIngredientsStyle.list_item}>
+      <img alt={name} src={image} className={`${burgerIngredientsStyle.image} ml-4 mr-4`} />
       <div className={`${burgerIngredientsStyle.price_info} mt-4 mb-4`}>
         <span className="text text_type_digits-default mr-2">{price}</span>
         <CurrencyIcon type="primary" />
@@ -35,27 +35,27 @@ export default function BurgerIngredients() {
       <div className={`${burgerIngredientsStyle.ingredients_container} mt-10 ingredients-container`}>
         <h2 className="mb-6 text text_type_main-medium">Булки</h2>
         <ul className={`${burgerIngredientsStyle.list} pt-6 pb-10 pr-4 pl-4`}>
-          {data.map(item => {
+          {data.map((item, idx) => {
             if (item.type === 'bun') {
-              return itemTemplate(item)
+              return itemTemplate(item, idx)
             }
           })
           }
         </ul>
         <h2 className="mb-6 text text_type_main-medium">Соусы</h2>
         <div className={`${burgerIngredientsStyle.list} pt-6 pb-10 pr-4 pl-4`}>
-          {data.map(item => {
+          {data.map((item, idx) => {
             if (item.type === 'sauce') {
-              return itemTemplate(item)
+              return itemTemplate(item, idx)
             }
           })
           }
         </div>
         <h2 className="mb-6 text text_type_main-medium">Начинки</h2>
         <div className={`${burgerIngredientsStyle.list} pt-6 pb-10 pr-4 pl-4`}>
-          {data.map(item => {
+          {data.map((item, idx) => {
             if (item.type === 'main') {
-              return itemTemplate(item)
+              return itemTemplate(item, idx)
             }
           })
           }
