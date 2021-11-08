@@ -33,10 +33,9 @@
   text-align: center;
 }
 
-/* полоса прокрутки (скроллбар) */
 .ingredients_container::-webkit-scrollbar {
-  width: 8px; /* ширина для вертикального скролла */
-  height: 664px; /* высота для горизонтального скролла */
+  width: 8px;
+  height: 664px;
   background-color: rgba(47, 47, 55, 1);
 }
 
