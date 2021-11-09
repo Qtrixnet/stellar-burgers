@@ -12,30 +12,29 @@ export default function BurgerConstructor() {
         <ConstructorElement
           type="top"
           isLocked={true}
-          text={composeData[0].name}
+          text={`${composeData[0].name} (верх)`}
           price={composeData[0].price}
           thumbnail={composeData[0].image}
         />
       </div>
       <ul className={`${burgerConstructorStyle.list} pl-4 pr-4`}>
-        {composeData.map((ingredient, idx) => {
-          if (idx > 0 && idx < composeData.length - 1) {
-            return <li key={idx} className={burgerConstructorStyle.list_item}>
-              <DragIcon />
-              <ConstructorElement
-                text={ingredient.name}
-                price={ingredient.price}
-                thumbnail={ingredient.image}
-              />
-            </li>
-          }
-        })}
+        {composeData.map((ingredient, idx) => idx > 0 && idx < composeData.length - 1 && (
+          <li key={idx} className={burgerConstructorStyle.list_item}>
+            <DragIcon />
+            <ConstructorElement
+              text={ingredient.name}
+              price={ingredient.price}
+              thumbnail={ingredient.image}
+            />
+          </li>
+        )
+        )}
       </ul>
       <div className="pr-6">
         <ConstructorElement
           type="bottom"
           isLocked={true}
-          text={composeData[composeData.length - 1].name}
+          text={`${composeData[composeData.length - 1].name} (низ)`}
           price={composeData[composeData.length - 1].price}
           thumbnail={composeData[composeData.length - 1].image}
         />

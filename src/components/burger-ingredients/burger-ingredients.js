@@ -6,8 +6,8 @@ import burgerIngredientsStyle from './burger-ingredients.module.css';
 export default function BurgerIngredients() {
   const [current, setCurrent] = React.useState('bun')
 
-  const itemTemplate = ({ image, price, name }, idx) => {
-    return <li key={idx} className={burgerIngredientsStyle.list_item}>
+  const itemTemplate = ({ image, price, name, _id }) => {
+    return (<li key={_id} className={burgerIngredientsStyle.list_item}>
       <img alt={name} src={image} className={`${burgerIngredientsStyle.image} ml-4 mr-4`} />
       <div className={`${burgerIngredientsStyle.price_info} mt-4 mb-4`}>
         <span className="text text_type_digits-default mr-2">{price}</span>
@@ -15,7 +15,7 @@ export default function BurgerIngredients() {
       </div>
       <h3 className={`${burgerIngredientsStyle.text} text text_type_main-default`}>{name}</h3>
       <Counter count={1} size="default" />
-    </li>
+    </li>)
   }
 
   return (
@@ -35,30 +35,15 @@ export default function BurgerIngredients() {
       <div className={`${burgerIngredientsStyle.ingredients_container} mt-10 ingredients-container`}>
         <h2 className="mb-6 text text_type_main-medium">Булки</h2>
         <ul className={`${burgerIngredientsStyle.list} pt-6 pb-10 pr-4 pl-4`}>
-          {data.map((item, idx) => {
-            if (item.type === 'bun') {
-              return itemTemplate(item, idx)
-            }
-          })
-          }
+          {data.map((item) => item.type === 'bun' && itemTemplate(item))}
         </ul>
         <h2 className="mb-6 text text_type_main-medium">Соусы</h2>
         <div className={`${burgerIngredientsStyle.list} pt-6 pb-10 pr-4 pl-4`}>
-          {data.map((item, idx) => {
-            if (item.type === 'sauce') {
-              return itemTemplate(item, idx)
-            }
-          })
-          }
+          {data.map((item) => item.type === 'sauce' && itemTemplate(item))}
         </div>
         <h2 className="mb-6 text text_type_main-medium">Начинки</h2>
         <div className={`${burgerIngredientsStyle.list} pt-6 pb-10 pr-4 pl-4`}>
-          {data.map((item, idx) => {
-            if (item.type === 'main') {
-              return itemTemplate(item, idx)
-            }
-          })
-          }
+          {data.map((item) => item.type === 'main' && itemTemplate(item))}
         </div>
       </div>
     </div>
