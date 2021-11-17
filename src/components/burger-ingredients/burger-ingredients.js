@@ -1,10 +1,10 @@
-import React from 'react';
+import { useState } from 'react';
 import { Tab, CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
 import { data } from '../../utils/data';
 import burgerIngredientsStyle from './burger-ingredients.module.css';
 
 export default function BurgerIngredients() {
-  const [current, setCurrent] = React.useState('bun')
+  const [current, setCurrent] = useState('bun')
 
   const itemTemplate = ({ image, price, name, _id }) => {
     return (<li key={_id} className={burgerIngredientsStyle.list_item}>
