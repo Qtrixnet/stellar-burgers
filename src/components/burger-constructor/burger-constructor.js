@@ -3,7 +3,7 @@ import { DragIcon, ConstructorElement, Button, CurrencyIcon } from '@ya.praktiku
 import { composeData } from '../../utils/data';
 import burgerConstructorStyle from './burger-constructor.module.css';
 
-export default function BurgerConstructor() {
+export default function BurgerConstructor({ ingredientsData }) {
   const total = composeData.reduce((acc, cur) => acc + cur.price, 0)
 
   return (

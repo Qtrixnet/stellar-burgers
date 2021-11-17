@@ -15,13 +15,13 @@ export default function App() {
           setIngredientsData(data.data)
         }
       })
-      .catch(err => { console.log(err)})
+      .catch(err => { console.log(err) })
   }, [])
 
   return (
     <div className={`${appStyles.app} pb-10`}>
       <AppHeader />
-      <Main />
+      <Main ingredientsData={ingredientsData} />
     </div>
   );
 };
