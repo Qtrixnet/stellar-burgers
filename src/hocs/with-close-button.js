@@ -18,7 +18,6 @@ function withCloseButton(WrappedComponent) {
     }
 
     render() {
-      const { initialOpenState, ...props } = this.props;
       return (
         <WrappedComponent
           {...this.props}

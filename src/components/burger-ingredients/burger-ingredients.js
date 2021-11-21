@@ -2,15 +2,18 @@ import { useState } from 'react';
 import { Tab, CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
 import burgerIngredientsStyle from './burger-ingredients.module.css';
 
-export default function BurgerIngredients({ setIsIngredientsPopupOpen, ingredientsData }) {
+export default function BurgerIngredients({ setIsIngredientsPopupOpen, setSelectedIngredient, ingredientsData }) {
   const [current, setCurrent] = useState('bun')
 
-  const handleIngredientClick = () => {
+  const handleIngredientClick = (evt) => {
+    const id = evt.currentTarget.dataset.id
+    const foundIngredient = ingredientsData.find(ingredient => ingredient._id === id)
+    setSelectedIngredient(foundIngredient)
     setIsIngredientsPopupOpen(true)
   }
 
   const itemTemplate = ({ image, price, name, _id }) => {
-    return (<li key={_id} onClick={handleIngredientClick} className={burgerIngredientsStyle.list_item}>
+    return (<li data-id={_id} key={_id} onClick={handleIngredientClick} className={burgerIngredientsStyle.list_item}>
       <img alt={name} src={image} className={`${burgerIngredientsStyle.image} ml-4 mr-4`} />
       <div className={`${burgerIngredientsStyle.price_info} mt-4 mb-4`}>
         <span className="text text_type_digits-default mr-2">{price}</span>

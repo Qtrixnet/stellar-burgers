@@ -18,7 +18,7 @@ export default function ModalOverlay({ onCloseButtonClick, isOpen, children }) {
     return () => {
       document.removeEventListener('keyup', handleEscapeClose);
     };
-  }, [isOpen])
+  }, [isOpen, onCloseButtonClick])
 
   return createPortal(
     <>

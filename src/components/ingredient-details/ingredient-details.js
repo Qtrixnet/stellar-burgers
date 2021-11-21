@@ -2,8 +2,6 @@ import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import ingredientDetailsStyles from './ingredient-details.module.css';
 
 export default function IngredientDetails({ ingredientsData }) {
-  console.log(ingredientsData)
-  // const [name, calories, proteins, fat, carbohydrates] = ingredientsData
   return (
     <div className={`pt-15 pr-10 pl-10 pb-15 ${ingredientDetailsStyles.container}`}>
       <header className={ingredientDetailsStyles.header}>
@@ -15,7 +13,7 @@ export default function IngredientDetails({ ingredientsData }) {
         </div>
       </header>
       {ingredientsData && <div>
-        <img width="480" height="240" src={ingredientsData && ingredientsData.image} />
+        <img width="480" height="240" alt={ingredientsData.name} src={ingredientsData && ingredientsData.image} />
         <p className="text text_type_main-medium pt-4 pb-8">{ingredientsData && ingredientsData.name}</p>
         <ul className={`${ingredientDetailsStyles.list} pt-8`}>
           <li className={`${ingredientDetailsStyles.listItem} text text_type_main-default text_color_inactive`}>

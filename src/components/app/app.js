@@ -39,6 +39,7 @@ export default function App() {
           <>
             <AppHeader />
             <Main
+              setSelectedIngredient={setSelectedIngredient}
               setIsOrderDetailsPopupOpen={setIsOrderDetailsPopupOpen}
               setIsIngredientsPopupOpen={setIsIngredientsPopupOpen}
               ingredientsData={ingredientsData}
@@ -47,7 +48,7 @@ export default function App() {
               popupCloseHandler={setIsIngredientsPopupOpen}
               initialOpenState={isIngredientsPopupOpen}
             >
-              <IngredientDetails ingredientsData={ingredientsData[5]} />
+              <IngredientDetails ingredientsData={selectedIngredient} />
             </WithCloseButtonIngredientDetails>
             <WithCloseButtonOrderDetails
               popupCloseHandler={setIsOrderDetailsPopupOpen}
