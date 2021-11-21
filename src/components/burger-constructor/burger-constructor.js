@@ -7,7 +7,6 @@ export default function BurgerConstructor({ setIsOrderDetailsPopupOpen }) {
   const total = composeData.reduce((acc, cur) => acc + cur.price, 0)
 
   const handleOrderButtonClick = () => {
-    // setIsOrderDetailsPopupOpen(true)
     setIsOrderDetailsPopupOpen(true)
   }
 
