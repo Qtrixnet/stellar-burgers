@@ -1,14 +1,14 @@
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import ingredientDetailsStyles from './ingredient-details.module.css';
 
-export default function IngredientDetails({ ingredientsData }) {
+export default function IngredientDetails({ ingredientsData, onCloseButtonClick }) {
   return (
     <div className={`pt-15 pr-10 pl-10 pb-15 ${ingredientDetailsStyles.container}`}>
       <header className={ingredientDetailsStyles.header}>
         <p className="text text_type_main-large">
           Детали ингредиента
         </p>
-        <div className={ingredientDetailsStyles.closeButton}>
+        <div onClick={onCloseButtonClick} className={ingredientDetailsStyles.closeButton}>
           <CloseIcon type="primary" />
         </div>
       </header>

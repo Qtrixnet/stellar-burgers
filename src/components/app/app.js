@@ -8,6 +8,7 @@ import ModalOverlay from '../modal-overlay/modal-overlay';
 import OrderDetails from '../order-details/order-details';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import withCloseButton from '../../hocs/with-close-button';
+import { orderData } from '../../utils/data';
 
 const WithCloseButtonOrderDetails = withCloseButton(ModalOverlay);
 const WithCloseButtonIngredientDetails = withCloseButton(ModalOverlay);
@@ -54,7 +55,7 @@ export default function App() {
               popupCloseHandler={setIsOrderDetailsPopupOpen}
               initialOpenState={isOrderDetailsPopupOpen}
             >
-              <OrderDetails />
+              <OrderDetails orderData={orderData} />
             </WithCloseButtonOrderDetails>
           </>
 
