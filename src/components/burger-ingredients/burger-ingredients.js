@@ -5,12 +5,12 @@ import burgerIngredientsStyle from './burger-ingredients.module.css';
 export default function BurgerIngredients({ ingredientsData }) {
   const [current, setCurrent] = useState('bun')
   
-  const handleClick = () => {
+  const handleIngredientClick = () => {
     console.log(1)
   }
 
   const itemTemplate = ({ image, price, name, _id }) => {
-    return (<li key={_id} onClick={handleClick} className={burgerIngredientsStyle.list_item}>
+    return (<li key={_id} onClick={handleIngredientClick} className={burgerIngredientsStyle.list_item}>
       <img alt={name} src={image} className={`${burgerIngredientsStyle.image} ml-4 mr-4`} />
       <div className={`${burgerIngredientsStyle.price_info} mt-4 mb-4`}>
         <span className="text text_type_digits-default mr-2">{price}</span>

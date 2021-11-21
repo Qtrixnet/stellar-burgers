@@ -1,27 +1,50 @@
+import { useState } from 'react';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import ingredientDetailsStyles from './ingredient-details.module.css';
 
-export default function IngredientDetails() {
+export default function IngredientDetails({ ingredientsData }) {
+  console.log(ingredientsData)
+  // const [name, calories, proteins, fat, carbohydrates] = ingredientsData
   return (
-    <div className={`pt-15 pr-10 pl-10 pb-30 ${orderDetailsStyles.container}`}>
-      <header className={orderDetailsStyles.header}>
-        <div className={orderDetailsStyles.closeButton}>
+    <div className={`pt-15 pr-10 pl-10 pb-15 ${ingredientDetailsStyles.container}`}>
+      <header className={ingredientDetailsStyles.header}>
+        <p className="text text_type_main-large">
+          Детали ингредиента
+        </p>
+        <div className={ingredientDetailsStyles.closeButton}>
           <CloseIcon type="primary" />
         </div>
       </header>
-      <div>
-        <h3 className={`text text_type_digits-large pt-15 ${orderDetailsStyles.title}`}>034536</h3>
-        <p className="text text_type_main-medium pt-8 pb-15">
-          идентификатор заказа
-        </p>
-        <img className="pb-15" src={doneGif} alt="чекаут"/>
-        <p className="text text_type_main-default pb-2">
-          Ваш заказ начали готовить
-        </p>
-        <p className="text text_type_main-default text_color_inactive">
-          Дождитесь готовности на орбитальной станции
-        </p>
-      </div>
+      {ingredientsData && <div>
+        <img width="480" height="240" src={ingredientsData && ingredientsData.image} />
+        <p className="text text_type_main-medium pt-4 pb-8">{ingredientsData && ingredientsData.name}</p>
+        <ul className={`${ingredientDetailsStyles.list} pt-8`}>
+          <li className={`${ingredientDetailsStyles.listItem} text text_type_main-default text_color_inactive`}>
+            <span>
+              Калории,ккал
+            </span>
+            {ingredientsData.calories}
+          </li>
+          <li className={`${ingredientDetailsStyles.listItem} text text_type_main-default text_color_inactive`}>
+            <span>
+              Белки, г
+            </span>
+            {ingredientsData.proteins}
+          </li>
+          <li className={`${ingredientDetailsStyles.listItem} text text_type_main-default text_color_inactive`}>
+            <span>
+              Жиры, г
+            </span>
+            {ingredientsData.fat}
+          </li>
+          <li className={`${ingredientDetailsStyles.listItem} text text_type_main-default text_color_inactive`}>
+            <span>
+              Углеводы, г
+            </span>
+            {ingredientsData.carbohydrates}
+          </li>
+        </ul>
+      </div>}
     </div>
   );
 };

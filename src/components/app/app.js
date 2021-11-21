@@ -10,9 +10,9 @@ export default function App() {
 
   useEffect(() => {
     mainApi.getIngredients()
-      .then(data => {
-        if (data) {
-          setIngredientsData(data.data)
+      .then(ingredientsData => {
+        if (ingredientsData) {
+          setIngredientsData(ingredientsData.data)
         }
       })
       .catch(err => { console.log(err) })
