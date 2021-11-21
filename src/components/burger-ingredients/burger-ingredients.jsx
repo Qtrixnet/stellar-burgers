@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Tab, CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
 import burgerIngredientsStyle from './burger-ingredients.module.css';
+import PropTypes from 'prop-types';
 
 export default function BurgerIngredients({ setIsIngredientsPopupOpen, setSelectedIngredient, ingredientsData }) {
   const [current, setCurrent] = useState('bun')
@@ -44,14 +45,20 @@ export default function BurgerIngredients({ setIsIngredientsPopupOpen, setSelect
           {ingredientsData.map((item) => item.type === 'bun' && itemTemplate(item))}
         </ul>
         <h2 className="mb-6 text text_type_main-medium">Соусы</h2>
-        <div className={`${burgerIngredientsStyle.list} pt-6 pb-10 pr-4 pl-4`}>
+        <ul className={`${burgerIngredientsStyle.list} pt-6 pb-10 pr-4 pl-4`}>
           {ingredientsData.map((item) => item.type === 'sauce' && itemTemplate(item))}
-        </div>
+        </ul>
         <h2 className="mb-6 text text_type_main-medium">Начинки</h2>
-        <div className={`${burgerIngredientsStyle.list} pt-6 pb-10 pr-4 pl-4`}>
+        <ul className={`${burgerIngredientsStyle.list} pt-6 pb-10 pr-4 pl-4`}>
           {ingredientsData.map((item) => item.type === 'main' && itemTemplate(item))}
-        </div>
+        </ul>
       </div>
     </div>
   );
 };
+
+BurgerIngredients.propTypes = {
+  setIsIngredientsPopupOpen: PropTypes.func,
+  setSelectedIngredient: PropTypes.func,
+  ingredientsData: PropTypes.array
+}; 

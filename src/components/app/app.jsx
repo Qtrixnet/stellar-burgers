@@ -7,11 +7,8 @@ import mainApi from '../../utils/Api'
 import ModalOverlay from '../modal-overlay/modal-overlay';
 import OrderDetails from '../order-details/order-details';
 import IngredientDetails from '../ingredient-details/ingredient-details';
-import withCloseButton from '../../hocs/with-close-button';
+import Modal from '../modal/modal';
 import { orderData } from '../../utils/data';
-
-const WithCloseButtonOrderDetails = withCloseButton(ModalOverlay);
-const WithCloseButtonIngredientDetails = withCloseButton(ModalOverlay);
 
 export default function App() {
   const [ingredientsData, setIngredientsData] = useState([])
@@ -35,8 +32,7 @@ export default function App() {
   return (
     <div className={`${appStyles.app} pb-10`}>
       {
-        isLoading ? <h1 className="text text_type_main-large">Загружаем заказы...</h1> :
-
+        isLoading ? (<h1 className="text text_type_main-large">Загружаем заказы...</h1>) :
           <>
             <AppHeader />
             <Main
@@ -45,18 +41,24 @@ export default function App() {
               setIsIngredientsPopupOpen={setIsIngredientsPopupOpen}
               ingredientsData={ingredientsData}
             />
-            <WithCloseButtonIngredientDetails
-              popupCloseHandler={setIsIngredientsPopupOpen}
-              initialOpenState={isIngredientsPopupOpen}
-            >
-              <IngredientDetails ingredientsData={selectedIngredient} />
-            </WithCloseButtonIngredientDetails>
-            <WithCloseButtonOrderDetails
-              popupCloseHandler={setIsOrderDetailsPopupOpen}
-              initialOpenState={isOrderDetailsPopupOpen}
-            >
-              <OrderDetails orderData={orderData} />
-            </WithCloseButtonOrderDetails>
+            {
+              isOrderDetailsPopupOpen && (
+                <ModalOverlay popupCloseHandler={setIsOrderDetailsPopupOpen}>
+                  <Modal popupCloseHandler={setIsOrderDetailsPopupOpen}>
+                    <OrderDetails orderData={orderData} />
+                  </Modal>
+                </ModalOverlay>
+              )
+            }
+            {
+              isIngredientsPopupOpen && (
+                <ModalOverlay popupCloseHandler={setIsIngredientsPopupOpen}>
+                  <Modal title='Детали ингредиентов' popupCloseHandler={setIsIngredientsPopupOpen}>
+                    <IngredientDetails ingredientsData={selectedIngredient} />
+                  </Modal>
+                </ModalOverlay>
+              )
+            }
           </>
 
       }
