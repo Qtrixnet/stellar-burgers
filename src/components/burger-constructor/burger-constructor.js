@@ -3,8 +3,13 @@ import { DragIcon, ConstructorElement, Button, CurrencyIcon } from '@ya.praktiku
 import { composeData } from '../../utils/data';
 import burgerConstructorStyle from './burger-constructor.module.css';
 
-export default function BurgerConstructor({ ingredientsData }) {
+export default function BurgerConstructor({ setIsOrderDetailsPopupOpen }) {
   const total = composeData.reduce((acc, cur) => acc + cur.price, 0)
+
+  const handleOrderButtonClick = () => {
+    // setIsOrderDetailsPopupOpen(true)
+    setIsOrderDetailsPopupOpen(true)
+  }
 
   return (
     <div className={`${burgerConstructorStyle.constructor_container} pt-25`}>
@@ -45,7 +50,7 @@ export default function BurgerConstructor({ ingredientsData }) {
           <span className="text text_type_digits-medium mr-2">{total}</span>
           <CurrencyIcon type="primary" />
         </div>
-        <Button className="pt-10" type="primary" size="medium">
+        <Button onClick={handleOrderButtonClick} className="pt-10" type="primary" size="medium">
           Оформить заказ
         </Button>
       </div>

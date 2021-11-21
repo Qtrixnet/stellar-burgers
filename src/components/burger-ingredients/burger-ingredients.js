@@ -2,11 +2,11 @@ import { useState } from 'react';
 import { Tab, CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
 import burgerIngredientsStyle from './burger-ingredients.module.css';
 
-export default function BurgerIngredients({ ingredientsData }) {
+export default function BurgerIngredients({ setIsIngredientsPopupOpen, ingredientsData }) {
   const [current, setCurrent] = useState('bun')
-  
+
   const handleIngredientClick = () => {
-    console.log(1)
+    setIsIngredientsPopupOpen(true)
   }
 
   const itemTemplate = ({ image, price, name, _id }) => {

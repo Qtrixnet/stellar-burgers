@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import ingredientDetailsStyles from './ingredient-details.module.css';
 
