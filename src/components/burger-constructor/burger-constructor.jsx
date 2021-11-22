@@ -12,7 +12,7 @@ export default function BurgerConstructor({ setIsOrderDetailsPopupOpen, ingredie
     setIsOrderDetailsPopupOpen(true)
   }
 
-  const compositionData = useMemo(() => {
+  useMemo(() => {
     orderedIngredientsId.forEach(id => ingredientsData.forEach(ingredient => {
       ingredient._id === id && setBurgerComposition((prev) => [...prev, ingredient])
     }))
