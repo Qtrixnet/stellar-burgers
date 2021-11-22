@@ -1,3 +1,13 @@
+.container {
+  z-index: 1000;
+  width: 720px; 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 40px;
+  background-color: #1C1C21;
+}
+
 .list {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -12,4 +22,33 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
+  text-align: center;
+}
+
+.title {
+  margin-right: auto;
+}
+
+.header {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 100%;
+}
+
+.closeButton {
+  width: 24px;
+  height: 24px;
+  transition: all 0.2s ease;
+  background-color: transparent;
+  border: 0;
+}
+
+.closeButton:hover {
+  opacity: .8;
+  cursor: pointer;
+}
+
+.closeButton:active {
+  transform: scale(0.9);
 }

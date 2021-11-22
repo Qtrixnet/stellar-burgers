@@ -61,4 +61,4 @@ BurgerIngredients.propTypes = {
   setIsIngredientsPopupOpen: PropTypes.func.isRequired,
   setSelectedIngredient: PropTypes.func.isRequired,
   ingredientsData: PropTypes.array.isRequired
-}; 
+};
