@@ -43,20 +43,18 @@ export default function App() {
             />
             {
               isOrderDetailsPopupOpen && (
-                <ModalOverlay popupCloseHandler={setIsOrderDetailsPopupOpen}>
-                  <Modal popupCloseHandler={setIsOrderDetailsPopupOpen}>
-                    <OrderDetails orderData={orderData} />
-                  </Modal>
-                </ModalOverlay>
+                <Modal popupCloseHandler={setIsOrderDetailsPopupOpen}>
+                  <OrderDetails orderData={orderData} />
+                  <ModalOverlay popupCloseHandler={setIsOrderDetailsPopupOpen} />
+                </Modal>
               )
             }
             {
               isIngredientsPopupOpen && (
-                <ModalOverlay popupCloseHandler={setIsIngredientsPopupOpen}>
-                  <Modal title='Детали ингредиентов' popupCloseHandler={setIsIngredientsPopupOpen}>
-                    <IngredientDetails ingredientsData={selectedIngredient} />
-                  </Modal>
-                </ModalOverlay>
+                <Modal title='Детали ингредиентов' popupCloseHandler={setIsIngredientsPopupOpen}>
+                  <IngredientDetails ingredientsData={selectedIngredient} />
+                  <ModalOverlay popupCloseHandler={setIsIngredientsPopupOpen} />
+                </Modal>
               )
             }
           </>

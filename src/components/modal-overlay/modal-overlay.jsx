@@ -1,20 +1,20 @@
 import modalOverlayStyles from './modal-overlay.module.css';
-import { createPortal } from 'react-dom';
+// import { createPortal } from 'react-dom';
 import PropTypes from 'prop-types';
 
-export default function ModalOverlay({ children, popupCloseHandler }) {
-  const modalRoot = document.getElementById("react-modals");
+export default function ModalOverlay({ popupCloseHandler }) {
+  // const modalRoot = document.getElementById("react-modals");
 
-  return createPortal(
+  return (
     <div onClick={() => popupCloseHandler(false)} className={modalOverlayStyles.overlay}>
-      {children}
+      {/* {children} */}
     </div>
-    ,
-    modalRoot
+    // ,
+    // modalRoot
   );
 };
 
 ModalOverlay.propTypes = {
-  children: PropTypes.element.isRequired,
+  // children: PropTypes.element.isRequired,
   popupCloseHandler: PropTypes.func.isRequired,
 }; 
