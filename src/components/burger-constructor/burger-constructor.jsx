@@ -66,6 +66,6 @@ export default function BurgerConstructor({ setIsOrderDetailsPopupOpen, ingredie
 };
 
 BurgerConstructor.propTypes = {
-  setIsOrderDetailsPopupOpen: PropTypes.func,
-  ingredientsData: PropTypes.array
+  setIsOrderDetailsPopupOpen: PropTypes.func.isRequired,
+  ingredientsData: PropTypes.array.isRequired
 };

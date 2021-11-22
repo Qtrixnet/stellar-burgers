@@ -22,5 +22,5 @@ export default function OrderDetails({ orderData }) {
 };
 
 OrderDetails.propTypes = {
-  orderData: PropTypes.bool,
+  orderData: PropTypes.bool.isRequired,
 }; 

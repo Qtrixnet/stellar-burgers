@@ -37,5 +37,5 @@ export default function IngredientDetails({ ingredientsData }) {
 };
 
 IngredientDetails.propTypes = {
-  ingredientsData: PropTypes.array
+  ingredientsData: PropTypes.array.isRequired
 }; 
