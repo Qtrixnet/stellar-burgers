@@ -1,11 +1,17 @@
 .header {
   width: 100%;
+  margin: 0 auto;
+  background-color: #1C1C21;
+}
+
+.headerContainer {
+  max-width: 1240px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   justify-items: flex-start;
   align-items: center;
   position: relative;
-  max-width: 1240px;
+  width: 100%;
   margin: 0 auto;
 }
 
