@@ -1,17 +1,11 @@
 import orderDetailsStyles from './order-details.module.css';
-import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import doneGif from '../../images/done.gif';
 import PropTypes from 'prop-types';
 
-export default function OrderDetails({ orderData, popupCloseHandler}) {
+export default function OrderDetails({ orderData }) {
 
   return (
-    <div className={`${orderDetailsStyles.container} pt-15 pr-10 pl-10 pb-15`}>
-      <header className={orderDetailsStyles.header}>
-        <button onClick={() => popupCloseHandler(false)} className={orderDetailsStyles.closeButton}>
-          <CloseIcon type="primary" />
-        </button>
-      </header>
+    <div className={`${orderDetailsStyles.container}`}>
       <h3 className={`text text_type_digits-large pt-10 ${orderDetailsStyles.title}`}>{orderData.orderNumber}</h3>
       <p className="text text_type_main-medium pt-8 pb-15">
         идентификатор заказа
@@ -29,5 +23,4 @@ export default function OrderDetails({ orderData, popupCloseHandler}) {
 
 OrderDetails.propTypes = {
   orderData: PropTypes.object.isRequired,
-  popupCloseHandler: PropTypes.func.isRequired,
 };

@@ -1,16 +1,9 @@
 import ingredientDetailsStyles from './ingredient-details.module.css';
 import PropTypes from 'prop-types';
-import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
-export default function IngredientDetails({ ingredientsData, popupCloseHandler, title = "" }) {
+export default function IngredientDetails({ ingredientsData }) {
   return (
-    <div className={`${ingredientDetailsStyles.container} pt-15 pr-10 pl-10 pb-15 `}>
-      <header className={ingredientDetailsStyles.header}>
-        {title && (<h2 className={`${ingredientDetailsStyles.title} text text_type_main-large`}>{title}</h2>)}
-        <button onClick={() => popupCloseHandler(false)} className={ingredientDetailsStyles.closeButton}>
-          <CloseIcon type="primary" />
-        </button>
-      </header>
+    <div className={`${ingredientDetailsStyles.container}`}>
       <img width="480" height="240" alt={ingredientsData.name} src={ingredientsData && ingredientsData.image} />
       <p className="text text_type_main-medium pt-4 pb-8">{ingredientsData && ingredientsData.name}</p>
       <ul className={`${ingredientDetailsStyles.list} pt-8`}>
@@ -45,6 +38,4 @@ export default function IngredientDetails({ ingredientsData, popupCloseHandler, 
 
 IngredientDetails.propTypes = {
   ingredientsData: PropTypes.object.isRequired,
-  popupCloseHandler: PropTypes.func.isRequired,
-  title: PropTypes.string.isRequired,
 };

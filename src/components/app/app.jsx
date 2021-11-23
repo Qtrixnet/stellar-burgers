@@ -51,8 +51,8 @@ export default function App() {
             }
             {
               isIngredientsPopupOpen && (
-                <Modal popupCloseHandler={setIsIngredientsPopupOpen}>
-                  <IngredientDetails popupCloseHandler={setIsIngredientsPopupOpen} title='Детали ингредиентов' ingredientsData={selectedIngredient} />
+                <Modal title='Детали ингредиентов' popupCloseHandler={setIsIngredientsPopupOpen}>
+                  <IngredientDetails popupCloseHandler={setIsIngredientsPopupOpen} ingredientsData={selectedIngredient} />
                   <ModalOverlay popupCloseHandler={setIsIngredientsPopupOpen} />
                 </Modal>
               )

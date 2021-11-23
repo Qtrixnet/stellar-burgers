@@ -1,9 +1,10 @@
 import modalStyles from './modal.module.css';
+import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { createPortal } from 'react-dom';
 import { useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-export default function Modal({ children, popupCloseHandler }) {
+export default function Modal({ children, popupCloseHandler, title = '' }) {
   const modalRoot = document.getElementById("react-modals");
 
   useEffect(() => {
@@ -20,7 +21,13 @@ export default function Modal({ children, popupCloseHandler }) {
   }, [popupCloseHandler])
 
   return createPortal(
-    <div className={`${modalStyles.container}`}>
+    <div className={`${modalStyles.container} pt-15 pr-10 pl-10 pb-15`}>
+      <header className={modalStyles.header}>
+        {title && (<h2 className={`${modalStyles.title} text text_type_main-large`}>{title}</h2>)}
+        <button onClick={() => popupCloseHandler(false)} className={modalStyles.closeButton}>
+          <CloseIcon type="primary" />
+        </button>
+      </header>
       {children}
     </div>
     , modalRoot
