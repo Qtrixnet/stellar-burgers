@@ -4,7 +4,6 @@
 }
 
 .container {
-  /* z-index: 1000; */
   width: 720px;
   display: flex;
   flex-direction: column;
