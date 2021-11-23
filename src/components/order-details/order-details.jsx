@@ -3,7 +3,6 @@ import doneGif from '../../images/done.gif';
 import PropTypes from 'prop-types';
 
 export default function OrderDetails({ orderData }) {
-
   return (
     <div className={`${orderDetailsStyles.container}`}>
       <h3 className={`text text_type_digits-large pt-10 ${orderDetailsStyles.title}`}>{orderData.orderNumber}</h3>
@@ -22,5 +21,8 @@ export default function OrderDetails({ orderData }) {
 };
 
 OrderDetails.propTypes = {
-  orderData: PropTypes.object.isRequired,
+  orderData: PropTypes.shape({
+    isOrderCooking: PropTypes.bool,
+    orderNumber: PropTypes.string,
+  }),
 };
