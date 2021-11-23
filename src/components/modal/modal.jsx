@@ -21,20 +21,24 @@ export default function Modal({ children, popupCloseHandler, title = '' }) {
   }, [popupCloseHandler])
 
   return createPortal(
-    <div className={`${modalStyles.container} pt-15 pr-10 pl-10 pb-15`}>
-      <header className={modalStyles.header}>
-        {title && (<h2 className={`${modalStyles.title} text text_type_main-large`}>{title}</h2>)}
-        <button onClick={() => popupCloseHandler(false)} className={modalStyles.closeButton}>
-          <CloseIcon type="primary" />
-        </button>
-      </header>
-      {children}
-    </div>
+    <>
+      <div className={`${modalStyles.container} pt-15 pr-10 pl-10 pb-15`}>
+        <header className={modalStyles.header}>
+          {title && (<h2 className={`${modalStyles.title} text text_type_main-large`}>{title}</h2>)}
+          <button onClick={() => popupCloseHandler(false)} className={modalStyles.closeButton}>
+            <CloseIcon type="primary" />
+          </button>
+        </header>
+        {children[0]}
+      </div>
+      {children[1]}
+    </>
     , modalRoot
   );
 };
 
 Modal.propTypes = {
-  children: PropTypes.node.isRequired,
+  children: PropTypes.arrayOf(PropTypes.element).isRequired,
   popupCloseHandler: PropTypes.func.isRequired,
+  title: PropTypes.string,
 };

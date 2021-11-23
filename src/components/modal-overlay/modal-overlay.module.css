@@ -1,7 +1,7 @@
 .overlay {
   width: 100vw;
   height: 100vh;
-  /* background-color: rgba(0, 0, 0, 0.6); */
+  background-color: rgba(0, 0, 0, 0.6);
   position: fixed;
   top: 50%;
   left: 50%;
@@ -9,5 +9,5 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: -1;
+  z-index: 1000;
 }

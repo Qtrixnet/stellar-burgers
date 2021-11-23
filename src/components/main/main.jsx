@@ -9,7 +9,6 @@ export default function Main({
   setSelectedIngredient,
   ingredientsData
 }) {
-  console.log(ingredientsData)
   return (
     <main className={mainStyles.main}>
       <section className={mainStyles.main_container}>

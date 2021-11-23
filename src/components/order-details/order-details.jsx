@@ -24,5 +24,5 @@ OrderDetails.propTypes = {
   orderData: PropTypes.shape({
     isOrderCooking: PropTypes.bool.isRequired,
     orderNumber: PropTypes.string.isRequired,
-  }),
+  }).isRequired,
 };
