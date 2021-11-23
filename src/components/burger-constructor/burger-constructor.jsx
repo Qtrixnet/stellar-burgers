@@ -1,23 +1,25 @@
-import { useState, useMemo } from 'react'
+import { useMemo } from 'react'
 import { DragIcon, ConstructorElement, Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { orderedIngredientsId } from '../../utils/data';
 import burgerConstructorStyle from './burger-constructor.module.css';
 import PropTypes from 'prop-types';
 
 export default function BurgerConstructor({ setIsOrderDetailsPopupOpen, ingredientsData }) {
-  const [burgerComposition, setBurgerComposition] = useState([])
+  const burgerComposition = useMemo(() => {
+    const burger = []
+    orderedIngredientsId.forEach(id => {
+      ingredientsData.forEach(ingredient => {
+        ingredient._id === id && burger.push(ingredient)
+      })
+    })
+    return burger;
+  }, [ingredientsData])
+
   const total = burgerComposition.reduce((acc, cur) => acc + cur.price, 0)
 
   const handleOrderButtonClick = () => {
     setIsOrderDetailsPopupOpen(true)
   }
-
-  useMemo(() => {
-    orderedIngredientsId.forEach(id => ingredientsData.forEach(ingredient => {
-      ingredient._id === id && setBurgerComposition((prev) => [...prev, ingredient])
-    }))
-  }, [ingredientsData])
-
 
   return (
     <div className={`${burgerConstructorStyle.constructor_container} pt-25`}>
