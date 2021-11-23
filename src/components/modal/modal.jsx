@@ -35,6 +35,6 @@ export default function Modal({ children, popupCloseHandler, title = '' }) {
 };
 
 Modal.propTypes = {
-  children: PropTypes.any.isRequired,
+  children: PropTypes.node.isRequired,
   popupCloseHandler: PropTypes.func.isRequired,
 };

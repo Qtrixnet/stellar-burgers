@@ -22,7 +22,7 @@ export default function OrderDetails({ orderData }) {
 
 OrderDetails.propTypes = {
   orderData: PropTypes.shape({
-    isOrderCooking: PropTypes.bool,
-    orderNumber: PropTypes.string,
+    isOrderCooking: PropTypes.bool.isRequired,
+    orderNumber: PropTypes.string.isRequired,
   }),
 };
