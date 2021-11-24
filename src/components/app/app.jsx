@@ -4,7 +4,6 @@ import appStyles from './app.module.css';
 import AppHeader from '../app-header/app-header'
 import Main from '../main/main';
 import mainApi from '../../utils/Api'
-import ModalOverlay from '../modal-overlay/modal-overlay';
 import OrderDetails from '../order-details/order-details';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import Modal from '../modal/modal';
