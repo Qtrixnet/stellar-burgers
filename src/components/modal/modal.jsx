@@ -3,6 +3,7 @@ import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { createPortal } from 'react-dom';
 import { useEffect } from 'react';
 import PropTypes from 'prop-types';
+import ModalOverlay from '../modal-overlay/modal-overlay';
 
 export default function Modal({ children, popupCloseHandler, title = '' }) {
   const modalRoot = document.getElementById("react-modals");
@@ -29,16 +30,16 @@ export default function Modal({ children, popupCloseHandler, title = '' }) {
             <CloseIcon type="primary" />
           </button>
         </header>
-        {children[0]}
+        {children}
       </div>
-      {children[1]}
+      <ModalOverlay popupCloseHandler={popupCloseHandler}/>
     </>
     , modalRoot
   );
 };
 
 Modal.propTypes = {
-  children: PropTypes.arrayOf(PropTypes.element).isRequired,
+  children: PropTypes.element.isRequired,
   popupCloseHandler: PropTypes.func.isRequired,
   title: PropTypes.string,
 };
