@@ -8,6 +8,7 @@ import OrderDetails from '../order-details/order-details';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import Modal from '../modal/modal';
 import { orderData } from '../../utils/data';
+import { IngredientsContext } from '../../services/ingredientsContext'
 
 export default function App() {
   const [ingredientsData, setIngredientsData] = useState([])
@@ -29,34 +30,35 @@ export default function App() {
   }, [])
 
   return (
-    <div className={`${appStyles.app} pb-10`}>
-      {
-        isLoading ? (<h1 className="text text_type_main-large">Загружаем заказы...</h1>) :
-          <>
-            <AppHeader />
-            <Main
-              setSelectedIngredient={setSelectedIngredient}
-              setIsOrderDetailsPopupOpen={setIsOrderDetailsPopupOpen}
-              setIsIngredientsPopupOpen={setIsIngredientsPopupOpen}
-              ingredientsData={ingredientsData}
-            />
-            {
-              isOrderDetailsPopupOpen && (
-                <Modal popupCloseHandler={setIsOrderDetailsPopupOpen}>
-                  <OrderDetails popupCloseHandler={setIsOrderDetailsPopupOpen} orderData={orderData} />
-                </Modal>
-              )
-            }
-            {
-              isIngredientsPopupOpen && (
-                <Modal title='Детали ингредиентов' popupCloseHandler={setIsIngredientsPopupOpen}>
-                  <IngredientDetails popupCloseHandler={setIsIngredientsPopupOpen} ingredientsData={selectedIngredient} />
-                </Modal>
-              )
-            }
-          </>
+    <IngredientsContext.Provider value={ingredientsData}>
+      <div className={`${appStyles.app} pb-10`}>
+        {
+          isLoading ? (<h1 className="text text_type_main-large">Загружаем заказы...</h1>) :
+            <>
+              <AppHeader />
+              <Main
+                setSelectedIngredient={setSelectedIngredient}
+                setIsOrderDetailsPopupOpen={setIsOrderDetailsPopupOpen}
+                setIsIngredientsPopupOpen={setIsIngredientsPopupOpen}
+              />
+              {
+                isOrderDetailsPopupOpen && (
+                  <Modal popupCloseHandler={setIsOrderDetailsPopupOpen}>
+                    <OrderDetails popupCloseHandler={setIsOrderDetailsPopupOpen} orderData={orderData} />
+                  </Modal>
+                )
+              }
+              {
+                isIngredientsPopupOpen && (
+                  <Modal title='Детали ингредиентов' popupCloseHandler={setIsIngredientsPopupOpen}>
+                    <IngredientDetails popupCloseHandler={setIsIngredientsPopupOpen} ingredientsData={selectedIngredient} />
+                  </Modal>
+                )
+              }
+            </>
 
-      }
-    </div >
+        }
+      </div >
+    </IngredientsContext.Provider>
   );
 };

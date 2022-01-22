@@ -1,20 +1,22 @@
-import { useMemo } from 'react'
+import { useMemo, useContext } from 'react'
 import { DragIcon, ConstructorElement, Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { orderedIngredientsId } from '../../utils/data';
 import burgerConstructorStyle from './burger-constructor.module.css';
 import PropTypes from 'prop-types';
+import { IngredientsContext } from '../../services/ingredientsContext';
 
-export default function BurgerConstructor({ setIsOrderDetailsPopupOpen, ingredientsData }) {
+export default function BurgerConstructor({ setIsOrderDetailsPopupOpen }) {
+  const ingredients = useContext(IngredientsContext);
 
   const burgerComposition = useMemo(() => {
     const burger = []
     orderedIngredientsId.forEach(id => {
-      ingredientsData.forEach(ingredient => {
+      ingredients.forEach(ingredient => {
         ingredient._id === id && burger.push(ingredient)
       })
     })
     return burger;
-  }, [ingredientsData])
+  }, [ingredients])
 
   const total = burgerComposition.reduce((acc, cur) => acc + cur.price, 0)
 
@@ -71,18 +73,4 @@ export default function BurgerConstructor({ setIsOrderDetailsPopupOpen, ingredie
 
 BurgerConstructor.propTypes = {
   setIsOrderDetailsPopupOpen: PropTypes.func.isRequired,
-  ingredientsData: PropTypes.arrayOf(PropTypes.shape({
-    calories: PropTypes.number.isRequired,
-    carbohydrates: PropTypes.number.isRequired,
-    fat: PropTypes.number.isRequired,
-    image: PropTypes.string.isRequired,
-    image_large: PropTypes.string.isRequired,
-    image_mobile: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    proteins: PropTypes.number.isRequired,
-    type: PropTypes.string.isRequired,
-    __v: PropTypes.number,
-    _id: PropTypes.string.isRequired,
-  })).isRequired,
 };
