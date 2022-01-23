@@ -2,6 +2,7 @@ import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
 import mainStyles from './main.module.css';
 import PropTypes from 'prop-types';
+import { useState } from 'react';
 
 export default function Main({
   setIsOrderDetailsPopupOpen,
@@ -9,11 +10,13 @@ export default function Main({
   setSelectedIngredient,
 }) {
 
+  const [chosenIngredients, setChosenIngredients] = useState([]);
+
   return (
     <main className={mainStyles.main}>
       <section className={mainStyles.main_container}>
-        <BurgerIngredients setSelectedIngredient={setSelectedIngredient} setIsIngredientsPopupOpen={setIsIngredientsPopupOpen} />
-        <BurgerConstructor setIsOrderDetailsPopupOpen={setIsOrderDetailsPopupOpen} />
+        <BurgerIngredients chosenIngredients={chosenIngredients} setChosenIngredients={setChosenIngredients} setSelectedIngredient={setSelectedIngredient} setIsIngredientsPopupOpen={setIsIngredientsPopupOpen} />
+        <BurgerConstructor chosenIngredients={chosenIngredients} setIsOrderDetailsPopupOpen={setIsOrderDetailsPopupOpen} />
       </section>
     </main>
   );
