@@ -16,7 +16,7 @@ export default function Main({
     <main className={mainStyles.main}>
       <section className={mainStyles.main_container}>
         <BurgerIngredients chosenIngredients={chosenIngredients} setChosenIngredients={setChosenIngredients} setSelectedIngredient={setSelectedIngredient} setIsIngredientsPopupOpen={setIsIngredientsPopupOpen} />
-        <BurgerConstructor chosenIngredients={chosenIngredients} setIsOrderDetailsPopupOpen={setIsOrderDetailsPopupOpen} />
+        <BurgerConstructor chosenIngredients={chosenIngredients} setChosenIngredients={setChosenIngredients} setIsOrderDetailsPopupOpen={setIsOrderDetailsPopupOpen} />
       </section>
     </main>
   );

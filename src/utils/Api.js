@@ -1,4 +1,5 @@
 import { BASE_URL } from '../utils/constants'
+import { BACKEND_ENDPOINT } from '../utils/constants'
 
 //* Класс для взаимодействия с сервером
 class Api {
@@ -20,6 +21,19 @@ class Api {
   //* Запрос данных 
   getIngredients() {
     return fetch(`${this._baseUrl}/ingredients`).then((res) => this._requestResult(res));
+  }
+
+  sendIngredients(ingredientsIds) {
+    console.log(ingredientsIds)
+    return fetch(BACKEND_ENDPOINT, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8'
+      },
+      body: {
+        ingredients: ingredientsIds
+      }
+    }).then((res) => this._requestResult(res));
   }
 }
 

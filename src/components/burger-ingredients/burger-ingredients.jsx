@@ -3,14 +3,13 @@ import { Tab, CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger
 import burgerIngredientsStyle from './burger-ingredients.module.css';
 import PropTypes from 'prop-types';
 import { IngredientsContext } from '../../services/ingredientsContext';
-import useClickPreventionOnDoubleClick from '../../hooks/useClickPreventionOnDoubleClick';
 
 export default function BurgerIngredients({ setIsIngredientsPopupOpen, setSelectedIngredient, chosenIngredients, setChosenIngredients }) {
   const initialIngredients = useContext(IngredientsContext);
 
   const [current, setCurrent] = useState('bun')
 
-  const handleIngredientClick = (evt) => {
+  const handleIngredientExplore = (evt) => {
     const id = evt.currentTarget.dataset.id
     const foundIngredient = initialIngredients.find(ingredient => ingredient._id === id)
     setSelectedIngredient(foundIngredient)
@@ -26,7 +25,7 @@ export default function BurgerIngredients({ setIsIngredientsPopupOpen, setSelect
     return 'Булки'
   }
 
-  const handleIngredientDoubleClick = (evt) => {
+  const handleChoseIngredient = (evt) => {
     const targetIngredient = initialIngredients.find(ingredient => ingredient._id === evt.currentTarget.dataset.id)
     const selectedBun = chosenIngredients.find(ingredient => ingredient.type === 'bun')
     const selectedBunIndex = chosenIngredients.indexOf(selectedBun)
@@ -41,15 +40,11 @@ export default function BurgerIngredients({ setIsIngredientsPopupOpen, setSelect
 
   }
 
-  // const [handleClick, handleDoubleClick] = useClickPreventionOnDoubleClick(handleIngredientClick, handleIngredientDoubleClick);
-
-  const [handleClick, handleDoubleClick] = useClickPreventionOnDoubleClick(() => console.log('click'), () => console.log('doubleclick'));
-
   const itemTemplate = ({ image, price, name, _id }) => {
     let ingredientCounter = 0;
     chosenIngredients.forEach(ingredient => ingredient.name === name && (ingredient.type === 'bun' ? ingredientCounter += 2 : ingredientCounter += 1))
 
-    return (<li data-id={_id} key={_id} onDoubleClick={handleDoubleClick} onClick={handleClick} className={burgerIngredientsStyle.list_item}>
+    return (<li data-id={_id} key={_id} onClick={handleChoseIngredient} onDoubleClick={handleIngredientExplore} className={burgerIngredientsStyle.list_item}>
       <img alt={name} src={image} className={`${burgerIngredientsStyle.image} ml-4 mr-4`} />
       <div className={`${burgerIngredientsStyle.price_info} mt-4 mb-4`}>
         <span className="text text_type_digits-default mr-2">{price}</span>

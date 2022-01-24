@@ -1,13 +1,30 @@
 import { DragIcon, ConstructorElement, Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import burgerConstructorStyle from './burger-constructor.module.css';
 import PropTypes from 'prop-types';
+import mainApi from '../../utils/Api';
 
-export default function BurgerConstructor({ setIsOrderDetailsPopupOpen, chosenIngredients }) {
+export default function BurgerConstructor({ setIsOrderDetailsPopupOpen, chosenIngredients, setChosenIngredients }) {
 
   const totalSumm = chosenIngredients.reduce((acc, cur) => cur.type === 'bun' ? acc + (cur.price * 2) : acc + cur.price, 0)
 
   const handleOrderButtonClick = () => {
     setIsOrderDetailsPopupOpen(true)
+
+    const ingredientsIds = chosenIngredients.map(ingredient => ingredient._id)
+
+    mainApi.sendIngredients(ingredientsIds)
+      .then(data => {
+        console.log(data)
+      })
+      .catch(err => { console.log(err) })
+      .finally(() => { })
+  }
+
+  const handleDeleteIngredient = (item) => (e) => {
+    const selectedIngredientIndex = chosenIngredients.indexOf(item)
+    const chosenIngredientsClone = chosenIngredients;
+    chosenIngredientsClone.splice(selectedIngredientIndex, 1);
+    setChosenIngredients([...chosenIngredientsClone])
   }
 
   const bunElementHandler = (chosenIngredients, property, trueValue, falseValue) => chosenIngredients.find(ingredient => ingredient.type === 'bun') ? `${(chosenIngredients.find(ingredient => ingredient.type === 'bun'))[property]} ${trueValue}` : falseValue
@@ -32,6 +49,7 @@ export default function BurgerConstructor({ setIsOrderDetailsPopupOpen, chosenIn
               text={ingredient.name}
               price={ingredient.price}
               thumbnail={ingredient.image}
+              handleClose={handleDeleteIngredient(ingredient)}
             />
           </li>
         )}
@@ -61,5 +79,6 @@ export default function BurgerConstructor({ setIsOrderDetailsPopupOpen, chosenIn
 
 BurgerConstructor.propTypes = {
   setIsOrderDetailsPopupOpen: PropTypes.func.isRequired,
-  chosenIngredients: PropTypes.array.isRequired
+  chosenIngredients: PropTypes.array.isRequired,
+  setChosenIngredients: PropTypes.func.isRequired,
 };
