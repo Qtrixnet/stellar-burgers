@@ -86,4 +86,5 @@ BurgerConstructor.propTypes = {
   setIsOrderDetailsPopupOpen: PropTypes.func.isRequired,
   chosenIngredients: PropTypes.array.isRequired,
   setChosenIngredients: PropTypes.func.isRequired,
+  setOrderData: PropTypes.func.isRequired,
 };

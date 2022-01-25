@@ -5,7 +5,6 @@ import { OrderContext } from '../../services/orderContext';
 
 export default function OrderDetails() {
   const orderData = useContext(OrderContext);
-  console.log(orderData)
   return (
     <div className={`${orderDetailsStyles.container}`}>
       <h3 className={`text text_type_digits-large pt-10 ${orderDetailsStyles.title}`}>{orderData.order.number}</h3>
