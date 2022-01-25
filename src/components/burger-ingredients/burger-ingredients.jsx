@@ -31,7 +31,7 @@ export default function BurgerIngredients({ setIsIngredientsPopupOpen, setSelect
     const selectedBunIndex = chosenIngredients.indexOf(selectedBun)
 
     if (targetIngredient.type === 'bun' && selectedBun) {
-      const chosenIngredientsClone = chosenIngredients;
+      const chosenIngredientsClone = chosenIngredients.slice();
       chosenIngredientsClone.splice(selectedBunIndex, 1, targetIngredient);
       setChosenIngredients([...chosenIngredientsClone])
     } else {

@@ -24,15 +24,16 @@ class Api {
   }
 
   sendIngredients(ingredientsIds) {
-    console.log(ingredientsIds)
+    const burgerData = {
+      'ingredients': ingredientsIds
+    }
+
     return fetch(BACKEND_ENDPOINT, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json;charset=utf-8'
       },
-      body: {
-        ingredients: ingredientsIds
-      }
+      body: JSON.stringify(burgerData)
     }).then((res) => this._requestResult(res));
   }
 }

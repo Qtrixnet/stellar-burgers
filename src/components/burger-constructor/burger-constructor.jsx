@@ -22,7 +22,7 @@ export default function BurgerConstructor({ setIsOrderDetailsPopupOpen, chosenIn
 
   const handleDeleteIngredient = (item) => (e) => {
     const selectedIngredientIndex = chosenIngredients.indexOf(item)
-    const chosenIngredientsClone = chosenIngredients;
+    const chosenIngredientsClone = chosenIngredients.slice();
     chosenIngredientsClone.splice(selectedIngredientIndex, 1);
     setChosenIngredients([...chosenIngredientsClone])
   }
