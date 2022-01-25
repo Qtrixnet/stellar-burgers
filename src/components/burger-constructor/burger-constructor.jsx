@@ -3,18 +3,17 @@ import burgerConstructorStyle from './burger-constructor.module.css';
 import PropTypes from 'prop-types';
 import mainApi from '../../utils/Api';
 
-export default function BurgerConstructor({ setIsOrderDetailsPopupOpen, chosenIngredients, setChosenIngredients }) {
-
+export default function BurgerConstructor({ setIsOrderDetailsPopupOpen, setOrderData, chosenIngredients, setChosenIngredients }) {
   const totalSumm = chosenIngredients.reduce((acc, cur) => cur.type === 'bun' ? acc + (cur.price * 2) : acc + cur.price, 0)
 
   const handleOrderButtonClick = () => {
-    setIsOrderDetailsPopupOpen(true)
 
     const ingredientsIds = chosenIngredients.map(ingredient => ingredient._id)
 
     mainApi.sendIngredients(ingredientsIds)
       .then(data => {
-        console.log(data)
+        setOrderData(data)
+        setIsOrderDetailsPopupOpen(true)
       })
       .catch(err => { console.log(err) })
       .finally(() => { })
@@ -32,14 +31,18 @@ export default function BurgerConstructor({ setIsOrderDetailsPopupOpen, chosenIn
   return (
     <div className={`${burgerConstructorStyle.constructor_container} pt-25`}>
       <div className={`${burgerConstructorStyle.constructor_element} pr-6`}>
-        <ConstructorElement
-          type="top"
-          isLocked={true}
-          text={bunElementHandler(chosenIngredients, 'name', '(верх)', 'Выберите булку')}
-          price={bunElementHandler(chosenIngredients, 'price', '', '0')}
-          thumbnail={bunElementHandler(chosenIngredients, 'image', '', '')}
+        {
+          chosenIngredients.length > 0 ? <ConstructorElement
+            type="top"
+            isLocked={true}
+            text={bunElementHandler(chosenIngredients, 'name', '(верх)', 'Выберите булку')}
+            price={bunElementHandler(chosenIngredients, 'price', '', '0')}
+            thumbnail={bunElementHandler(chosenIngredients, 'image', '', '')}
 
-        />
+          /> : <p className="text text_type_main-medium pt-8 pb-15">
+            Выберите булку
+          </p>
+        }
       </div>
       <ul className={`${burgerConstructorStyle.list} pl-4 pr-4`}>
         {chosenIngredients.map((ingredient, idx) =>
@@ -55,13 +58,15 @@ export default function BurgerConstructor({ setIsOrderDetailsPopupOpen, chosenIn
         )}
       </ul>
       <div className="pr-6">
-        <ConstructorElement
-          type="bottom"
-          isLocked={true}
-          text={bunElementHandler(chosenIngredients, 'name', '(низ)', 'Выберите булку')}
-          price={bunElementHandler(chosenIngredients, 'price', '', '0')}
-          thumbnail={bunElementHandler(chosenIngredients, 'image', '', '')}
-        />
+        {
+          chosenIngredients.length > 0 && <ConstructorElement
+            type="bottom"
+            isLocked={true}
+            text={bunElementHandler(chosenIngredients, 'name', '(низ)', 'Выберите булку')}
+            price={bunElementHandler(chosenIngredients, 'price', '', '0')}
+            thumbnail={bunElementHandler(chosenIngredients, 'image', '', '')}
+          />
+        }
       </div>
 
       <div className={`${burgerConstructorStyle.button_container} pt-6 pr-6`}>

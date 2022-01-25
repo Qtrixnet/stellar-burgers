@@ -8,6 +8,7 @@ export default function Main({
   setIsOrderDetailsPopupOpen,
   setIsIngredientsPopupOpen,
   setSelectedIngredient,
+  setOrderData
 }) {
 
   const [chosenIngredients, setChosenIngredients] = useState([]);
@@ -16,7 +17,7 @@ export default function Main({
     <main className={mainStyles.main}>
       <section className={mainStyles.main_container}>
         <BurgerIngredients chosenIngredients={chosenIngredients} setChosenIngredients={setChosenIngredients} setSelectedIngredient={setSelectedIngredient} setIsIngredientsPopupOpen={setIsIngredientsPopupOpen} />
-        <BurgerConstructor chosenIngredients={chosenIngredients} setChosenIngredients={setChosenIngredients} setIsOrderDetailsPopupOpen={setIsOrderDetailsPopupOpen} />
+        <BurgerConstructor setOrderData={setOrderData} chosenIngredients={chosenIngredients} setChosenIngredients={setChosenIngredients} setIsOrderDetailsPopupOpen={setIsOrderDetailsPopupOpen} />
       </section>
     </main>
   );
@@ -26,4 +27,5 @@ Main.propTypes = {
   setIsOrderDetailsPopupOpen: PropTypes.func.isRequired,
   setIsIngredientsPopupOpen: PropTypes.func.isRequired,
   setSelectedIngredient: PropTypes.func.isRequired,
+  setOrderData: PropTypes.func.isRequired,
 }; 
