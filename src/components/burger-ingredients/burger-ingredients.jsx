@@ -3,26 +3,24 @@ import { Tab, CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger
 import burgerIngredientsStyle from './burger-ingredients.module.css';
 import PropTypes from 'prop-types';
 import { IngredientsContext } from '../../services/ingredientsContext';
+import { ChosenIngredientsContext } from '../../services/chosenIngredientsContext';
 
-export default function BurgerIngredients({ setIsIngredientsPopupOpen, setSelectedIngredient, chosenIngredients, setChosenIngredients }) {
+export default function BurgerIngredients({ setIsIngredientsPopupOpen, setSelectedIngredient, setChosenIngredients }) {
   const initialIngredients = useContext(IngredientsContext);
+  const chosenIngredients = useContext(ChosenIngredientsContext);
 
   const [current, setCurrent] = useState('bun')
+
+  const handleTabClick = (type) => {
+    setCurrent(type)
+    document.querySelector(`#${type}`).scrollIntoView({ block: "start", behavior: "smooth" })
+  }
 
   const handleIngredientExplore = (evt) => {
     const id = evt.currentTarget.dataset.id
     const foundIngredient = initialIngredients.find(ingredient => ingredient._id === id)
     setSelectedIngredient(foundIngredient)
     setIsIngredientsPopupOpen(true)
-  }
-
-  const detectCurrentTipeTitle = (type) => {
-    if (type === 'sauce') {
-      return 'Соусы'
-    } else if (type === 'main') {
-      return 'Начинки'
-    }
-    return 'Булки'
   }
 
   const handleChoseIngredient = (evt) => {
@@ -37,7 +35,6 @@ export default function BurgerIngredients({ setIsIngredientsPopupOpen, setSelect
     } else {
       setChosenIngredients([...chosenIngredients, targetIngredient])
     }
-
   }
 
   const itemTemplate = ({ image, price, name, _id }) => {
@@ -58,23 +55,35 @@ export default function BurgerIngredients({ setIsIngredientsPopupOpen, setSelect
   return (
     <div className={burgerIngredientsStyle.main_container}>
       <h1 className="mt-10 mb-5 text text_type_main-large">Соберите бургер</h1>
-      <div className="" style={{ display: 'flex' }}>
-        <Tab value="bun" active={current === 'bun'} onClick={setCurrent}>
+      <div style={{ display: 'flex' }}>
+        <Tab value="bun" active={current === 'bun'} onClick={handleTabClick}>
           Булки
         </Tab>
-        <Tab value="sauce" active={current === 'sauce'} onClick={setCurrent}>
+        <Tab value="sauce" active={current === 'sauce'} onClick={handleTabClick}>
           Соусы
         </Tab>
-        <Tab value="main" active={current === 'main'} onClick={setCurrent}>
+        <Tab value="main" active={current === 'main'} onClick={handleTabClick}>
           Начинки
         </Tab>
       </div>
       <div className={`${burgerIngredientsStyle.ingredients_container} mt-10 ingredients-container`}>
-        <h2 className="mb-6 text text_type_main-medium">
-          {detectCurrentTipeTitle(current)}
+        <h2 id="bun" className="mb-6 text text_type_main-medium">
+          Булки
         </h2>
         <ul className={`${burgerIngredientsStyle.list} pt-6 pb-10 pr-4 pl-4`}>
-          {initialIngredients.map((item) => item.type === current && itemTemplate(item))}
+          {initialIngredients.map((item) => item.type === 'bun' && itemTemplate(item))}
+        </ul>
+        <h2 id="sauce" className="mb-6 text text_type_main-medium">
+          Соусы
+        </h2>
+        <ul className={`${burgerIngredientsStyle.list} pt-6 pb-10 pr-4 pl-4`}>
+          {initialIngredients.map((item) => item.type === 'sauce' && itemTemplate(item))}
+        </ul>
+        <h2 id="main" className="mb-6 text text_type_main-medium">
+          Начинки
+        </h2>
+        <ul className={`${burgerIngredientsStyle.list} pt-6 pb-10 pr-4 pl-4`}>
+          {initialIngredients.map((item) => item.type === 'main' && itemTemplate(item))}
         </ul>
       </div>
     </div>
@@ -84,6 +93,5 @@ export default function BurgerIngredients({ setIsIngredientsPopupOpen, setSelect
 BurgerIngredients.propTypes = {
   setIsIngredientsPopupOpen: PropTypes.func.isRequired,
   setSelectedIngredient: PropTypes.func.isRequired,
-  chosenIngredients: PropTypes.array.isRequired,
   setChosenIngredients: PropTypes.func.isRequired,
 };

@@ -1,5 +1,4 @@
 import { BASE_URL } from '../utils/constants'
-import { BACKEND_ENDPOINT } from '../utils/constants'
 
 //* Класс для взаимодействия с сервером
 class Api {
@@ -28,7 +27,7 @@ class Api {
       'ingredients': ingredientsIds
     }
 
-    return fetch(BACKEND_ENDPOINT, {
+    return fetch(`${this._baseUrl}/orders`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json;charset=utf-8'

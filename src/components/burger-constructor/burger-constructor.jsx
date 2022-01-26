@@ -1,10 +1,14 @@
+import { useContext, useMemo } from 'react';
 import { DragIcon, ConstructorElement, Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import burgerConstructorStyle from './burger-constructor.module.css';
 import PropTypes from 'prop-types';
 import mainApi from '../../utils/Api';
+import { ChosenIngredientsContext } from '../../services/chosenIngredientsContext';
 
-export default function BurgerConstructor({ setIsOrderDetailsPopupOpen, setOrderData, chosenIngredients, setChosenIngredients }) {
-  const totalSumm = chosenIngredients.reduce((acc, cur) => cur.type === 'bun' ? acc + (cur.price * 2) : acc + cur.price, 0)
+export default function BurgerConstructor({ setIsOrderDetailsPopupOpen, setOrderData, setChosenIngredients }) {
+  const chosenIngredients = useContext(ChosenIngredientsContext);
+
+  const totalSumm = useMemo(() => chosenIngredients.reduce((acc, cur) => cur.type === 'bun' ? acc + (cur.price * 2) : acc + cur.price, 0), [chosenIngredients])
 
   const handleOrderButtonClick = () => {
 
@@ -84,7 +88,6 @@ export default function BurgerConstructor({ setIsOrderDetailsPopupOpen, setOrder
 
 BurgerConstructor.propTypes = {
   setIsOrderDetailsPopupOpen: PropTypes.func.isRequired,
-  chosenIngredients: PropTypes.array.isRequired,
   setChosenIngredients: PropTypes.func.isRequired,
   setOrderData: PropTypes.func.isRequired,
 };
