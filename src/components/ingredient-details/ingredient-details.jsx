@@ -1,54 +1,40 @@
+import { useContext } from 'react';
 import ingredientDetailsStyles from './ingredient-details.module.css';
-import PropTypes from 'prop-types';
+import { SelectedIngredientContext } from '../../services/selectedIngredientContext';
 
-export default function IngredientDetails({ ingredientsData }) {
+export default function IngredientDetails() {
+  const selectedIngredient = useContext(SelectedIngredientContext);
+
   return (
     <div className={`${ingredientDetailsStyles.container}`}>
-      <img width="480" height="240" alt={ingredientsData.name} src={ingredientsData && ingredientsData.image} />
-      <p className="text text_type_main-medium pt-4 pb-8">{ingredientsData && ingredientsData.name}</p>
+      <img width="480" height="240" alt={selectedIngredient.name} src={selectedIngredient && selectedIngredient.image} />
+      <p className="text text_type_main-medium pt-4 pb-8">{selectedIngredient && selectedIngredient.name}</p>
       <ul className={`${ingredientDetailsStyles.list} pt-8`}>
         <li className={`${ingredientDetailsStyles.listItem} text text_type_main-default text_color_inactive`}>
           <span>
             Калории,ккал
           </span>
-          {ingredientsData.calories}
+          {selectedIngredient.calories}
         </li>
         <li className={`${ingredientDetailsStyles.listItem} text text_type_main-default text_color_inactive`}>
           <span>
             Белки, г
           </span>
-          {ingredientsData.proteins}
+          {selectedIngredient.proteins}
         </li>
         <li className={`${ingredientDetailsStyles.listItem} text text_type_main-default text_color_inactive`}>
           <span>
             Жиры, г
           </span>
-          {ingredientsData.fat}
+          {selectedIngredient.fat}
         </li>
         <li className={`${ingredientDetailsStyles.listItem} text text_type_main-default text_color_inactive`}>
           <span>
             Углеводы, г
           </span>
-          {ingredientsData.carbohydrates}
+          {selectedIngredient.carbohydrates}
         </li>
       </ul>
     </div>
   );
-};
-
-IngredientDetails.propTypes = {
-  ingredientsData: PropTypes.shape({
-    calories: PropTypes.number.isRequired,
-    carbohydrates: PropTypes.number.isRequired,
-    fat: PropTypes.number.isRequired,
-    image: PropTypes.string.isRequired,
-    image_large: PropTypes.string.isRequired,
-    image_mobile: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    proteins: PropTypes.number.isRequired,
-    type: PropTypes.string.isRequired,
-    __v: PropTypes.number,
-    _id: PropTypes.string.isRequired,
-  }).isRequired,
 };
