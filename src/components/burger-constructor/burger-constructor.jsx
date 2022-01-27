@@ -1,12 +1,13 @@
-import { useContext, useMemo } from 'react';
+import { useMemo } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { DragIcon, ConstructorElement, Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import burgerConstructorStyle from './burger-constructor.module.css';
 import PropTypes from 'prop-types';
 import mainApi from '../../utils/Api';
-import { ChosenIngredientsContext } from '../../services/chosenIngredientsContext';
 
-export default function BurgerConstructor({ setIsOrderDetailsPopupOpen, setOrderData, setChosenIngredients }) {
-  const chosenIngredients = useContext(ChosenIngredientsContext);
+export default function BurgerConstructor({ setIsOrderDetailsPopupOpen, setOrderData }) {
+  const dispatch = useDispatch();
+  const chosenIngredients = useSelector(state => state.ingredients.chosenIngredients);
 
   const totalSumm = useMemo(() => chosenIngredients.reduce((acc, cur) => cur.type === 'bun' ? acc + (cur.price * 2) : acc + cur.price, 0), [chosenIngredients])
 
@@ -27,7 +28,7 @@ export default function BurgerConstructor({ setIsOrderDetailsPopupOpen, setOrder
     const selectedIngredientIndex = chosenIngredients.indexOf(item)
     const chosenIngredientsClone = chosenIngredients.slice();
     chosenIngredientsClone.splice(selectedIngredientIndex, 1);
-    setChosenIngredients([...chosenIngredientsClone])
+    dispatch({ type: 'DELETE_INGREDIENT', payload: selectedIngredientIndex });
   }
 
   const bunElementHandler = (chosenIngredients, property, trueValue, falseValue) => chosenIngredients.find(ingredient => ingredient.type === 'bun') ? `${(chosenIngredients.find(ingredient => ingredient.type === 'bun'))[property]} ${trueValue}` : falseValue
@@ -88,6 +89,5 @@ export default function BurgerConstructor({ setIsOrderDetailsPopupOpen, setOrder
 
 BurgerConstructor.propTypes = {
   setIsOrderDetailsPopupOpen: PropTypes.func.isRequired,
-  setChosenIngredients: PropTypes.func.isRequired,
   setOrderData: PropTypes.func.isRequired,
 };

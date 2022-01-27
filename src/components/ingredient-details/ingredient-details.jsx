@@ -1,9 +1,9 @@
-import { useContext } from 'react';
+
+import { useSelector } from 'react-redux';
 import ingredientDetailsStyles from './ingredient-details.module.css';
-import { SelectedIngredientContext } from '../../services/selectedIngredientContext';
 
 export default function IngredientDetails() {
-  const selectedIngredient = useContext(SelectedIngredientContext);
+  const selectedIngredient = useSelector(state => state.ingredients.selectedIngredient);
 
   return (
     <div className={`${ingredientDetailsStyles.container}`}>
