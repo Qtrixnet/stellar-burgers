@@ -14,28 +14,25 @@ const initialState = {
 export const ingredientsReducer = (state = initialState, action) => {
 
   switch (action.type) {
-    //* - реализован
     case GET_INGREDIENTS: {
       return {
         ...state,
         ingredients: action.payload,
       };
     }
-    //* - реализован
     case SELECT_INGREDIENT: {
       return {
         ...state,
         selectedIngredient: action.payload
       };
     }
-    //* - реализован
     case ADD_INGREDIENT: {
       return {
         ...state,
         chosenIngredients: action.payload
       };
     }
-    //* - реализован
+    //* - не реализован
     case DELETE_INGREDIENT: {
       return { ...state, chosenIngredients: state.chosenIngredients.splice(action.payload, 1) };
     }

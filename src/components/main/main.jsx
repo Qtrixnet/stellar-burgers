@@ -6,14 +6,13 @@ import PropTypes from 'prop-types';
 export default function Main({
   setIsOrderDetailsPopupOpen,
   setIsIngredientsPopupOpen,
-  setOrderData,
 }) {
 
   return (
     <main className={mainStyles.main}>
       <section className={mainStyles.main_container}>
         <BurgerIngredients setIsIngredientsPopupOpen={setIsIngredientsPopupOpen} />
-        <BurgerConstructor setOrderData={setOrderData} setIsOrderDetailsPopupOpen={setIsOrderDetailsPopupOpen} />
+        <BurgerConstructor setIsOrderDetailsPopupOpen={setIsOrderDetailsPopupOpen} />
       </section>
     </main>
   );
@@ -22,5 +21,4 @@ export default function Main({
 Main.propTypes = {
   setIsOrderDetailsPopupOpen: PropTypes.func.isRequired,
   setIsIngredientsPopupOpen: PropTypes.func.isRequired,
-  setOrderData: PropTypes.func.isRequired,
 }; 

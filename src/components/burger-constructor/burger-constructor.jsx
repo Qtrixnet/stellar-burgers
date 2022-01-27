@@ -5,9 +5,9 @@ import burgerConstructorStyle from './burger-constructor.module.css';
 import PropTypes from 'prop-types';
 import mainApi from '../../utils/Api';
 
-export default function BurgerConstructor({ setIsOrderDetailsPopupOpen, setOrderData }) {
+export default function BurgerConstructor({ setIsOrderDetailsPopupOpen }) {
   const dispatch = useDispatch();
-  const chosenIngredients = useSelector(state => state.ingredients.chosenIngredients);
+  const chosenIngredients = useSelector(state => state.ingredientsData.chosenIngredients);
 
   const totalSumm = useMemo(() => chosenIngredients.reduce((acc, cur) => cur.type === 'bun' ? acc + (cur.price * 2) : acc + cur.price, 0), [chosenIngredients])
 
@@ -17,7 +17,7 @@ export default function BurgerConstructor({ setIsOrderDetailsPopupOpen, setOrder
 
     mainApi.sendIngredients(ingredientsIds)
       .then(data => {
-        setOrderData(data)
+        dispatch({ type: 'GET_ORDER_DATA', payload: data });
         setIsOrderDetailsPopupOpen(true)
       })
       .catch(err => { console.log(err) })
@@ -89,5 +89,4 @@ export default function BurgerConstructor({ setIsOrderDetailsPopupOpen, setOrder
 
 BurgerConstructor.propTypes = {
   setIsOrderDetailsPopupOpen: PropTypes.func.isRequired,
-  setOrderData: PropTypes.func.isRequired,
 };

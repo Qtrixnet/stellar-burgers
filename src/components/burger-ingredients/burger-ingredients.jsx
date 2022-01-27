@@ -6,8 +6,8 @@ import PropTypes from 'prop-types';
 
 export default function BurgerIngredients({ setIsIngredientsPopupOpen }) {
   const dispatch = useDispatch();
-  const initialIngredients = useSelector(state => state.ingredients.ingredients)
-  const chosenIngredients = useSelector(state => state.ingredients.chosenIngredients);
+  const initialIngredients = useSelector(state => state.ingredientsData.ingredients)
+  const chosenIngredients = useSelector(state => state.ingredientsData.chosenIngredients);
 
   const [current, setCurrent] = useState('bun')
 
