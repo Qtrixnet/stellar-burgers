@@ -28,7 +28,7 @@ export default function BurgerConstructor({ setIsOrderDetailsPopupOpen }) {
     const selectedIngredientIndex = chosenIngredients.indexOf(item)
     const chosenIngredientsClone = chosenIngredients.slice();
     chosenIngredientsClone.splice(selectedIngredientIndex, 1);
-    dispatch({ type: 'DELETE_INGREDIENT', payload: selectedIngredientIndex });
+    dispatch({ type: 'DELETE_INGREDIENT', payload: chosenIngredientsClone });
   }
 
   const bunElementHandler = (chosenIngredients, property, trueValue, falseValue) => chosenIngredients.find(ingredient => ingredient.type === 'bun') ? `${(chosenIngredients.find(ingredient => ingredient.type === 'bun'))[property]} ${trueValue}` : falseValue

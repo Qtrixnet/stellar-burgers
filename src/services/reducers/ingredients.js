@@ -34,7 +34,7 @@ export const ingredientsReducer = (state = initialState, action) => {
     }
     //* - не реализован
     case DELETE_INGREDIENT: {
-      return { ...state, chosenIngredients: state.chosenIngredients.splice(action.payload, 1) };
+      return { ...state, chosenIngredients: action.payload };
     }
     default: {
       return state;
