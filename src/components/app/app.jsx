@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react';
+import { compose, createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
 import appStyles from './app.module.css';
 
 import AppHeader from '../app-header/app-header';
@@ -20,6 +22,15 @@ export default function App() {
   const [selectedIngredient, setSelectedIngredient] = useState({ element: {} });
   const [orderData, setOrderData] = useState({})
   const [chosenIngredients, setChosenIngredients] = useState([]);
+
+  const composeEnhancers =
+    typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+      ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({})
+      : compose;
+
+  const enhancer = composeEnhancers(applyMiddleware(thunk));
+
+  const store = createStore(rootReducer, enhancer);
 
   useEffect(() => {
     setIsLoading(true)
