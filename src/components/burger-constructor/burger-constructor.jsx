@@ -2,10 +2,9 @@ import { useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { DragIcon, ConstructorElement, Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import burgerConstructorStyle from './burger-constructor.module.css';
-import PropTypes from 'prop-types';
 import mainApi from '../../utils/Api';
 
-export default function BurgerConstructor({ setIsOrderDetailsPopupOpen }) {
+export default function BurgerConstructor() {
   const dispatch = useDispatch();
   const chosenIngredients = useSelector(state => state.ingredientsData.chosenIngredients);
 
@@ -18,7 +17,7 @@ export default function BurgerConstructor({ setIsOrderDetailsPopupOpen }) {
     mainApi.sendIngredients(ingredientsIds)
       .then(data => {
         dispatch({ type: 'GET_ORDER_DATA', payload: data });
-        setIsOrderDetailsPopupOpen(true)
+        dispatch({ type: 'CHANGE_ORDER_DETAILS_POPUP_STATE', payload: true });
       })
       .catch(err => { console.log(err) })
       .finally(() => { })
@@ -85,8 +84,4 @@ export default function BurgerConstructor({ setIsOrderDetailsPopupOpen }) {
       </div>
     </div>
   );
-};
-
-BurgerConstructor.propTypes = {
-  setIsOrderDetailsPopupOpen: PropTypes.func.isRequired,
 };

@@ -2,9 +2,8 @@ import { useState, } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Tab, CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
 import burgerIngredientsStyle from './burger-ingredients.module.css';
-import PropTypes from 'prop-types';
 
-export default function BurgerIngredients({ setIsIngredientsPopupOpen }) {
+export default function BurgerIngredients() {
   const dispatch = useDispatch();
   const initialIngredients = useSelector(state => state.ingredientsData.ingredients)
   const chosenIngredients = useSelector(state => state.ingredientsData.chosenIngredients);
@@ -20,7 +19,7 @@ export default function BurgerIngredients({ setIsIngredientsPopupOpen }) {
     const id = evt.currentTarget.dataset.id
     const foundIngredient = initialIngredients.find(ingredient => ingredient._id === id)
     dispatch({ type: 'SELECT_INGREDIENT', payload: foundIngredient });
-    setIsIngredientsPopupOpen(true)
+    dispatch({ type: 'CHANGE_INGREDIENTS_POPUP_STATE', payload: true });
   }
 
   const handleChoseIngredient = (evt) => {
@@ -88,8 +87,4 @@ export default function BurgerIngredients({ setIsIngredientsPopupOpen }) {
       </div>
     </div>
   );
-};
-
-BurgerIngredients.propTypes = {
-  setIsIngredientsPopupOpen: PropTypes.func.isRequired,
 };

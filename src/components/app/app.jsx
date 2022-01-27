@@ -10,10 +10,10 @@ import IngredientDetails from '../ingredient-details/ingredient-details';
 import Modal from '../modal/modal';
 
 export default function App() {
-  const [isIngredientsPopupOpen, setIsIngredientsPopupOpen] = useState(false)
-  const [isOrderDetailsPopupOpen, setIsOrderDetailsPopupOpen] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const orderData = useSelector(state => state.orderData.orderDetails);
+  const isIngredientsPopupOpen = useSelector(state => state.popupState.isIngredientsPopupOpen);
+  const isOrderDetailsPopupOpen = useSelector(state => state.popupState.isOrderDetailsPopupOpen);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -34,21 +34,18 @@ export default function App() {
         isLoading ? (<h1 className="text text_type_main-large">Загружаем заказы...</h1>) :
           <>
             <AppHeader />
-            <Main
-              setIsOrderDetailsPopupOpen={setIsOrderDetailsPopupOpen}
-              setIsIngredientsPopupOpen={setIsIngredientsPopupOpen}
-            />
+            <Main />
             {
               isOrderDetailsPopupOpen && (
-                <Modal popupCloseHandler={setIsOrderDetailsPopupOpen}>
+                <Modal>
                   {orderData && <OrderDetails />}
                 </Modal>
               )
             }
             {
               isIngredientsPopupOpen && (
-                <Modal title='Детали ингредиентов' popupCloseHandler={setIsIngredientsPopupOpen}>
-                  <IngredientDetails popupCloseHandler={setIsIngredientsPopupOpen} />
+                <Modal title='Детали ингредиентов'>
+                  <IngredientDetails />
                 </Modal>
               )
             }
