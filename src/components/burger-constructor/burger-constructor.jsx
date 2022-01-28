@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { DragIcon, ConstructorElement, Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import burgerConstructorStyle from './burger-constructor.module.css';
-import mainApi from '../../utils/Api';
+import { getOrderData } from '../../services/actions/order'
 
 export default function BurgerConstructor() {
   const dispatch = useDispatch();
@@ -11,16 +11,9 @@ export default function BurgerConstructor() {
   const totalSumm = useMemo(() => chosenIngredients.reduce((acc, cur) => cur.type === 'bun' ? acc + (cur.price * 2) : acc + cur.price, 0), [chosenIngredients])
 
   const handleOrderButtonClick = () => {
-
     const ingredientsIds = chosenIngredients.map(ingredient => ingredient._id)
-
-    mainApi.sendIngredients(ingredientsIds)
-      .then(data => {
-        dispatch({ type: 'GET_ORDER_DATA', payload: data });
-        dispatch({ type: 'CHANGE_ORDER_DETAILS_POPUP_STATE', payload: true });
-      })
-      .catch(err => { console.log(err) })
-      .finally(() => { })
+    dispatch(getOrderData(ingredientsIds))
+    dispatch({ type: 'CHANGE_ORDER_DETAILS_POPUP_STATE', payload: true })
   }
 
   const handleDeleteIngredient = (item) => (e) => {
@@ -78,7 +71,7 @@ export default function BurgerConstructor() {
           <span className="text text_type_digits-medium mr-2">{totalSumm}</span>
           <CurrencyIcon type="primary" />
         </div>
-        <Button onClick={handleOrderButtonClick} className="pt-10" type="primary" size="medium">
+        <Button disabled={chosenIngredients.length > 0 ? false : true} onClick={handleOrderButtonClick} className="pt-10" type="primary" size="medium">
           Оформить заказ
         </Button>
       </div>

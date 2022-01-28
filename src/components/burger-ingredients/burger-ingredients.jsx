@@ -2,6 +2,7 @@ import { useState, } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Tab, CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
 import burgerIngredientsStyle from './burger-ingredients.module.css';
+import { compareCoords } from '../../utils/compareCoords';
 
 export default function BurgerIngredients() {
   const dispatch = useDispatch();
@@ -9,6 +10,12 @@ export default function BurgerIngredients() {
   const chosenIngredients = useSelector(state => state.ingredientsData.chosenIngredients);
 
   const [current, setCurrent] = useState('bun')
+
+  const scrollHandler = (evt) => {
+    evt.target.addEventListener('scroll', function () {
+      setCurrent(compareCoords(burgerIngredientsStyle.main_container))
+    });
+  }
 
   const handleTabClick = (type) => {
     setCurrent(type)
@@ -65,7 +72,7 @@ export default function BurgerIngredients() {
           Начинки
         </Tab>
       </div>
-      <div className={`${burgerIngredientsStyle.ingredients_container} mt-10 ingredients-container`}>
+      <div onScroll={scrollHandler} className={`${burgerIngredientsStyle.ingredients_container} mt-10 ingredients-container`}>
         <h2 id="bun" className="mb-6 text text_type_main-medium">
           Булки
         </h2>

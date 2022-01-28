@@ -15,6 +15,7 @@ export default function Modal({ children, title = '' }) {
     const handleEscapeClose = (evt) => {
       if (evt.key === 'Escape') {
         isOrderDetailsPopupOpen ? dispatch({ type: 'CHANGE_ORDER_DETAILS_POPUP_STATE', payload: false }) : dispatch({ type: 'CHANGE_INGREDIENTS_POPUP_STATE', payload: false });
+        isOrderDetailsPopupOpen ? dispatch({ type: 'DELETE_ORDER_DATA' }) : dispatch({ type: 'DELETE_SELECTED_INGREDIENT' })
       };
     };
 
@@ -26,6 +27,7 @@ export default function Modal({ children, title = '' }) {
 
   const closeButtonClickHandler = () => {
     isOrderDetailsPopupOpen ? dispatch({ type: 'CHANGE_ORDER_DETAILS_POPUP_STATE', payload: false }) : dispatch({ type: 'CHANGE_INGREDIENTS_POPUP_STATE', payload: false });
+    isOrderDetailsPopupOpen ? dispatch({ type: 'DELETE_ORDER_DATA' }) : dispatch({ type: 'DELETE_SELECTED_INGREDIENT' })
   }
 
   return createPortal(
