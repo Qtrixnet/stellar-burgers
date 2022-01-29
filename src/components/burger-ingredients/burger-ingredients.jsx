@@ -92,6 +92,11 @@ export default function BurgerIngredients() {
       </div>
       <h3 className={`${burgerIngredientsStyle.text} text text_type_main-default`}>{name}</h3>
       {ingredientCounter > 0 && <Counter count={ingredientCounter} size="default" />}
+      <div className={`${burgerIngredientsStyle.hint_icons}`}>
+        <span className={`${burgerIngredientsStyle.left_click_icon}`}></span>
+        <span className={`${burgerIngredientsStyle.right_click_icon}`}></span>
+        <span className={`${burgerIngredientsStyle.drag_icon}`}></span>
+      </div>
     </li>)
   }
 
