@@ -18,8 +18,6 @@ function Ingredient({ ingredient }) {
     })
   });
 
-  console.log(isDrag)
-
   let ingredientCounter = 0;
 
   chosenIngredients.forEach(ingredient => ingredient.name === name && (ingredient.type === 'bun' ? ingredientCounter += 2 : ingredientCounter += 1))

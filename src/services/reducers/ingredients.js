@@ -7,6 +7,7 @@ import {
   DELETE_INGREDIENT,
   DELETE_SELECTED_INGREDIENT,
   CHANGE_INGREDIENT_DRAG_STATE,
+  SORT_INGREDIENTS
 } from '../actions/ingredients';
 
 
@@ -26,6 +27,12 @@ export const ingredientsReducer = (state = initialState, action) => {
       return {
         ...state,
         isElementDrag: action.payload,
+      };
+    }
+    case SORT_INGREDIENTS: {
+      return {
+        ...state,
+        chosenIngredients: action.payload
       };
     }
     case GET_INGREDIENTS_FAILED: {

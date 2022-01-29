@@ -22,14 +22,6 @@
   transition: all 0.2s ease;
 }
 
-.list_item {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  gap: 8px;
-  width: 100%;
-}
-
 .button_container {
   display: flex;
   align-items: center;

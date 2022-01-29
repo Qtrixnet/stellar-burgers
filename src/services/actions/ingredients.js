@@ -12,6 +12,8 @@ export const DELETE_INGREDIENT = 'DELETE_INGREDIENT';
 
 export const CHANGE_INGREDIENT_DRAG_STATE = 'CHANGE_INGREDIENT_DRAG_STATE';
 
+export const SORT_INGREDIENTS = 'SORT_INGREDIENTS'
+
 export function getIngredients() {
   return function (dispatch) {
     dispatch({

@@ -1,11 +1,13 @@
-import { useMemo } from 'react';
+import { useMemo, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { DragIcon, ConstructorElement, Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { ConstructorElement, Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import burgerConstructorStyle from './burger-constructor.module.css';
 import { getOrderData } from '../../services/actions/order'
 import { useDrop } from "react-dnd";
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
+import ChosenIngredient from '../chosen-ingredient/chosen-ingredient';
+import update from 'immutability-helper';
 
 export default function BurgerConstructor({ onDropHandler }) {
   const dispatch = useDispatch();
@@ -13,7 +15,7 @@ export default function BurgerConstructor({ onDropHandler }) {
 
   const totalSumm = useMemo(() => chosenIngredients.reduce((acc, cur) => cur.type === 'bun' ? acc + (cur.price * 2) : acc + cur.price, 0), [chosenIngredients])
 
-  const [{ isHover }, dropTarget] = useDrop({
+  const [{ isHover }, burgerIngredientsContainer] = useDrop({
     accept: "ingredient",
     drop(ingredientId) {
       onDropHandler(ingredientId);
@@ -23,6 +25,21 @@ export default function BurgerConstructor({ onDropHandler }) {
     })
   });
 
+  const moveIngredient = useCallback((dragIndex, hoverIndex) => {
+    const ingredientWithTypeBan = chosenIngredients.filter(ingredient => ingredient.type === 'bun')
+    const ingredientsWithoutBan = chosenIngredients.filter(ingredient => ingredient.type !== 'bun')
+    const sortedIngredients = update(ingredientsWithoutBan, {
+      $splice: [
+        [dragIndex, 1],
+        [hoverIndex, 0, ingredientsWithoutBan[dragIndex]],
+      ],
+    }, [ingredientsWithoutBan])
+    const sortedInregientsWithBun = [...ingredientWithTypeBan, ...sortedIngredients]
+
+    dispatch({ type: 'SORT_INGREDIENTS', payload: [...sortedInregientsWithBun] });
+
+  }, [chosenIngredients, dispatch]);
+
   const borderColor = isHover ? '#5147F8' : 'transparent';
 
   const handleOrderButtonClick = () => {
@@ -31,18 +48,11 @@ export default function BurgerConstructor({ onDropHandler }) {
     dispatch({ type: 'CHANGE_ORDER_DETAILS_POPUP_STATE', payload: true })
   }
 
-  const handleDeleteIngredient = (item) => (e) => {
-    const selectedIngredientIndex = chosenIngredients.indexOf(item)
-    const chosenIngredientsClone = chosenIngredients.slice();
-    chosenIngredientsClone.splice(selectedIngredientIndex, 1);
-    dispatch({ type: 'DELETE_INGREDIENT', payload: chosenIngredientsClone });
-  }
-
   const bunElementHandler = (chosenIngredients, property, trueValue, falseValue) => chosenIngredients.find(ingredient => ingredient.type === 'bun') ? `${(chosenIngredients.find(ingredient => ingredient.type === 'bun'))[property]} ${trueValue}` : falseValue
 
   return (
     <DndProvider backend={HTML5Backend}>
-      <div ref={dropTarget} style={{ borderColor }} className={`${burgerConstructorStyle.constructor_container} mt-25 pt-5 pb-5`}>
+      <div ref={burgerIngredientsContainer} style={{ borderColor }} className={`${burgerConstructorStyle.constructor_container} mt-25 pt-5 pb-5`}>
         <div className={`${burgerConstructorStyle.constructor_element} pr-5`}>
           {
             chosenIngredients.length > 0 ? <ConstructorElement
@@ -59,15 +69,7 @@ export default function BurgerConstructor({ onDropHandler }) {
         </div>
         <ul className={`${burgerConstructorStyle.list} pl-4 pr-4`}>
           {chosenIngredients.map((ingredient, idx) =>
-            ingredient.type !== 'bun' && <li key={`${ingredient._id}${idx}`} className={burgerConstructorStyle.list_item}>
-              <DragIcon />
-              <ConstructorElement
-                text={ingredient.name}
-                price={ingredient.price}
-                thumbnail={ingredient.image}
-                handleClose={handleDeleteIngredient(ingredient)}
-              />
-            </li>
+            ingredient.type !== 'bun' && <ChosenIngredient key={`${ingredient._id}${idx}`} index={idx} moveIngredient={moveIngredient} ingredient={ingredient} id={`${ingredient._id}${idx}`} />
           )}
         </ul>
         <div className="pr-5">
