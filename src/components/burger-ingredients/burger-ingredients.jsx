@@ -91,7 +91,7 @@ export default function BurgerIngredients() {
         <CurrencyIcon type="primary" />
       </div>
       <h3 className={`${burgerIngredientsStyle.text} text text_type_main-default`}>{name}</h3>
-      <Counter count={ingredientCounter} size="default" />
+      {ingredientCounter > 0 && <Counter count={ingredientCounter} size="default" />}
     </li>)
   }
 
