@@ -1,6 +1,12 @@
 .list_item {
   position: relative;
+  box-sizing: border-box;
+  border-radius: 8px;
   transition: all 0.2s ease;
+}
+
+.moving {
+  filter: grayscale(100);
 }
 
 .hint_icons {

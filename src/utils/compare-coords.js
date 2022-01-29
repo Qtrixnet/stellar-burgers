@@ -1,4 +1,4 @@
-import { getCoords } from './getCoords'
+import { getCoords } from './get-coords'
 
 export const compareCoords = (className) => {
   const bunTitleTopCoords = getCoords(document.querySelector('#bun')).top

@@ -10,6 +10,8 @@ export const DELETE_SELECTED_INGREDIENT = 'DELETE_SELECTED_INGREDIENT';
 export const ADD_INGREDIENT = 'ADD_INGREDIENT';
 export const DELETE_INGREDIENT = 'DELETE_INGREDIENT';
 
+export const CHANGE_INGREDIENT_DRAG_STATE = 'CHANGE_INGREDIENT_DRAG_STATE';
+
 export function getIngredients() {
   return function (dispatch) {
     dispatch({

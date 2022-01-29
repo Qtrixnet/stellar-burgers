@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import burgerIngredientsStyle from './burger-ingredients.module.css';
-import { compareCoords } from '../../utils/compareCoords';
+import { compareCoords } from '../../utils/compare-coords';
 import Ingredient from '../ingredient/ingredient';
 
 export default function BurgerIngredients() {

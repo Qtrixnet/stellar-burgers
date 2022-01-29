@@ -1,7 +1,7 @@
 import ingredientStyles from './ingredient.module.css';
-import { useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
+import { useDrag } from "react-dnd";
 
 function Ingredient({ ingredient }) {
   const { image, price, name, _id } = ingredient;
@@ -10,40 +10,19 @@ function Ingredient({ ingredient }) {
   const chosenIngredients = useSelector(state => state.ingredientsData.chosenIngredients);
   const initialIngredients = useSelector(state => state.ingredientsData.ingredients);
 
-  const ingredientRef = useRef();
+  const [{ isDrag }, dragRef] = useDrag({
+    type: "ingredient",
+    item: { _id },
+    collect: monitor => ({
+      isDrag: monitor.isDragging(),
+    })
+  });
+
+  console.log(isDrag)
 
   let ingredientCounter = 0;
 
-  // setIngredientsCounter(prevState => prevState + 2) : setIngredientsCounter(prevState => prevState + 1)
-  // const [ingredientCounter, setIngredientsCounter] = useState(0)
-
   chosenIngredients.forEach(ingredient => ingredient.name === name && (ingredient.type === 'bun' ? ingredientCounter += 2 : ingredientCounter += 1))
-
-  // const handleMouseDown = (e) => {
-  //   setIngredientDrag(true);
-
-  //   setCursorPosition({
-  //     ...cursorPosition,
-  //     x: e.clientX - e.currentTarget.getBoundingClientRect().left,
-  //     y: e.clientY - e.currentTarget.getBoundingClientRect().top
-  //   });
-  // };
-
-  // const handleMouseMove = (e) => {
-  //   if (!isIngredientDragging) return;
-  //   e.stopPropagation();
-  //   e.preventDefault();
-
-  //   setIngredientPosition({
-  //     ...ingredientPosition,
-  //     x: e.clientX - cursorPosition.x,
-  //     y: e.clientY - cursorPosition.y
-  //   });
-  // };
-
-  // const handleMouseUp = () => {
-  //   setIngredientDrag(false);
-  // };
 
   const handleChoseIngredient = (evt) => {
     const targetIngredient = initialIngredients.find(ingredient => ingredient._id === evt.currentTarget.dataset.id)
@@ -68,7 +47,7 @@ function Ingredient({ ingredient }) {
   }
 
   return (
-    <li data-id={_id} ref={ingredientRef} onClick={handleChoseIngredient} onContextMenu={handleIngredientExplore} className={ingredientStyles.list_item}>
+    <li data-id={_id} onClick={handleChoseIngredient} onContextMenu={handleIngredientExplore} className={`${ingredientStyles.list_item} ${isDrag && ingredientStyles.moving}`} ref={dragRef}>
       <img alt={name} src={image} className={`${ingredientStyles.image} ml-4 mr-4`} />
       <div className={`${ingredientStyles.price_info} mt-4 mb-4`}>
         <span className="text text_type_digits-default mr-2">{price}</span>

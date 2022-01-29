@@ -5,8 +5,10 @@ import {
   SELECT_INGREDIENT,
   ADD_INGREDIENT,
   DELETE_INGREDIENT,
-  DELETE_SELECTED_INGREDIENT
+  DELETE_SELECTED_INGREDIENT,
+  CHANGE_INGREDIENT_DRAG_STATE,
 } from '../actions/ingredients';
+
 
 const initialState = {
   ingredients: [],
@@ -14,11 +16,18 @@ const initialState = {
   chosenIngredients: [],
   ingredientsRequest: false,
   ingredientsFailed: false,
+  isElementDrag: false,
 };
 
 export const ingredientsReducer = (state = initialState, action) => {
 
   switch (action.type) {
+    case CHANGE_INGREDIENT_DRAG_STATE: {
+      return {
+        ...state,
+        isElementDrag: action.payload,
+      };
+    }
     case GET_INGREDIENTS_FAILED: {
       return {
         ...state,
