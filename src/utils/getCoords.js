@@ -3,7 +3,7 @@ export const getCoords = (elem) => {
   let box = elem.getBoundingClientRect();
 
   return {
-    top: Math.round(box.top + pageYOffset),
-    left: Math.round(box.left + pageXOffset)
+    top: Math.round(box.top + scrollY),
+    left: Math.round(box.left + scrollX)
   };
 }

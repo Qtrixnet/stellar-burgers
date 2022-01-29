@@ -13,7 +13,6 @@
   list-style: none;
 }
 
-
 .ingredients_container {
   overflow-y: scroll;
   overflow-x: hidden;
@@ -21,17 +20,44 @@
 }
 
 .image {
-  transition: all .2s ease;
+  transition: all 0.2s ease;
 }
 
 .list_item {
   position: relative;
-  transition: all .2s ease;
+  transition: all 0.2s ease;
+}
+
+.list_item::after,
+.list_item::before {
+  content: "";
+  width: 32px;
+  height: 32px;
+  background-size: contain;
+  position: absolute;
+  top: 0;
+  opacity: 0;
+  transition: all 0.2s ease;
+}
+
+.list_item::after {
+  background-image: url("../../images/left-click.png");
+  left: 0;
+}
+
+.list_item::before {
+  background-image: url("../../images/right-click.png");
+  left: 32px;
 }
 
 .list_item:hover {
   cursor: pointer;
-  opacity: .5;
+  opacity: 0.8;
+}
+
+.list_item:hover.list_item::after,
+.list_item:hover.list_item::before {
+  opacity: 1;
 }
 
 .list_item:hover .image {

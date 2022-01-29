@@ -1,4 +1,4 @@
-import { useState, } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Tab, CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
 import burgerIngredientsStyle from './burger-ingredients.module.css';
@@ -10,6 +10,16 @@ export default function BurgerIngredients() {
   const chosenIngredients = useSelector(state => state.ingredientsData.chosenIngredients);
 
   const [current, setCurrent] = useState('bun')
+  const [isIngredientDragging, setIngredientDrag] = useState(false);
+  const [cursorPosition, setCursorPosition] = useState({});
+  const [ingredientPosition, setIngredientPosition] = useState({});
+  const ingredientRef = useRef();
+
+  useEffect(() => {
+    if (ingredientRef.current) {
+      ingredientRef.current.style.transform = `translate(${ingredientPosition.x}px, ${ingredientPosition.y}px)`
+    }
+  }, [ingredientPosition]);
 
   const scrollHandler = (evt) => {
     evt.target.addEventListener('scroll', function () {
@@ -17,12 +27,39 @@ export default function BurgerIngredients() {
     });
   }
 
+  const handleMouseDown = (e) => {
+    setIngredientDrag(true);
+
+    setCursorPosition({
+      ...cursorPosition,
+      x: e.clientX - e.currentTarget.getBoundingClientRect().left,
+      y: e.clientY - e.currentTarget.getBoundingClientRect().top
+    });
+  };
+
+  const handleMouseMove = (e) => {
+    if (!isIngredientDragging) return;
+    e.stopPropagation();
+    e.preventDefault();
+
+    setIngredientPosition({
+      ...ingredientPosition,
+      x: e.clientX - cursorPosition.x,
+      y: e.clientY - cursorPosition.y
+    });
+  };
+
+  const handleMouseUp = () => {
+    setIngredientDrag(false);
+  };
+
   const handleTabClick = (type) => {
     setCurrent(type)
     document.querySelector(`#${type}`).scrollIntoView({ block: "start", behavior: "smooth" })
   }
 
   const handleIngredientExplore = (evt) => {
+    evt.preventDefault()
     const id = evt.currentTarget.dataset.id
     const foundIngredient = initialIngredients.find(ingredient => ingredient._id === id)
     dispatch({ type: 'SELECT_INGREDIENT', payload: foundIngredient });
@@ -47,7 +84,7 @@ export default function BurgerIngredients() {
     let ingredientCounter = 0;
     chosenIngredients.forEach(ingredient => ingredient.name === name && (ingredient.type === 'bun' ? ingredientCounter += 2 : ingredientCounter += 1))
 
-    return (<li data-id={_id} key={_id} onClick={handleChoseIngredient} onDoubleClick={handleIngredientExplore} className={burgerIngredientsStyle.list_item}>
+    return (<li data-id={_id} key={_id} ref={ingredientRef} onMouseMove={handleMouseMove} onMouseDown={handleMouseDown} onMouseUp={handleMouseUp} onClick={handleChoseIngredient} onContextMenu={handleIngredientExplore} className={burgerIngredientsStyle.list_item}>
       <img alt={name} src={image} className={`${burgerIngredientsStyle.image} ml-4 mr-4`} />
       <div className={`${burgerIngredientsStyle.price_info} mt-4 mb-4`}>
         <span className="text text_type_digits-default mr-2">{price}</span>
