@@ -1,9 +1,9 @@
-import { useContext } from 'react';
-import ingredientDetailsStyles from './ingredient-details.module.css';
-import { SelectedIngredientContext } from '../../services/selectedIngredientContext';
 
-export default function IngredientDetails() {
-  const selectedIngredient = useContext(SelectedIngredientContext);
+import { useSelector } from 'react-redux';
+import ingredientDetailsStyles from './ingredient-details.module.css';
+
+const IngredientDetails = () => {
+  const selectedIngredient = useSelector(state => state.ingredientsData.selectedIngredient);
 
   return (
     <div className={`${ingredientDetailsStyles.container}`}>
@@ -38,3 +38,5 @@ export default function IngredientDetails() {
     </div>
   );
 };
+
+export default IngredientDetails;
