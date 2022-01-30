@@ -2,8 +2,11 @@ import ingredientStyles from './ingredient.module.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDrag } from "react-dnd";
+import { addIngredient, selectIngredient } from '../../services/actions/ingredients';
+import { changeIngredientsPopupState } from '../../services/actions/popup';
+import PropTypes from 'prop-types';
 
-function Ingredient({ ingredient }) {
+const Ingredient = ({ ingredient }) => {
   const { image, price, name, _id } = ingredient;
 
   const dispatch = useDispatch();
@@ -23,6 +26,7 @@ function Ingredient({ ingredient }) {
   chosenIngredients.forEach(ingredient => ingredient.name === name && (ingredient.type === 'bun' ? ingredientCounter += 2 : ingredientCounter += 1))
 
   const handleChoseIngredient = (evt) => {
+    evt.preventDefault()
     const targetIngredient = initialIngredients.find(ingredient => ingredient._id === evt.currentTarget.dataset.id)
     const selectedBun = chosenIngredients.find(ingredient => ingredient.type === 'bun')
     const selectedBunIndex = chosenIngredients.indexOf(selectedBun)
@@ -30,22 +34,21 @@ function Ingredient({ ingredient }) {
     if (targetIngredient.type === 'bun' && selectedBun) {
       const chosenIngredientsClone = chosenIngredients.slice();
       chosenIngredientsClone.splice(selectedBunIndex, 1, targetIngredient);
-      dispatch({ type: 'ADD_INGREDIENT', payload: [...chosenIngredientsClone] });
+      dispatch(addIngredient([...chosenIngredientsClone]));
     } else {
-      dispatch({ type: 'ADD_INGREDIENT', payload: [...chosenIngredients, targetIngredient] });
+      dispatch(addIngredient([...chosenIngredients, targetIngredient]));
     }
   }
 
   const handleIngredientExplore = (evt) => {
-    evt.preventDefault()
     const id = evt.currentTarget.dataset.id
     const foundIngredient = initialIngredients.find(ingredient => ingredient._id === id)
-    dispatch({ type: 'SELECT_INGREDIENT', payload: foundIngredient });
-    dispatch({ type: 'CHANGE_INGREDIENTS_POPUP_STATE', payload: true });
+    dispatch(selectIngredient(foundIngredient))
+    dispatch(changeIngredientsPopupState(true));
   }
 
   return (
-    <li data-id={_id} onClick={handleChoseIngredient} onContextMenu={handleIngredientExplore} className={`${ingredientStyles.list_item} ${isDrag && ingredientStyles.moving}`} ref={dragRef}>
+    <li data-id={_id} onContextMenu={handleChoseIngredient} onClick={handleIngredientExplore} className={`${ingredientStyles.list_item} ${isDrag && ingredientStyles.moving}`} ref={dragRef}>
       <img alt={name} src={image} className={`${ingredientStyles.image} ml-4 mr-4`} />
       <div className={`${ingredientStyles.price_info} mt-4 mb-4`}>
         <span className="text text_type_digits-default mr-2">{price}</span>
@@ -62,4 +65,21 @@ function Ingredient({ ingredient }) {
   )
 }
 
+Ingredient.propTypes = {
+  ingredient: PropTypes.shape({
+    calories: PropTypes.number.isRequired,
+    carbohydrates: PropTypes.number.isRequired,
+    fat: PropTypes.number.isRequired,
+    image: PropTypes.string.isRequired,
+    image_large: PropTypes.string.isRequired,
+    image_mobile: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+    proteins: PropTypes.number.isRequired,
+    type: PropTypes.string.isRequired,
+    _id: PropTypes.string.isRequired,
+  }),
+};
+
 export default Ingredient;
+

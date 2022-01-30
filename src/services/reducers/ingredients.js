@@ -6,8 +6,8 @@ import {
   ADD_INGREDIENT,
   DELETE_INGREDIENT,
   DELETE_SELECTED_INGREDIENT,
-  CHANGE_INGREDIENT_DRAG_STATE,
-  SORT_INGREDIENTS
+  SORT_INGREDIENTS,
+  DELETE_ALL_INGREDIENTS
 } from '../actions/ingredients';
 
 
@@ -17,16 +17,15 @@ const initialState = {
   chosenIngredients: [],
   ingredientsRequest: false,
   ingredientsFailed: false,
-  isElementDrag: false,
 };
 
 export const ingredientsReducer = (state = initialState, action) => {
 
   switch (action.type) {
-    case CHANGE_INGREDIENT_DRAG_STATE: {
+    case DELETE_ALL_INGREDIENTS: {
       return {
         ...state,
-        isElementDrag: action.payload,
+        chosenIngredients: [],
       };
     }
     case SORT_INGREDIENTS: {

@@ -4,8 +4,9 @@ import BurgerConstructor from '../burger-constructor/burger-constructor';
 import mainStyles from './main.module.css';
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
+import { addIngredient } from '../../services/actions/ingredients';
 
-export default function Main() {
+const Main = () => {
   const dispatch = useDispatch();
   const chosenIngredients = useSelector(state => state.ingredientsData.chosenIngredients);
   const initialIngredients = useSelector(state => state.ingredientsData.ingredients);
@@ -18,9 +19,9 @@ export default function Main() {
     if (targetIngredient.type === 'bun' && selectedBun) {
       const chosenIngredientsClone = chosenIngredients.slice();
       chosenIngredientsClone.splice(selectedBunIndex, 1, targetIngredient);
-      dispatch({ type: 'ADD_INGREDIENT', payload: [...chosenIngredientsClone] });
+      dispatch(addIngredient([...chosenIngredientsClone]));
     } else {
-      dispatch({ type: 'ADD_INGREDIENT', payload: [...chosenIngredients, targetIngredient] });
+      dispatch(addIngredient([...chosenIngredients, targetIngredient]));
     }
   };
 
@@ -35,3 +36,5 @@ export default function Main() {
     </main>
   );
 };
+
+export default Main;

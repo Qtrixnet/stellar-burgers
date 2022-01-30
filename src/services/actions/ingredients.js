@@ -9,8 +9,7 @@ export const DELETE_SELECTED_INGREDIENT = 'DELETE_SELECTED_INGREDIENT';
 
 export const ADD_INGREDIENT = 'ADD_INGREDIENT';
 export const DELETE_INGREDIENT = 'DELETE_INGREDIENT';
-
-export const CHANGE_INGREDIENT_DRAG_STATE = 'CHANGE_INGREDIENT_DRAG_STATE';
+export const DELETE_ALL_INGREDIENTS = 'DELETE_ALL_INGREDIENTS';
 
 export const SORT_INGREDIENTS = 'SORT_INGREDIENTS'
 
@@ -34,3 +33,15 @@ export function getIngredients() {
       }))
   }
 }
+
+export const selectIngredient = (ingredient) => ({ type: SELECT_INGREDIENT, payload: ingredient })
+
+export const deleteSelectedIngredient = () => ({ type: DELETE_SELECTED_INGREDIENT })
+
+export const addIngredient = (newIngredientsArray) => ({ type: ADD_INGREDIENT, payload: newIngredientsArray })
+
+export const deleteIngredient = (newIngredientsArray) => ({ type: DELETE_INGREDIENT, payload: newIngredientsArray })
+
+export const deleteAllIngredients = () => ({ type: DELETE_ALL_INGREDIENTS })
+
+export const sortIngredients = (newIngredientsArray) => ({ type: SORT_INGREDIENTS, payload: newIngredientsArray })

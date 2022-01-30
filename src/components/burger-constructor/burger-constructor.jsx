@@ -8,8 +8,12 @@ import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import ChosenIngredient from '../chosen-ingredient/chosen-ingredient';
 import update from 'immutability-helper';
+import { sortIngredients } from '../../services/actions/ingredients';
+import { changeOrderDetailsPopupState } from '../../services/actions/popup';
+import { v4 as generateUniqueId } from 'uuid';
+import PropTypes from 'prop-types';
 
-export default function BurgerConstructor({ onDropHandler }) {
+const BurgerConstructor = ({ onDropHandler }) => {
   const dispatch = useDispatch();
   const chosenIngredients = useSelector(state => state.ingredientsData.chosenIngredients);
 
@@ -36,7 +40,7 @@ export default function BurgerConstructor({ onDropHandler }) {
     }, [ingredientsWithoutBan])
     const sortedInregientsWithBun = [...ingredientWithTypeBan, ...sortedIngredients]
 
-    dispatch({ type: 'SORT_INGREDIENTS', payload: [...sortedInregientsWithBun] });
+    dispatch(sortIngredients([...sortedInregientsWithBun]));
 
   }, [chosenIngredients, dispatch]);
 
@@ -45,7 +49,7 @@ export default function BurgerConstructor({ onDropHandler }) {
   const handleOrderButtonClick = () => {
     const ingredientsIds = chosenIngredients.map(ingredient => ingredient._id)
     dispatch(getOrderData(ingredientsIds))
-    dispatch({ type: 'CHANGE_ORDER_DETAILS_POPUP_STATE', payload: true })
+    dispatch(changeOrderDetailsPopupState(true))
   }
 
   const bunElementHandler = (chosenIngredients, property, trueValue, falseValue) => chosenIngredients.find(ingredient => ingredient.type === 'bun') ? `${(chosenIngredients.find(ingredient => ingredient.type === 'bun'))[property]} ${trueValue}` : falseValue
@@ -69,7 +73,7 @@ export default function BurgerConstructor({ onDropHandler }) {
         </div>
         <ul className={`${burgerConstructorStyle.list} pl-4 pr-4`}>
           {chosenIngredients.map((ingredient, idx) =>
-            ingredient.type !== 'bun' && <ChosenIngredient key={`${ingredient._id}${idx}`} index={idx} moveIngredient={moveIngredient} ingredient={ingredient} id={`${ingredient._id}${idx}`} />
+            ingredient.type !== 'bun' && <ChosenIngredient key={generateUniqueId()} index={idx} moveIngredient={moveIngredient} ingredient={ingredient} id={`${ingredient._id}${idx}`} />
           )}
         </ul>
         <div className="pr-5">
@@ -97,3 +101,9 @@ export default function BurgerConstructor({ onDropHandler }) {
     </DndProvider>
   );
 };
+
+BurgerConstructor.propTypes = {
+  onDropHandler: PropTypes.func.isRequired,
+};
+
+export default BurgerConstructor;

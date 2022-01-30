@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux';
 import orderDetailsStyles from './order-details.module.css';
 import doneGif from '../../images/done.gif';
 
-export default function OrderDetails() {
+const OrderDetails = () => {
   const orderData = useSelector(state => state.orderData.orderDetails);
   return (
     <div className={`${orderDetailsStyles.container}`}>
@@ -20,3 +20,5 @@ export default function OrderDetails() {
     </div>
   );
 };
+
+export default OrderDetails;
