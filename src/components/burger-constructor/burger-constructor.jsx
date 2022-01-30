@@ -10,7 +10,6 @@ import ChosenIngredient from '../chosen-ingredient/chosen-ingredient';
 import update from 'immutability-helper';
 import { sortIngredients } from '../../services/actions/ingredients';
 import { changeOrderDetailsPopupState } from '../../services/actions/popup';
-import { v4 as generateUniqueId } from 'uuid';
 import PropTypes from 'prop-types';
 
 const BurgerConstructor = ({ onDropHandler }) => {
@@ -73,7 +72,7 @@ const BurgerConstructor = ({ onDropHandler }) => {
         </div>
         <ul className={`${burgerConstructorStyle.list} pl-4 pr-4`}>
           {chosenIngredients.map((ingredient, idx) =>
-            ingredient.type !== 'bun' && <ChosenIngredient key={generateUniqueId()} index={idx} moveIngredient={moveIngredient} ingredient={ingredient} id={`${ingredient._id}${idx}`} />
+            ingredient.type !== 'bun' && <ChosenIngredient key={ingredient.uuid} index={idx} moveIngredient={moveIngredient} ingredient={ingredient} id={`${ingredient._id}${idx}`} />
           )}
         </ul>
         <div className="pr-5">

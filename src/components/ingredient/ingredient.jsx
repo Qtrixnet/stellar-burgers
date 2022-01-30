@@ -5,6 +5,7 @@ import { useDrag } from "react-dnd";
 import { addIngredient, selectIngredient } from '../../services/actions/ingredients';
 import { changeIngredientsPopupState } from '../../services/actions/popup';
 import PropTypes from 'prop-types';
+import { v4 as generateUniqueId } from 'uuid';
 
 const Ingredient = ({ ingredient }) => {
   const { image, price, name, _id } = ingredient;
@@ -27,7 +28,8 @@ const Ingredient = ({ ingredient }) => {
 
   const handleChoseIngredient = (evt) => {
     evt.preventDefault()
-    const targetIngredient = initialIngredients.find(ingredient => ingredient._id === evt.currentTarget.dataset.id)
+    const targetIngredient = Object.assign({}, initialIngredients.find(ingredient => ingredient._id === evt.currentTarget.dataset.id))
+    targetIngredient.uuid = generateUniqueId();
     const selectedBun = chosenIngredients.find(ingredient => ingredient.type === 'bun')
     const selectedBunIndex = chosenIngredients.indexOf(selectedBun)
 

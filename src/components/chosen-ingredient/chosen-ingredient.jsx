@@ -72,7 +72,7 @@ const ChosenIngredient = ({ ingredient, id, moveIngredient, index }) => {
 
 
   return (
-    <li ref={ref} style={{ opacity }} data-handler-id={handlerId} className={chosenIngredientStyle.list_item}>
+    <li data-id={id} ref={ref} style={{ opacity }} data-handler-id={handlerId} className={chosenIngredientStyle.list_item}>
       <DragIcon />
       <ConstructorElement
         text={name}

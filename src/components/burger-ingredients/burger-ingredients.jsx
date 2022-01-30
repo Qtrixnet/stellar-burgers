@@ -4,7 +4,6 @@ import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import burgerIngredientsStyle from './burger-ingredients.module.css';
 import { compareCoords } from '../../utils/compare-coords';
 import Ingredient from '../ingredient/ingredient';
-import { v4 as generateUniqueId } from 'uuid';
 
 const BurgerIngredients = () => {
   const initialIngredients = useSelector(state => state.ingredientsData.ingredients)
@@ -41,19 +40,19 @@ const BurgerIngredients = () => {
           Булки
         </h2>
         <ul className={`${burgerIngredientsStyle.list} pt-6 pb-10 pr-4 pl-4`}>
-          {initialIngredients.map((item) => item.type === 'bun' && <Ingredient key={generateUniqueId()} ingredient={item} />)}
+          {initialIngredients.map((item) => item.type === 'bun' && <Ingredient key={item._id} ingredient={item} />)}
         </ul>
         <h2 id="sauce" className="mb-6 text text_type_main-medium">
           Соусы
         </h2>
         <ul className={`${burgerIngredientsStyle.list} pt-6 pb-10 pr-4 pl-4`}>
-          {initialIngredients.map((item) => item.type === 'sauce' && <Ingredient key={generateUniqueId()} ingredient={item} />)}
+          {initialIngredients.map((item) => item.type === 'sauce' && <Ingredient key={item._id} ingredient={item} />)}
         </ul>
         <h2 id="main" className="mb-6 text text_type_main-medium">
           Начинки
         </h2>
         <ul className={`${burgerIngredientsStyle.list} pt-6 pb-10 pr-4 pl-4`}>
-          {initialIngredients.map((item) => item.type === 'main' && <Ingredient key={generateUniqueId()} ingredient={item} />)}
+          {initialIngredients.map((item) => item.type === 'main' && <Ingredient key={item._id} ingredient={item} />)}
         </ul>
       </div>
     </div>
