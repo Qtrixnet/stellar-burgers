@@ -1,9 +1,10 @@
-import { useSelector } from 'react-redux';
+import { useContext } from 'react';
 import orderDetailsStyles from './order-details.module.css';
 import doneGif from '../../images/done.gif';
+import { OrderContext } from '../../services/orderContext';
 
-const OrderDetails = () => {
-  const orderData = useSelector(state => state.orderData.orderDetails);
+export default function OrderDetails() {
+  const orderData = useContext(OrderContext);
   return (
     <div className={`${orderDetailsStyles.container}`}>
       <h3 className={`text text_type_digits-large pt-10 ${orderDetailsStyles.title}`}>{orderData.order.number}</h3>
@@ -20,5 +21,3 @@ const OrderDetails = () => {
     </div>
   );
 };
-
-export default OrderDetails;

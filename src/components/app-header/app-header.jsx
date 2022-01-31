@@ -1,10 +1,11 @@
 import { NavLink, Link } from 'react-router-dom';
 import { Logo, BurgerIcon, ListIcon, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components'
-import headerStyles from './header.module.css';
+import headerStyles from './app-header.module.css';
 
-const Header = () => (
-  <header className={`${headerStyles.header} text text_type_main-default pt-4 pb-4`}>
-    <div className={headerStyles.headerContainer}>
+function AppHeader() {
+  return (
+    <header className={`${headerStyles.header} text text_type_main-default pt-4 pb-4`}>
+      <div className={headerStyles.headerContainer}>
       <nav>
         <ul className={headerStyles.list}>
           <li>
@@ -28,8 +29,9 @@ const Header = () => (
         <ProfileIcon type="secondary" />
         <span className={`ml-2`}>Личный кабинет</span>
       </Link>
-    </div>
-  </header >
-);
+      </div>
+    </header >
+  );
+}
 
-export default Header;
+export default AppHeader;
