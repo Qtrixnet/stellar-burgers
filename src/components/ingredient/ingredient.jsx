@@ -1,71 +1,107 @@
-import ingredientStyles from './ingredient.module.css';
-import { useSelector, useDispatch } from 'react-redux';
-import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
+import ingredientStyles from "./ingredient.module.css";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  CurrencyIcon,
+  Counter,
+} from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDrag } from "react-dnd";
-import { addIngredient, selectIngredient } from '../../services/actions/ingredients';
-import { changeIngredientsPopupState } from '../../services/actions/popup';
-import PropTypes from 'prop-types';
-import { v4 as generateUniqueId } from 'uuid';
+import {
+  addIngredient,
+  selectIngredient,
+} from "../../services/actions/ingredients";
+import { changeIngredientsPopupState } from "../../services/actions/popup";
+import PropTypes from "prop-types";
 
 const Ingredient = ({ ingredient }) => {
   const { image, price, name, _id } = ingredient;
 
   const dispatch = useDispatch();
-  const chosenIngredients = useSelector(state => state.ingredientsData.chosenIngredients);
-  const initialIngredients = useSelector(state => state.ingredientsData.ingredients);
+  const chosenIngredients = useSelector(
+    (state) => state.ingredientsData.chosenIngredients
+  );
+  const initialIngredients = useSelector(
+    (state) => state.ingredientsData.ingredients
+  );
 
   const [{ isDrag }, dragRef] = useDrag({
     type: "ingredient",
     item: { _id },
-    collect: monitor => ({
+    collect: (monitor) => ({
       isDrag: monitor.isDragging(),
-    })
+    }),
   });
 
   let ingredientCounter = 0;
 
-  chosenIngredients.forEach(ingredient => ingredient.name === name && (ingredient.type === 'bun' ? ingredientCounter += 2 : ingredientCounter += 1))
+  chosenIngredients.forEach(
+    (ingredient) =>
+      ingredient.name === name &&
+      (ingredient.type === "bun"
+        ? (ingredientCounter += 2)
+        : (ingredientCounter += 1))
+  );
 
   const handleChoseIngredient = (evt) => {
-    evt.preventDefault()
-    const targetIngredient = Object.assign({}, initialIngredients.find(ingredient => ingredient._id === evt.currentTarget.dataset.id))
-    targetIngredient.uuid = generateUniqueId();
-    const selectedBun = chosenIngredients.find(ingredient => ingredient.type === 'bun')
-    const selectedBunIndex = chosenIngredients.indexOf(selectedBun)
+    evt.preventDefault();
+    const targetIngredient = initialIngredients.find(
+      (ingredient) => ingredient._id === evt.currentTarget.dataset.id
+    );
+    const selectedBun = chosenIngredients.find(
+      (ingredient) => ingredient.type === "bun"
+    );
+    const selectedBunIndex = chosenIngredients.indexOf(selectedBun);
 
-    if (targetIngredient.type === 'bun' && selectedBun) {
+    if (targetIngredient.type === "bun" && selectedBun) {
       const chosenIngredientsClone = chosenIngredients.slice();
       chosenIngredientsClone.splice(selectedBunIndex, 1, targetIngredient);
-      dispatch(addIngredient([...chosenIngredientsClone]));
+      dispatch(addIngredient(chosenIngredientsClone));
     } else {
       dispatch(addIngredient([...chosenIngredients, targetIngredient]));
     }
-  }
+  };
 
   const handleIngredientExplore = (evt) => {
-    const id = evt.currentTarget.dataset.id
-    const foundIngredient = initialIngredients.find(ingredient => ingredient._id === id)
-    dispatch(selectIngredient(foundIngredient))
+    const id = evt.currentTarget.dataset.id;
+    const foundIngredient = initialIngredients.find(
+      (ingredient) => ingredient._id === id
+    );
+    dispatch(selectIngredient(foundIngredient));
     dispatch(changeIngredientsPopupState(true));
-  }
+  };
 
   return (
-    <li data-id={_id} onContextMenu={handleChoseIngredient} onClick={handleIngredientExplore} className={`${ingredientStyles.list_item} ${isDrag && ingredientStyles.moving}`} ref={dragRef}>
-      <img alt={name} src={image} className={`${ingredientStyles.image} ml-4 mr-4`} />
+    <li
+      data-id={_id}
+      onContextMenu={handleChoseIngredient}
+      onClick={handleIngredientExplore}
+      className={`${ingredientStyles.list_item} ${
+        isDrag && ingredientStyles.moving
+      }`}
+      ref={dragRef}
+    >
+      <img
+        alt={name}
+        src={image}
+        className={`${ingredientStyles.image} ml-4 mr-4`}
+      />
       <div className={`${ingredientStyles.price_info} mt-4 mb-4`}>
         <span className="text text_type_digits-default mr-2">{price}</span>
         <CurrencyIcon type="primary" />
       </div>
-      <h3 className={`${ingredientStyles.text} text text_type_main-default`}>{name}</h3>
-      {ingredientCounter > 0 && <Counter count={ingredientCounter} size="default" />}
+      <h3 className={`${ingredientStyles.text} text text_type_main-default`}>
+        {name}
+      </h3>
+      {ingredientCounter > 0 && (
+        <Counter count={ingredientCounter} size="default" />
+      )}
       <div className={`${ingredientStyles.hint_icons}`}>
         <span className={`${ingredientStyles.left_click_icon}`}></span>
         <span className={`${ingredientStyles.right_click_icon}`}></span>
         <span className={`${ingredientStyles.drag_icon}`}></span>
       </div>
     </li>
-  )
-}
+  );
+};
 
 Ingredient.propTypes = {
   ingredient: PropTypes.shape({
@@ -84,4 +120,3 @@ Ingredient.propTypes = {
 };
 
 export default Ingredient;
-

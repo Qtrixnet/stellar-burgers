@@ -19,7 +19,7 @@ const Main = () => {
     if (targetIngredient.type === 'bun' && selectedBun) {
       const chosenIngredientsClone = chosenIngredients.slice();
       chosenIngredientsClone.splice(selectedBunIndex, 1, targetIngredient);
-      dispatch(addIngredient([...chosenIngredientsClone]));
+      dispatch(addIngredient(chosenIngredientsClone));
     } else {
       dispatch(addIngredient([...chosenIngredients, targetIngredient]));
     }
