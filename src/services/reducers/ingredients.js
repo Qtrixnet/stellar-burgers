@@ -68,6 +68,7 @@ export const ingredientsReducer = (state = initialState, action) => {
       };
     }
     case ADD_INGREDIENT: {
+      console.log(action.payload)
       return {
         ...state,
         chosenIngredients: action.payload

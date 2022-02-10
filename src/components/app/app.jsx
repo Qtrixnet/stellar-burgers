@@ -9,6 +9,8 @@ import IngredientDetails from '../ingredient-details/ingredient-details';
 import Modal from '../modal/modal';
 import Loader from '../loader/loader';
 import Login from '../login/login';
+import PasswordRecovery from '../password-recovery/password-recovery';
+import Register from '../register/register';
 import { getIngredients } from '../../services/actions/ingredients';
 import { changeOrderDetailsPopupState, changeIngredientsPopupState } from '../../services/actions/popup';
 import { deleteSelectedIngredient } from '../../services/actions/ingredients';
@@ -36,8 +38,8 @@ const App = () => {
         ingredientsRequest ? (<Loader />) :
           <>
             <Header />
-            <Main />
-            {/* <Login /> */}
+            {/* <Main /> */}
+            <PasswordRecovery />
             {
               isOrderDetailsPopupOpen && (
                 <Modal handlePopupClose={handlePopupClose}>

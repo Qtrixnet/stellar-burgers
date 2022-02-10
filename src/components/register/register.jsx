@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import LoginStyles from "./login.module.css";
+import RegisterStyles from "./register.module.css";
 import { Link } from "react-router-dom";
 import {
   Input,
@@ -7,7 +7,7 @@ import {
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
-const Login = () => {
+const Register = () => {
   const [value, setValue] = useState("");
   const [passwordValue, setPasswordValue] = useState("");
   const inputRef = useRef(null);
@@ -22,12 +22,26 @@ const Login = () => {
   };
 
   return (
-    <section className={LoginStyles.wrapper}>
-      <form className={LoginStyles.form}>
-        <p className={`${LoginStyles.title} text text_type_main-medium`}>
-          Вход
+    <section className={RegisterStyles.wrapper}>
+      <form className={RegisterStyles.form}>
+        <p className={`${RegisterStyles.title} text text_type_main-medium`}>
+          Регистрация
         </p>
-        <div className='mt-6 mb-6'>
+        <div className="mt-6 mb-6">
+          <Input
+            type={"text"}
+            placeholder={"Имя"}
+            onChange={(e) => setValue(e.target.value)}
+            value={value}
+            name={"name"}
+            error={false}
+            ref={inputRef}
+            onIconClick={onIconClick}
+            errorText={"Ошибка"}
+            size={"default"}
+          />
+        </div>
+        <div className="mb-6">
           <Input
             type={"text"}
             placeholder={"E-mail"}
@@ -49,23 +63,17 @@ const Login = () => {
           />
         </div>
         <Button type="primary" size="medium">
-          Войти
+          Зарегистрироваться
         </Button>
       </form>
       <p className="text text_type_main-default text_color_inactive">
-        {'Вы — новый пользователь? '}
-        <Link className={LoginStyles.link} to="/">
-          Зарегистрироваться
-        </Link>
-      </p>
-      <p className="text text_type_main-default text_color_inactive mt-4">
-        {'Забыли пароль? '}
-        <Link className={LoginStyles.link} to="/">
-          Восстановить пароль
+        {"Уже зарегистрированы? "}
+        <Link className={RegisterStyles.link} to="/">
+          Войти
         </Link>
       </p>
     </section>
   );
 };
 
-export default Login;
+export default Register;

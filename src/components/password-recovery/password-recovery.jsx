@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import LoginStyles from "./login.module.css";
+import PasswordRecoveryStyles from "./password-recovery.module.css";
 import { Link } from "react-router-dom";
 import {
   Input,
@@ -7,7 +7,7 @@ import {
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
-const Login = () => {
+const PasswordRecovery = () => {
   const [value, setValue] = useState("");
   const [passwordValue, setPasswordValue] = useState("");
   const inputRef = useRef(null);
@@ -22,15 +22,17 @@ const Login = () => {
   };
 
   return (
-    <section className={LoginStyles.wrapper}>
-      <form className={LoginStyles.form}>
-        <p className={`${LoginStyles.title} text text_type_main-medium`}>
-          Вход
+    <section className={PasswordRecoveryStyles.wrapper}>
+      <form className={PasswordRecoveryStyles.form}>
+        <p
+          className={`${PasswordRecoveryStyles.title} text text_type_main-medium mb-6`}
+        >
+          Восстановление пароля
         </p>
-        <div className='mt-6 mb-6'>
+        <div className="mb-6">
           <Input
             type={"text"}
-            placeholder={"E-mail"}
+            placeholder={"Укажите e-mail"}
             onChange={(e) => setValue(e.target.value)}
             value={value}
             name={"e-mail"}
@@ -41,31 +43,18 @@ const Login = () => {
             size={"default"}
           />
         </div>
-        <div className="mb-6">
-          <PasswordInput
-            onChange={onPasswordChange}
-            value={passwordValue}
-            name={"password"}
-          />
-        </div>
         <Button type="primary" size="medium">
-          Войти
+          Восстановить
         </Button>
       </form>
       <p className="text text_type_main-default text_color_inactive">
-        {'Вы — новый пользователь? '}
-        <Link className={LoginStyles.link} to="/">
-          Зарегистрироваться
-        </Link>
-      </p>
-      <p className="text text_type_main-default text_color_inactive mt-4">
-        {'Забыли пароль? '}
-        <Link className={LoginStyles.link} to="/">
-          Восстановить пароль
+        {"Вспомнили пароль? "}
+        <Link className={PasswordRecoveryStyles.link} to="/">
+          Войти
         </Link>
       </p>
     </section>
   );
 };
 
-export default Login;
+export default PasswordRecovery;
