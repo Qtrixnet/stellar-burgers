@@ -1,16 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/app/app.jsx';
-import { HashRouter } from "react-router-dom";
+import { BrowserRouter as Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { store } from './services/store';
 
 ReactDOM.render((
   <React.StrictMode>
-    <HashRouter>
+    <Router>
       <Provider store={store}>
         <App />
       </Provider>
-    </HashRouter>
+    </Router>
   </React.StrictMode>
 ), document.getElementById('root'));

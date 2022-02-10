@@ -54,13 +54,13 @@ const Login = () => {
       </form>
       <p className="text text_type_main-default text_color_inactive">
         {'Вы — новый пользователь? '}
-        <Link className={LoginStyles.link} to="/">
+        <Link className={LoginStyles.link} to="/register">
           Зарегистрироваться
         </Link>
       </p>
       <p className="text text_type_main-default text_color_inactive mt-4">
         {'Забыли пароль? '}
-        <Link className={LoginStyles.link} to="/">
+        <Link className={LoginStyles.link} to="/forgot-password">
           Восстановить пароль
         </Link>
       </p>

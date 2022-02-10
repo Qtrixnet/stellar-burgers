@@ -1,15 +1,13 @@
 import { useState, useRef } from "react";
-import PasswordRecoveryConfirmStyles from "./password-recovery-confirm.module.css";
+import ForgotPasswordStyles from "./forgot-password.module.css";
 import { Link } from "react-router-dom";
 import {
   Input,
   Button,
-  PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
-const PasswordRecoveryConfirm = () => {
+const ForgotPassword = () => {
   const [value, setValue] = useState("");
-  const [passwordValue, setPasswordValue] = useState("");
   const inputRef = useRef(null);
 
   const onIconClick = () => {
@@ -17,28 +15,18 @@ const PasswordRecoveryConfirm = () => {
     alert("Icon Click Callback");
   };
 
-  const onPasswordChange = (e) => {
-    setPasswordValue(e.target.value);
-  };
-
   return (
-    <section className={PasswordRecoveryConfirmStyles.wrapper}>
-      <form className={PasswordRecoveryConfirmStyles.form}>
+    <section className={ForgotPasswordStyles.wrapper}>
+      <form className={ForgotPasswordStyles.form}>
         <p
-          className={`${PasswordRecoveryConfirmStyles.title} text text_type_main-medium mb-6`}
+          className={`${ForgotPasswordStyles.title} text text_type_main-medium mb-6`}
         >
           Восстановление пароля
         </p>
-        <PasswordInput
-          onChange={onPasswordChange}
-          value={passwordValue}
-          name={"password"}
-          placeholder={"Введите новый пароль"}
-        />
-        <div className="mb-6 mt-6">
+        <div className="mb-6">
           <Input
             type={"text"}
-            placeholder={"Введите код из письма"}
+            placeholder={"Укажите e-mail"}
             onChange={(e) => setValue(e.target.value)}
             value={value}
             name={"e-mail"}
@@ -50,12 +38,12 @@ const PasswordRecoveryConfirm = () => {
           />
         </div>
         <Button type="primary" size="medium">
-          Сохранить
+          Восстановить
         </Button>
       </form>
       <p className="text text_type_main-default text_color_inactive">
         {"Вспомнили пароль? "}
-        <Link className={PasswordRecoveryConfirmStyles.link} to="/">
+        <Link className={ForgotPasswordStyles.link} to="/login">
           Войти
         </Link>
       </p>
@@ -63,4 +51,4 @@ const PasswordRecoveryConfirm = () => {
   );
 };
 
-export default PasswordRecoveryConfirm;
+export default ForgotPassword;

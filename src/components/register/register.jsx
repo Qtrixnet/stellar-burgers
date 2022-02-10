@@ -68,7 +68,7 @@ const Register = () => {
       </form>
       <p className="text text_type_main-default text_color_inactive">
         {"Уже зарегистрированы? "}
-        <Link className={RegisterStyles.link} to="/">
+        <Link className={RegisterStyles.link} to="/login">
           Войти
         </Link>
       </p>

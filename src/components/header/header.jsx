@@ -24,7 +24,7 @@ const Header = () => (
       <div className={headerStyles.logo}>
         <Logo />
       </div>
-      <Link className={`p-5 ${headerStyles.link} ${headerStyles.profile}`} to="/">
+      <Link className={`p-5 ${headerStyles.link} ${headerStyles.profile}`} to="/profile">
         <ProfileIcon type="secondary" />
         <span className={`ml-2`}>Личный кабинет</span>
       </Link>

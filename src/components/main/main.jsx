@@ -1,10 +1,16 @@
 import { useDispatch, useSelector } from 'react-redux';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
 import mainStyles from './main.module.css';
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { addIngredient } from '../../services/actions/ingredients';
+import Login from '../login/login';
+import Register from '../register/register';
+import ForgotPassword from '../forgot-password/forgot-password';
+import ResetPassword from '../reset-password/reset-password';
+import Profile from '../profile/profile';
 
 const Main = () => {
   const dispatch = useDispatch();
@@ -28,10 +34,34 @@ const Main = () => {
   return (
     <main className={mainStyles.main}>
       <DndProvider backend={HTML5Backend}>
-        <section className={mainStyles.main_container}>
-          <BurgerIngredients />
-          <BurgerConstructor onDropHandler={handleDrop} />
-        </section>
+        <Router>
+          <Switch>
+            <Route exact path="/">
+              <section className={mainStyles.main_container}>
+                <BurgerIngredients />
+                <BurgerConstructor onDropHandler={handleDrop} />
+              </section>
+            </Route>
+            <Route path="/login">
+              <Login />
+            </Route>
+            <Route path="/register">
+              <Register />
+            </Route>
+            <Route path="/forgot-password">
+              <ForgotPassword />
+            </Route>
+            <Route path="/reset-password">
+              <ResetPassword />
+            </Route>
+            <Route path="/profile">
+              <Profile />
+            </Route>
+            {/* <Route path="/register">
+                <Register />
+              </Route> */}
+          </Switch>
+        </Router>
       </DndProvider>
     </main>
   );
