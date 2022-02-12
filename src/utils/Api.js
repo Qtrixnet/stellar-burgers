@@ -49,8 +49,23 @@ class Api {
       }),
     }).then((res) => this._requestResult(res));
   }
+
+  resetPassword({ passwordValue, codeValue }) {
+    return fetch(`${this._baseUrl}/password-reset/reset`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        password: passwordValue,
+        token: codeValue,
+      }),
+    }).then((res) => this._requestResult(res));
+  }
 }
 
 const mainApi = new Api(BASE_URL);
 
 export default mainApi;
+
+// {"success":true,"user":{"email":"qtrixnet@yandex.ru","name":"Kirill"},"accessToken":"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyMDc5ZWEzNmQ3Y2Q4MDAxYjJkNWExNiIsImlhdCI6MTY0NDY2NjUzMSwiZXhwIjoxNjQ0NjY3NzMxfQ.jksuD1oqMgC3vKuc9wEfqiQsbtuZu0s5R30uBCwrFvs","refreshToken":"41765e93e60b6210167ddd963d4e6a12c7db659dabdafbbf41f3adacb285e4c0a45b98a00e0718f1"}

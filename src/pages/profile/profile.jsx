@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 import ProfileStyles from "./profile.module.css";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import {
   Input,
 } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -20,13 +20,13 @@ const Profile = () => {
       <nav className={ProfileStyles.navigation}>
         <ul className={`${ProfileStyles.list}`}>
           <li className={ProfileStyles.list_item}>
-            <Link className={`${ProfileStyles.link} text text_type_main-medium`} to="/profile">Профиль</Link>
+            <NavLink activeClassName={ProfileStyles.link_active} className={`${ProfileStyles.link} text text_type_main-medium`} exact to="/profile">Профиль</NavLink>
           </li>
           <li>
-            <Link className={`${ProfileStyles.link} text text_type_main-medium`} to="/">История заказов</Link>
+            <NavLink activeClassName={ProfileStyles.link_active} className={`${ProfileStyles.link} text text_type_main-medium`} exact to="/profile/orders">История заказов</NavLink>
           </li>
           <li>
-            <Link className={`${ProfileStyles.link} text text_type_main-medium`} to="/">Выход</Link>
+            <NavLink activeClassName={ProfileStyles.link_active} className={`${ProfileStyles.link} text text_type_main-medium`} exact to="/">Выход</NavLink>
           </li>
         </ul>
         <p className={`${ProfileStyles.text} text text_type_main-default text_color_inactive`}>В этом разделе вы можете изменить свои персональные данные</p>

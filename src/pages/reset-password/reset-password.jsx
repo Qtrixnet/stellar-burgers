@@ -6,24 +6,35 @@ import {
   Button,
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import PropTypes from 'prop-types';
 
-const ResetPassword = () => {
-  const [value, setValue] = useState("");
+const ResetPassword = ({ handlePasswordSave }) => {
+  const [codeValue, setCodeValue] = useState("");
   const [passwordValue, setPasswordValue] = useState("");
   const inputRef = useRef(null);
 
   const onIconClick = () => {
     setTimeout(() => inputRef.current.focus(), 0);
-    alert("Icon Click Callback");
   };
 
   const onPasswordChange = (e) => {
     setPasswordValue(e.target.value);
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault()
+
+    if (!passwordValue || !codeValue) {
+      return;
+    }
+
+    handlePasswordSave({ passwordValue, codeValue })
+    // setValue('')
+  }
+
   return (
     <section className={ResetPasswordStyles.wrapper}>
-      <form className={ResetPasswordStyles.form}>
+      <form onSubmit={handleSubmit} className={ResetPasswordStyles.form}>
         <p
           className={`${ResetPasswordStyles.title} text text_type_main-medium mb-6`}
         >
@@ -39,8 +50,8 @@ const ResetPassword = () => {
           <Input
             type={"text"}
             placeholder={"Введите код из письма"}
-            onChange={(e) => setValue(e.target.value)}
-            value={value}
+            onChange={(e) => setCodeValue(e.target.value)}
+            value={codeValue}
             name={"e-mail"}
             error={false}
             ref={inputRef}
@@ -61,6 +72,10 @@ const ResetPassword = () => {
       </p>
     </section>
   );
+};
+
+ResetPassword.propTypes = {
+  handlePasswordSave: PropTypes.func.isRequired,
 };
 
 export default ResetPassword;

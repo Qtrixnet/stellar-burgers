@@ -23,6 +23,7 @@ const ForgotPassword = ({ onPasswordForgot }) => {
     setValue('')
     history.push('/reset-password');
   }
+
   return (
     <section className={ForgotPasswordStyles.wrapper}>
       <form onSubmit={handleSubmit} className={ForgotPasswordStyles.form}>

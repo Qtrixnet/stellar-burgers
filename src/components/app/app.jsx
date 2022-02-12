@@ -42,13 +42,25 @@ const App = () => {
       })
   }
 
+  const handlePasswordSave = (password) => {
+    mainApi.resetPassword(password)
+      .then(res => {
+        console.log(res)
+        if (res.token) {
+        }
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
+
   return (
     <div className={`${appStyles.app}`}>
       {
         ingredientsRequest ? (<Loader />) :
           <>
             <Header />
-            <Main onPasswordForgot={handlePasswordForgot} />
+            <Main onPasswordForgot={handlePasswordForgot} handlePasswordSave={handlePasswordSave} />
             {
               isOrderDetailsPopupOpen && (
                 <Modal handlePopupClose={handlePopupClose}>
