@@ -5,6 +5,8 @@ import ingredientDetailsStyles from './ingredient-details.module.css';
 const IngredientDetails = () => {
   const selectedIngredient = useSelector(state => state.ingredientsData.selectedIngredient);
 
+  console.log(selectedIngredient)
+
   return (
     <div className={`${ingredientDetailsStyles.container}`}>
       <img width="480" height="240" alt={selectedIngredient.name} src={selectedIngredient && selectedIngredient.image} />

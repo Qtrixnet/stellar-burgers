@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
 import mainStyles from './main.module.css';
@@ -11,8 +11,11 @@ import Register from '../register/register';
 import ForgotPassword from '../forgot-password/forgot-password';
 import ResetPassword from '../reset-password/reset-password';
 import Profile from '../profile/profile';
+import NotFound from '../not-found/not-found';
+import IngredientPage from '../ingredient-page/ingredient-page';
+import PropTypes from 'prop-types';
 
-const Main = () => {
+const Main = ({ onPasswordForgot }) => {
   const dispatch = useDispatch();
   const chosenIngredients = useSelector(state => state.ingredientsData.chosenIngredients);
   const initialIngredients = useSelector(state => state.ingredientsData.ingredients);
@@ -32,39 +35,45 @@ const Main = () => {
   };
 
   return (
-    <main className={mainStyles.main}>
+    <main className={`${mainStyles.main} pb-10`}>
       <DndProvider backend={HTML5Backend}>
-        <Router>
-          <Switch>
-            <Route exact path="/">
-              <section className={mainStyles.main_container}>
-                <BurgerIngredients />
-                <BurgerConstructor onDropHandler={handleDrop} />
-              </section>
-            </Route>
-            <Route path="/login">
-              <Login />
-            </Route>
-            <Route path="/register">
-              <Register />
-            </Route>
-            <Route path="/forgot-password">
-              <ForgotPassword />
-            </Route>
-            <Route path="/reset-password">
-              <ResetPassword />
-            </Route>
-            <Route path="/profile">
-              <Profile />
-            </Route>
-            {/* <Route path="/register">
-                <Register />
-              </Route> */}
-          </Switch>
-        </Router>
+        <Switch>
+          <Route exact path="/">
+            <section className={mainStyles.main_container}>
+              <BurgerIngredients />
+              <BurgerConstructor onDropHandler={handleDrop} />
+            </section>
+          </Route>
+          <Route path="/login">
+            <Login />
+          </Route>
+          <Route path="/register">
+            <Register />
+          </Route>
+          <Route path="/forgot-password">
+            <ForgotPassword onPasswordForgot={onPasswordForgot} />
+          </Route>
+          <Route path="/reset-password">
+            <ResetPassword />
+          </Route>
+          <Route path="/profile">
+            <Profile />
+          </Route>
+          <Route path="/ingredients">
+            <IngredientPage />
+          </Route>
+          <Route path="*">
+            <NotFound />
+          </Route>
+        </Switch>
       </DndProvider>
     </main>
   );
 };
+
+Main.propTypes = {
+  onPasswordForgot: PropTypes.func.isRequired,
+};
+
 
 export default Main;

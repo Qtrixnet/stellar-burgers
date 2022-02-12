@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import appStyles from './app.module.css';
-
 import Header from '../header/header';
 import Main from '../main/main';
 import OrderDetails from '../order-details/order-details';
@@ -12,6 +11,7 @@ import { getIngredients } from '../../services/actions/ingredients';
 import { changeOrderDetailsPopupState, changeIngredientsPopupState } from '../../services/actions/popup';
 import { deleteSelectedIngredient } from '../../services/actions/ingredients';
 import { deleteOrderData } from '../../services/actions/order';
+import mainApi from '../../utils/Api';
 
 const App = () => {
   const orderData = useSelector(state => state.orderData.orderDetails);
@@ -29,13 +29,26 @@ const App = () => {
     isOrderDetailsPopupOpen ? dispatch(deleteOrderData()) : dispatch(deleteSelectedIngredient())
   }
 
+  //* Отправка имейла для восстановления пароля
+  const handlePasswordForgot = (email) => {
+    mainApi.sendEmail(email)
+      .then(res => {
+        if (res.token) {
+          console.log(res)
+        }
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
+
   return (
-    <div className={`${appStyles.app} pb-10`}>
+    <div className={`${appStyles.app}`}>
       {
         ingredientsRequest ? (<Loader />) :
           <>
             <Header />
-            <Main />
+            <Main onPasswordForgot={handlePasswordForgot} />
             {
               isOrderDetailsPopupOpen && (
                 <Modal handlePopupClose={handlePopupClose}>

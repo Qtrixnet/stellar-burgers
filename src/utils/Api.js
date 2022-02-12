@@ -17,11 +17,12 @@ class Api {
     }
   }
 
-  //* Запрос данных 
+  //* Запрос ингредиентов
   getIngredients() {
     return fetch(`${this._baseUrl}/ingredients`).then((res) => this._requestResult(res));
   }
 
+  //* Отправка данных заказа
   sendIngredients(ingredientsIds) {
     const burgerData = {
       'ingredients': ingredientsIds
@@ -33,6 +34,19 @@ class Api {
         'Content-Type': 'application/json;charset=utf-8'
       },
       body: JSON.stringify(burgerData)
+    }).then((res) => this._requestResult(res));
+  }
+
+  //* Запрос на восстановление пароля
+  sendEmail(email) {
+    return fetch(`${this._baseUrl}/password-reset`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: email,
+      }),
     }).then((res) => this._requestResult(res));
   }
 }

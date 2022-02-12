@@ -3,6 +3,7 @@
   max-width: 1240px;
   margin: 0 auto;
   flex-grow: 1;
+  display: flex;
 }
 
 .main_container {

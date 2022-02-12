@@ -15,14 +15,12 @@ const Profile = () => {
     alert('Icon Click Callback')
   }
 
-  console.log(1)
-
   return (
     <section className={ProfileStyles.wrapper}>
       <nav className={ProfileStyles.navigation}>
         <ul className={`${ProfileStyles.list}`}>
           <li className={ProfileStyles.list_item}>
-            <Link className={`${ProfileStyles.link} text text_type_main-medium`} to="/">Профиль</Link>
+            <Link className={`${ProfileStyles.link} text text_type_main-medium`} to="/profile">Профиль</Link>
           </li>
           <li>
             <Link className={`${ProfileStyles.link} text text_type_main-medium`} to="/">История заказов</Link>

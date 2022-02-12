@@ -1,23 +1,31 @@
 import { useState, useRef } from "react";
 import ForgotPasswordStyles from "./forgot-password.module.css";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import {
   Input,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import PropTypes from 'prop-types';
 
-const ForgotPassword = () => {
+const ForgotPassword = ({ onPasswordForgot }) => {
   const [value, setValue] = useState("");
   const inputRef = useRef(null);
+  const history = useHistory();
 
-  const onIconClick = () => {
-    setTimeout(() => inputRef.current.focus(), 0);
-    alert("Icon Click Callback");
-  };
+  const handleSubmit = (e) => {
+    e.preventDefault()
 
+    if (!value) {
+      return;
+    }
+
+    onPasswordForgot(value)
+    setValue('')
+    history.push('/reset-password');
+  }
   return (
     <section className={ForgotPasswordStyles.wrapper}>
-      <form className={ForgotPasswordStyles.form}>
+      <form onSubmit={handleSubmit} className={ForgotPasswordStyles.form}>
         <p
           className={`${ForgotPasswordStyles.title} text text_type_main-medium mb-6`}
         >
@@ -27,12 +35,11 @@ const ForgotPassword = () => {
           <Input
             type={"text"}
             placeholder={"Укажите e-mail"}
-            onChange={(e) => setValue(e.target.value)}
+            onChange={(evt) => setValue(evt.target.value)}
             value={value}
             name={"e-mail"}
             error={false}
             ref={inputRef}
-            onIconClick={onIconClick}
             errorText={"Ошибка"}
             size={"default"}
           />
@@ -49,6 +56,10 @@ const ForgotPassword = () => {
       </p>
     </section>
   );
+};
+
+ForgotPassword.propTypes = {
+  onPasswordForgot: PropTypes.func.isRequired,
 };
 
 export default ForgotPassword;

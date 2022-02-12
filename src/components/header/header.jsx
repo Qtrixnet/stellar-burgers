@@ -1,4 +1,4 @@
-import { NavLink, Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { Logo, BurgerIcon, ListIcon, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import headerStyles from './header.module.css';
 
@@ -8,13 +8,13 @@ const Header = () => (
       <nav>
         <ul className={headerStyles.list}>
           <li>
-            <NavLink className={`pt-5 pr-5 pb-5 ${headerStyles.link_active} ${headerStyles.link}`} to="/">
+            <NavLink activeClassName={headerStyles.link_active} className={`pt-5 pr-5 pb-5 ${headerStyles.link}`} to="/">
               <BurgerIcon type="primary" />
               <span className={`ml-2`}>Конструктор</span>
             </NavLink>
           </li>
           <li>
-            <NavLink className={`p-5 ${headerStyles.link}`} to="/">
+            <NavLink activeClassName={headerStyles.link_active} className={`p-5 ${headerStyles.link}`} to="/orders">
               <ListIcon type="secondary" />
               <span className={`ml-2`}>Лента заказов</span>
             </NavLink>
@@ -24,10 +24,10 @@ const Header = () => (
       <div className={headerStyles.logo}>
         <Logo />
       </div>
-      <Link className={`p-5 ${headerStyles.link} ${headerStyles.profile}`} to="/profile">
+      <NavLink activeClassName={headerStyles.link_active} className={`p-5 ${headerStyles.link} ${headerStyles.profile}`} to="/profile">
         <ProfileIcon type="secondary" />
         <span className={`ml-2`}>Личный кабинет</span>
-      </Link>
+      </NavLink>
     </div>
   </header >
 );
