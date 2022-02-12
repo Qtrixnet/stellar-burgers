@@ -1,16 +1,18 @@
 import { useState, useRef } from "react";
 import LoginStyles from "./login.module.css";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import {
   Input,
   Button,
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import PropTypes from 'prop-types';
 
-const Login = () => {
-  const [value, setValue] = useState("");
+const Login = ({ onLogin }) => {
+  const [emailValue, setEmailValue] = useState("");
   const [passwordValue, setPasswordValue] = useState("");
   const inputRef = useRef(null);
+  const history = useHistory();
 
   const onIconClick = () => {
     setTimeout(() => inputRef.current.focus(), 0);
@@ -21,9 +23,21 @@ const Login = () => {
     setPasswordValue(e.target.value);
   };
 
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+
+    if (!emailValue || !passwordValue) {
+      return;
+    }
+
+    onLogin(emailValue, passwordValue)
+    history.push('/');
+  }
+
   return (
     <section className={LoginStyles.wrapper}>
-      <form className={LoginStyles.form}>
+      <form onSubmit={handleSubmit} className={LoginStyles.form}>
         <p className={`${LoginStyles.title} text text_type_main-medium`}>
           Вход
         </p>
@@ -31,8 +45,8 @@ const Login = () => {
           <Input
             type={"text"}
             placeholder={"E-mail"}
-            onChange={(e) => setValue(e.target.value)}
-            value={value}
+            onChange={(e) => setEmailValue(e.target.value)}
+            value={emailValue}
             name={"e-mail"}
             error={false}
             ref={inputRef}
@@ -66,6 +80,10 @@ const Login = () => {
       </p>
     </section>
   );
+};
+
+Login.propTypes = {
+  onLogin: PropTypes.func.isRequired,
 };
 
 export default Login;

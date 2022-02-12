@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 import ResetPasswordStyles from "./reset-password.module.css";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import {
   Input,
   Button,
@@ -8,10 +8,11 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from 'prop-types';
 
-const ResetPassword = ({ handlePasswordSave }) => {
+const ResetPassword = ({ onPasswordSave }) => {
   const [codeValue, setCodeValue] = useState("");
   const [passwordValue, setPasswordValue] = useState("");
   const inputRef = useRef(null);
+  const history = useHistory();
 
   const onIconClick = () => {
     setTimeout(() => inputRef.current.focus(), 0);
@@ -28,8 +29,10 @@ const ResetPassword = ({ handlePasswordSave }) => {
       return;
     }
 
-    handlePasswordSave({ passwordValue, codeValue })
-    // setValue('')
+    onPasswordSave({ passwordValue, codeValue })
+    setCodeValue('')
+    setPasswordValue('')
+    history.push('/login');
   }
 
   return (
@@ -75,7 +78,7 @@ const ResetPassword = ({ handlePasswordSave }) => {
 };
 
 ResetPassword.propTypes = {
-  handlePasswordSave: PropTypes.func.isRequired,
+  onPasswordSave: PropTypes.func.isRequired,
 };
 
 export default ResetPassword;

@@ -15,7 +15,7 @@ import NotFound from '../../pages/not-found/not-found';
 import IngredientPage from '../../pages/ingredient-page/ingredient-page';
 import PropTypes from 'prop-types';
 
-const Main = ({ onPasswordForgot, handlePasswordSave }) => {
+const Main = ({ onPasswordForgot, onPasswordSave, onRegister, onLogin }) => {
   const dispatch = useDispatch();
   const chosenIngredients = useSelector(state => state.ingredientsData.chosenIngredients);
   const initialIngredients = useSelector(state => state.ingredientsData.ingredients);
@@ -45,16 +45,16 @@ const Main = ({ onPasswordForgot, handlePasswordSave }) => {
             </section>
           </Route>
           <Route path="/login">
-            <Login />
+            <Login onLogin={onLogin} />
           </Route>
           <Route path="/register">
-            <Register />
+            <Register onRegister={onRegister} />
           </Route>
           <Route path="/forgot-password">
             <ForgotPassword onPasswordForgot={onPasswordForgot} />
           </Route>
           <Route path="/reset-password">
-            <ResetPassword handlePasswordSave={handlePasswordSave} />
+            <ResetPassword onPasswordSave={onPasswordSave} />
           </Route>
           <Route path="/profile">
             <Profile />
@@ -73,7 +73,9 @@ const Main = ({ onPasswordForgot, handlePasswordSave }) => {
 
 Main.propTypes = {
   onPasswordForgot: PropTypes.func.isRequired,
-  handlePasswordSave: PropTypes.func.isRequired
+  onPasswordSave: PropTypes.func.isRequired,
+  onRegister: PropTypes.func.isRequired,
+  onLogin: PropTypes.func.isRequired,
 };
 
 

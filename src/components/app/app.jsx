@@ -33,23 +33,42 @@ const App = () => {
   const handlePasswordForgot = (email) => {
     mainApi.sendEmail(email)
       .then(res => {
-        if (res.token) {
-          console.log(res)
-        }
+        console.log(res)
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err)
       })
   }
 
+  //* Установка нового пароля
   const handlePasswordSave = (password) => {
     mainApi.resetPassword(password)
       .then(res => {
         console.log(res)
-        if (res.token) {
-        }
       })
-      .catch(err => {
+      .catch((err) => {
+        console.log(err)
+      })
+  }
+
+  //* Регистрация
+  const handleRegister = (email, name, password) => {
+    mainApi.register(email, name, password)
+      .then(res => {
+        console.log(res)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }
+
+  //* Логин
+  const handleLogin = (email, password) => {
+    mainApi.login(email, password)
+      .then(res => {
+        console.log(res)
+      })
+      .catch((err) => {
         console.log(err)
       })
   }
@@ -60,7 +79,7 @@ const App = () => {
         ingredientsRequest ? (<Loader />) :
           <>
             <Header />
-            <Main onPasswordForgot={handlePasswordForgot} handlePasswordSave={handlePasswordSave} />
+            <Main onPasswordForgot={handlePasswordForgot} onPasswordSave={handlePasswordSave} onRegister={handleRegister} onLogin={handleLogin} />
             {
               isOrderDetailsPopupOpen && (
                 <Modal handlePopupClose={handlePopupClose}>

@@ -1,29 +1,43 @@
 import { useState, useRef } from "react";
 import RegisterStyles from "./register.module.css";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import {
   Input,
   Button,
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import PropTypes from 'prop-types';
 
-const Register = () => {
-  const [value, setValue] = useState("");
+const Register = ({ onRegister }) => {
+  const [nameValue, setNameValue] = useState("");
+  const [emailValue, setEmailValue] = useState('');
   const [passwordValue, setPasswordValue] = useState("");
   const inputRef = useRef(null);
+  const history = useHistory();
 
   const onIconClick = () => {
     setTimeout(() => inputRef.current.focus(), 0);
-    alert("Icon Click Callback");
+
   };
 
   const onPasswordChange = (e) => {
     setPasswordValue(e.target.value);
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault()
+
+    if (!nameValue || !emailValue || !passwordValue) {
+      return;
+    }
+
+    onRegister(emailValue, nameValue, passwordValue)
+    history.push('/login');
+  }
+
   return (
     <section className={RegisterStyles.wrapper}>
-      <form className={RegisterStyles.form}>
+      <form onSubmit={handleSubmit} className={RegisterStyles.form}>
         <p className={`${RegisterStyles.title} text text_type_main-medium`}>
           Регистрация
         </p>
@@ -31,8 +45,8 @@ const Register = () => {
           <Input
             type={"text"}
             placeholder={"Имя"}
-            onChange={(e) => setValue(e.target.value)}
-            value={value}
+            onChange={(e) => setNameValue(e.target.value)}
+            value={nameValue}
             name={"name"}
             error={false}
             ref={inputRef}
@@ -45,8 +59,8 @@ const Register = () => {
           <Input
             type={"text"}
             placeholder={"E-mail"}
-            onChange={(e) => setValue(e.target.value)}
-            value={value}
+            onChange={(e) => setEmailValue(e.target.value)}
+            value={emailValue}
             name={"e-mail"}
             error={false}
             ref={inputRef}
@@ -74,6 +88,10 @@ const Register = () => {
       </p>
     </section>
   );
+};
+
+Register.propTypes = {
+  onRegister: PropTypes.func.isRequired,
 };
 
 export default Register;
