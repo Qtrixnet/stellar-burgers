@@ -1,47 +1,104 @@
-// import mainApi from '../../utils/Api';
+import mainApi from '../../utils/Api';
 
-// export const SAVE_NEW_PASSWORD = 'SAVE_NEW_PASSWORD';
-// export const SAVE_NEW_PASSWORD_SUCCESS = 'SAVE_NEW_PASSWORD_SUCCESS';
-// export const SAVE_NEW_PASSWORD_FAILED = 'SAVE_NEW_PASSWORD_FAILED';
-// export const SEND_EMAIL = 'SEND_EMAIL';
-// export const SEND_EMAIL_SUCCESS = 'SEND_EMAIL_SUCCESS';
-// export const SEND_EMAIL_FAILED = 'SEND_EMAIL_FAILED';
+export const REGISTRATION = 'REGISTRATION';
+export const REGISTRATION_SUCCESS = 'REGISTRATION_SUCCESS';
+export const REGISTRATION_FAILED = 'REGISTRATION_FAILED';
 
-// export const setSaveNewPasswordLoading = () => ({ type: SAVE_NEW_PASSWORD })
-// export const setSaveNewPasswordSuccess = (data) => ({ type: SAVE_NEW_PASSWORD_SUCCESS, payload: data })
-// export const setSaveNewPasswordFailed = () => ({ type: SAVE_NEW_PASSWORD_FAILED })
-// export const setSendEmailLoading = () => ({ type: SEND_EMAIL })
-// export const setSendEmailSuccess = (data) => ({ type: SEND_EMAIL_SUCCESS, payload: data })
-// export const setSendEmailFailed = () => ({ type: SEND_EMAIL_FAILED })
+export const LOGIN = 'LOGIN';
+export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
+export const LOGIN_FAILED = 'LOGIN_FAILED';
 
-// export const passwordSave = (password) => {
-//   return function (dispatch) {
-//     dispatch(setSaveNewPasswordLoading())
+export const FORGOT_PASSWORD = 'FORGOT_PASSWORD';
+export const FORGOT_PASSWORD_SUCCESS = 'FORGOT_PASSWORD_SECCESS';
+export const FORGOT_PASSWORD_FAILED = 'FORGOT_PASSWORD_FAILED';
 
-//     mainApi.resetPassword(password)
-//       .then(res => {
-//         if (res.token) {
-//           dispatch(setSaveNewPasswordLoading(res))
-//         }
-//       })
-//       .catch(() => {
-//         dispatch(setSaveNewPasswordLoading())
-//       })
-//   }
-// }
+export const RESET_PASSWORD = 'RESET_PASSWORD';
+export const RESET_PASSWORD_SUCCESS = 'RESET_PASSWORD_SUCCESS';
+export const RESET_PASSWORD_FAILED = 'RESET_PASSWORD_FAILED';
 
-// export const passwordForgot = (email) => {
-//   return function (dispatch) {
-//     dispatch(setSendEmailLoading())
+export const GET_USER_DATA = 'GET_USER_DATA';
+export const GET_USER_DATA_SUCCESS = 'GET_USER_DATA_SUCCESS';
+export const GET_USER_DATA_FAILED = 'GET_USER_DATA_FAILED';
 
-//     mainApi.sendEmail(email)
-//       .then(res => {
-//         if (res.token) {
-//           dispatch(setSendEmailSuccess())
-//         }
-//       })
-//       .catch(() => {
-//         dispatch(setSendEmailFailed())
-//       })
-//   }
-// }
+export const LOGOUT = 'LOGOUT';
+export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
+export const LOGOUT_FAILED = 'LOGOUT_FAILED';
+
+
+export const setRegistrationLoading = () => ({ type: REGISTRATION });
+export const setRegistrationLoadingSuccess = () => ({ type: REGISTRATION_SUCCESS });
+export const setRegistrationLoadingFailed = () => ({ type: REGISTRATION_FAILED });
+
+export const setLoginLoading = () => ({ type: LOGIN });
+export const setLoginLoadingSuccess = () => ({ type: LOGIN_SUCCESS });
+export const setLoginLoadingFailed = () => ({ type: LOGIN_FAILED });
+
+export const setForgotPasswordLoading = () => ({ type: FORGOT_PASSWORD });
+export const setForgotPasswordLoadingSuccess = () => ({ type: FORGOT_PASSWORD_SUCCESS });
+export const setForgotPasswordLoadingFailed = () => ({ type: FORGOT_PASSWORD_FAILED });
+
+export const setResetPasswordLoading = () => ({ type: RESET_PASSWORD });
+export const setResetPasswordLoadingSuccess = () => ({ type: RESET_PASSWORD_SUCCESS });
+export const setResetPasswordLoadingFailed = () => ({ type: RESET_PASSWORD_FAILED });
+
+export const setGetUserDataLoading = () => ({ type: GET_USER_DATA });
+export const setGetUserDataLoadingSuccess = () => ({ type: GET_USER_DATA_SUCCESS });
+export const setGetUserDataLoadingFailed = () => ({ type: GET_USER_DATA_FAILED });
+
+export const setLogoutLoading = () => ({ type: LOGOUT });
+export const setLogoutLoadingSuccess = () => ({ type: LOGOUT_SUCCESS });
+export const setLogoutLoadingFailed = () => ({ type: LOGOUT_FAILED });
+
+export const registration = (email, name, password) => {
+  return (dispatch) => {
+    dispatch(setRegistrationLoading())
+
+    mainApi.register(email, name, password)
+      .then(res => {
+        console.log(res)
+        dispatch(setRegistrationLoadingSuccess(res))
+
+        localStorage.setItem('refreshToken', res.refreshToken)
+      })
+      .catch((err) => {
+        dispatch(setRegistrationLoadingFailed())
+        console.log(err)
+      })
+  }
+}
+
+export const login = (email, password) => {
+  return (dispatch) => {
+    dispatch(setLoginLoading())
+
+    mainApi.login(email, password)
+      .then(res => {
+        console.log(res)
+        dispatch(setLoginLoadingSuccess())
+        localStorage.setItem('refreshToken', res.refreshToken)
+        // history.push('/')
+      })
+      .catch((err) => {
+        dispatch(setLoginLoadingFailed())
+        console.log(err)
+      })
+  }
+}
+
+export const getUserData = () => {
+  return (dispatch) => {
+    dispatch(setGetUserDataLoading())
+
+    mainApi.login()
+      .then(res => {
+        console.log(res)
+        dispatch(setGetUserDataLoadingSuccess())
+        localStorage.setItem('refreshToken', res.refreshToken)
+        // history.push('/')
+      })
+      .catch((err) => {
+        dispatch(setGetUserDataLoadingFailed())
+        console.log(err)
+      })
+  }
+}

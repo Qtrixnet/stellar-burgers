@@ -12,8 +12,9 @@ const Profile = () => {
   const inputRef = useRef(null)
   const onIconClick = () => {
     setTimeout(() => inputRef.current.focus(), 0)
-    alert('Icon Click Callback')
   }
+
+  //! Запрос за данными пользователя
 
   return (
     <section className={ProfileStyles.wrapper}>

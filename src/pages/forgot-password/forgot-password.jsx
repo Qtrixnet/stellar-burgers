@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 import ForgotPasswordStyles from "./forgot-password.module.css";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {
   Input,
   Button,
@@ -10,7 +10,6 @@ import PropTypes from 'prop-types';
 const ForgotPassword = ({ onPasswordForgot }) => {
   const [value, setValue] = useState("");
   const inputRef = useRef(null);
-  const history = useHistory();
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -21,7 +20,6 @@ const ForgotPassword = ({ onPasswordForgot }) => {
 
     onPasswordForgot(value)
     setValue('')
-    history.push('/reset-password');
   }
 
   return (

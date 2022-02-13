@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 import RegisterStyles from "./register.module.css";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {
   Input,
   Button,
@@ -13,7 +13,6 @@ const Register = ({ onRegister }) => {
   const [emailValue, setEmailValue] = useState('');
   const [passwordValue, setPasswordValue] = useState("");
   const inputRef = useRef(null);
-  const history = useHistory();
 
   const onIconClick = () => {
     setTimeout(() => inputRef.current.focus(), 0);
@@ -32,7 +31,6 @@ const Register = ({ onRegister }) => {
     }
 
     onRegister(emailValue, nameValue, passwordValue)
-    history.push('/login');
   }
 
   return (

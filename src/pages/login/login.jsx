@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 import LoginStyles from "./login.module.css";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {
   Input,
   Button,
@@ -12,7 +12,6 @@ const Login = ({ onLogin }) => {
   const [emailValue, setEmailValue] = useState("");
   const [passwordValue, setPasswordValue] = useState("");
   const inputRef = useRef(null);
-  const history = useHistory();
 
   const onIconClick = () => {
     setTimeout(() => inputRef.current.focus(), 0);
@@ -32,7 +31,6 @@ const Login = ({ onLogin }) => {
     }
 
     onLogin(emailValue, passwordValue)
-    history.push('/');
   }
 
   return (

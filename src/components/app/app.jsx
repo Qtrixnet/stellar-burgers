@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import appStyles from './app.module.css';
 import Header from '../header/header';
@@ -19,6 +20,7 @@ const App = () => {
   const isOrderDetailsPopupOpen = useSelector(state => state.popupState.isOrderDetailsPopupOpen);
   const ingredientsRequest = useSelector(state => state.ingredientsData.ingredientsRequest);
   const dispatch = useDispatch();
+  const history = useHistory();
 
   useEffect(() => {
     dispatch(getIngredients());
@@ -53,24 +55,27 @@ const App = () => {
 
   //* Регистрация
   const handleRegister = (email, name, password) => {
-    mainApi.register(email, name, password)
-      .then(res => {
-        console.log(res)
-      })
-      .catch((err) => {
-        console.log(err)
-      })
+    // mainApi.register(email, name, password)
+    //   .then(res => {
+    //     console.log(res)
+    //     localStorage.setItem('refreshToken', res.refreshToken)
+    //   })
+    //   .catch((err) => {
+    //     console.log(err)
+    //   })
   }
 
   //* Логин
   const handleLogin = (email, password) => {
-    mainApi.login(email, password)
-      .then(res => {
-        console.log(res)
-      })
-      .catch((err) => {
-        console.log(err)
-      })
+    // mainApi.login(email, password)
+    //   .then(res => {
+    //     console.log(res)
+    //     localStorage.setItem('refreshToken', res.refreshToken)
+    //     history.push('/')
+    //   })
+    //   .catch((err) => {
+    //     console.log(err)
+    //   })
   }
 
   return (

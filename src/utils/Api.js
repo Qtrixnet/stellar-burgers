@@ -92,6 +92,22 @@ class Api {
       }),
     }).then((res) => this._requestResult(res));
   }
+
+  //* Запрос данных пользователя
+
+  // getUserData(token) {
+  //   return fetch(`${this._baseUrl}/auth/user`, {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify({
+  //       email,
+  //       password,
+  //       name,
+  //     }),
+  //   }).then((res) => this._requestResult(res));
+  // }
 }
 
 const mainApi = new Api(BASE_URL);
