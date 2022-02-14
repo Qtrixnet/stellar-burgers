@@ -24,13 +24,12 @@ export const LOGOUT = 'LOGOUT';
 export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
 export const LOGOUT_FAILED = 'LOGOUT_FAILED';
 
-
 export const setRegistrationLoading = () => ({ type: REGISTRATION });
 export const setRegistrationLoadingSuccess = () => ({ type: REGISTRATION_SUCCESS });
 export const setRegistrationLoadingFailed = () => ({ type: REGISTRATION_FAILED });
 
 export const setLoginLoading = () => ({ type: LOGIN });
-export const setLoginLoadingSuccess = () => ({ type: LOGIN_SUCCESS });
+export const setLoginLoadingSuccess = (token) => ({ type: LOGIN_SUCCESS, payload: token });
 export const setLoginLoadingFailed = () => ({ type: LOGIN_FAILED });
 
 export const setForgotPasswordLoading = () => ({ type: FORGOT_PASSWORD });
@@ -55,9 +54,7 @@ export const registration = (email, name, password) => {
 
     mainApi.register(email, name, password)
       .then(res => {
-        console.log(res)
-        dispatch(setRegistrationLoadingSuccess(res))
-
+        dispatch(setRegistrationLoadingSuccess(res.accessToken))
         localStorage.setItem('refreshToken', res.refreshToken)
       })
       .catch((err) => {
@@ -73,10 +70,8 @@ export const login = (email, password) => {
 
     mainApi.login(email, password)
       .then(res => {
-        console.log(res)
-        dispatch(setLoginLoadingSuccess())
+        dispatch(setLoginLoadingSuccess(res.accessToken))
         localStorage.setItem('refreshToken', res.refreshToken)
-        // history.push('/')
       })
       .catch((err) => {
         dispatch(setLoginLoadingFailed())
@@ -91,13 +86,41 @@ export const getUserData = () => {
 
     mainApi.login()
       .then(res => {
-        console.log(res)
         dispatch(setGetUserDataLoadingSuccess())
         localStorage.setItem('refreshToken', res.refreshToken)
-        // history.push('/')
       })
       .catch((err) => {
         dispatch(setGetUserDataLoadingFailed())
+        console.log(err)
+      })
+  }
+}
+
+export const forgotPassword = (email) => {
+  return (dispatch) => {
+    dispatch(setForgotPasswordLoading())
+
+    mainApi.sendEmail(email)
+      .then(() => {
+        setForgotPasswordLoadingSuccess()
+      })
+      .catch((err) => {
+        setForgotPasswordLoadingFailed()
+        console.log(err)
+      })
+  }
+}
+
+export const resetPassword = (password, code) => {
+  return (dispatch) => {
+    dispatch(setResetPasswordLoading())
+
+    mainApi.resetPassword(password, code)
+      .then((res) => {
+        setForgotPasswordLoadingSuccess()
+      })
+      .catch((err) => {
+        setResetPasswordLoadingFailed();
         console.log(err)
       })
   }

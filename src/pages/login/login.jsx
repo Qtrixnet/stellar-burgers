@@ -1,37 +1,35 @@
 import { useState, useRef } from "react";
 import LoginStyles from "./login.module.css";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import {
   Input,
   Button,
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import PropTypes from 'prop-types';
+import { login } from "../../services/actions/user";
+import { useDispatch, useSelector } from 'react-redux';
 
-const Login = ({ onLogin }) => {
+const Login = () => {
   const [emailValue, setEmailValue] = useState("");
   const [passwordValue, setPasswordValue] = useState("");
   const inputRef = useRef(null);
-
-  const onIconClick = () => {
-    setTimeout(() => inputRef.current.focus(), 0);
-    alert("Icon Click Callback");
-  };
+  const dispatch = useDispatch();
+  const history = useHistory();
 
   const onPasswordChange = (e) => {
     setPasswordValue(e.target.value);
   };
 
-
   const handleSubmit = (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
     if (!emailValue || !passwordValue) {
       return;
     }
 
-    onLogin(emailValue, passwordValue)
-  }
+    dispatch(login(emailValue, passwordValue))
+    history.push('/')
+  };
 
   return (
     <section className={LoginStyles.wrapper}>
@@ -39,7 +37,7 @@ const Login = ({ onLogin }) => {
         <p className={`${LoginStyles.title} text text_type_main-medium`}>
           Вход
         </p>
-        <div className='mt-6 mb-6'>
+        <div className="mt-6 mb-6">
           <Input
             type={"text"}
             placeholder={"E-mail"}
@@ -48,7 +46,6 @@ const Login = ({ onLogin }) => {
             name={"e-mail"}
             error={false}
             ref={inputRef}
-            onIconClick={onIconClick}
             errorText={"Ошибка"}
             size={"default"}
           />
@@ -65,23 +62,19 @@ const Login = ({ onLogin }) => {
         </Button>
       </form>
       <p className="text text_type_main-default text_color_inactive">
-        {'Вы — новый пользователь? '}
+        {"Вы — новый пользователь? "}
         <Link className={LoginStyles.link} to="/register">
           Зарегистрироваться
         </Link>
       </p>
       <p className="text text_type_main-default text_color_inactive mt-4">
-        {'Забыли пароль? '}
+        {"Забыли пароль? "}
         <Link className={LoginStyles.link} to="/forgot-password">
           Восстановить пароль
         </Link>
       </p>
     </section>
   );
-};
-
-Login.propTypes = {
-  onLogin: PropTypes.func.isRequired,
 };
 
 export default Login;

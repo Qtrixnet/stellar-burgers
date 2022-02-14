@@ -51,7 +51,7 @@ class Api {
   }
 
   //* Запрос на обновление пароля
-  resetPassword({ passwordValue, codeValue }) {
+  resetPassword(passwordValue, codeValue) {
     return fetch(`${this._baseUrl}/password-reset/reset`, {
       method: "POST",
       headers: {

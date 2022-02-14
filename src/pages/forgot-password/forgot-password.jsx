@@ -1,26 +1,30 @@
 import { useState, useRef } from "react";
 import ForgotPasswordStyles from "./forgot-password.module.css";
-import { Link } from "react-router-dom";
+import { Link, useHistory} from "react-router-dom";
 import {
   Input,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import PropTypes from 'prop-types';
+import { forgotPassword } from "../../services/actions/user";
+import { useDispatch, useSelector } from 'react-redux';
 
-const ForgotPassword = ({ onPasswordForgot }) => {
-  const [value, setValue] = useState("");
+const ForgotPassword = () => {
+  const [emailValue, setEmailValue] = useState("");
   const inputRef = useRef(null);
+  const dispatch = useDispatch();
+  const history = useHistory();
 
   const handleSubmit = (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
-    if (!value) {
+    if (!emailValue) {
       return;
     }
 
-    onPasswordForgot(value)
-    setValue('')
-  }
+    dispatch(forgotPassword(emailValue));
+    setEmailValue("");
+    history.push('/reset-password')
+  };
 
   return (
     <section className={ForgotPasswordStyles.wrapper}>
@@ -34,8 +38,8 @@ const ForgotPassword = ({ onPasswordForgot }) => {
           <Input
             type={"text"}
             placeholder={"Укажите e-mail"}
-            onChange={(evt) => setValue(evt.target.value)}
-            value={value}
+            onChange={(evt) => setEmailValue(evt.target.value)}
+            value={emailValue}
             name={"e-mail"}
             error={false}
             ref={inputRef}
@@ -55,10 +59,6 @@ const ForgotPassword = ({ onPasswordForgot }) => {
       </p>
     </section>
   );
-};
-
-ForgotPassword.propTypes = {
-  onPasswordForgot: PropTypes.func.isRequired,
 };
 
 export default ForgotPassword;

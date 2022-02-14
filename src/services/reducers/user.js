@@ -32,6 +32,7 @@ const initialState = {
   getUserDataRequestFailed: false,
   logoutRequest: false,
   logoutRequestFailed: false,
+  accessToken: null,
 };
 
 export const userReducer = (state = initialState, action) => {
@@ -48,6 +49,7 @@ export const userReducer = (state = initialState, action) => {
       return {
         ...state,
         registrationRequest: false,
+        accessToken: action.payload,
       };
     }
     case REGISTRATION_FAILED: {
@@ -68,6 +70,7 @@ export const userReducer = (state = initialState, action) => {
       return {
         ...state,
         loginRequest: false,
+        accessToken: action.payload,
       };
     }
     case LOGIN_FAILED: {

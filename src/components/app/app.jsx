@@ -1,5 +1,4 @@
 import { useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import appStyles from './app.module.css';
 import Header from '../header/header';
@@ -12,7 +11,6 @@ import { getIngredients } from '../../services/actions/ingredients';
 import { changeOrderDetailsPopupState, changeIngredientsPopupState } from '../../services/actions/popup';
 import { deleteSelectedIngredient } from '../../services/actions/ingredients';
 import { deleteOrderData } from '../../services/actions/order';
-import mainApi from '../../utils/Api';
 
 const App = () => {
   const orderData = useSelector(state => state.orderData.orderDetails);
@@ -20,7 +18,6 @@ const App = () => {
   const isOrderDetailsPopupOpen = useSelector(state => state.popupState.isOrderDetailsPopupOpen);
   const ingredientsRequest = useSelector(state => state.ingredientsData.ingredientsRequest);
   const dispatch = useDispatch();
-  const history = useHistory();
 
   useEffect(() => {
     dispatch(getIngredients());
@@ -31,60 +28,13 @@ const App = () => {
     isOrderDetailsPopupOpen ? dispatch(deleteOrderData()) : dispatch(deleteSelectedIngredient())
   }
 
-  //* Отправка имейла для восстановления пароля
-  const handlePasswordForgot = (email) => {
-    mainApi.sendEmail(email)
-      .then(res => {
-        console.log(res)
-      })
-      .catch((err) => {
-        console.log(err)
-      })
-  }
-
-  //* Установка нового пароля
-  const handlePasswordSave = (password) => {
-    mainApi.resetPassword(password)
-      .then(res => {
-        console.log(res)
-      })
-      .catch((err) => {
-        console.log(err)
-      })
-  }
-
-  //* Регистрация
-  const handleRegister = (email, name, password) => {
-    // mainApi.register(email, name, password)
-    //   .then(res => {
-    //     console.log(res)
-    //     localStorage.setItem('refreshToken', res.refreshToken)
-    //   })
-    //   .catch((err) => {
-    //     console.log(err)
-    //   })
-  }
-
-  //* Логин
-  const handleLogin = (email, password) => {
-    // mainApi.login(email, password)
-    //   .then(res => {
-    //     console.log(res)
-    //     localStorage.setItem('refreshToken', res.refreshToken)
-    //     history.push('/')
-    //   })
-    //   .catch((err) => {
-    //     console.log(err)
-    //   })
-  }
-
   return (
     <div className={`${appStyles.app}`}>
       {
         ingredientsRequest ? (<Loader />) :
           <>
             <Header />
-            <Main onPasswordForgot={handlePasswordForgot} onPasswordSave={handlePasswordSave} onRegister={handleRegister} onLogin={handleLogin} />
+            <Main />
             {
               isOrderDetailsPopupOpen && (
                 <Modal handlePopupClose={handlePopupClose}>

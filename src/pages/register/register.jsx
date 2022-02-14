@@ -1,37 +1,36 @@
 import { useState, useRef } from "react";
 import RegisterStyles from "./register.module.css";
-import { Link } from "react-router-dom";
+import { Link, useHistory} from "react-router-dom";
 import {
   Input,
   Button,
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import PropTypes from 'prop-types';
+import { registration } from "../../services/actions/user";
+import { useDispatch, useSelector } from 'react-redux';
 
-const Register = ({ onRegister }) => {
+const Register = () => {
   const [nameValue, setNameValue] = useState("");
-  const [emailValue, setEmailValue] = useState('');
+  const [emailValue, setEmailValue] = useState("");
   const [passwordValue, setPasswordValue] = useState("");
   const inputRef = useRef(null);
-
-  const onIconClick = () => {
-    setTimeout(() => inputRef.current.focus(), 0);
-
-  };
+  const dispatch = useDispatch();
+  const history = useHistory();
 
   const onPasswordChange = (e) => {
     setPasswordValue(e.target.value);
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
     if (!nameValue || !emailValue || !passwordValue) {
       return;
     }
 
-    onRegister(emailValue, nameValue, passwordValue)
-  }
+    dispatch(registration(emailValue, nameValue, passwordValue));
+    history.push('/');
+  };
 
   return (
     <section className={RegisterStyles.wrapper}>
@@ -48,7 +47,6 @@ const Register = ({ onRegister }) => {
             name={"name"}
             error={false}
             ref={inputRef}
-            onIconClick={onIconClick}
             errorText={"Ошибка"}
             size={"default"}
           />
@@ -62,7 +60,6 @@ const Register = ({ onRegister }) => {
             name={"e-mail"}
             error={false}
             ref={inputRef}
-            onIconClick={onIconClick}
             errorText={"Ошибка"}
             size={"default"}
           />
@@ -86,10 +83,6 @@ const Register = ({ onRegister }) => {
       </p>
     </section>
   );
-};
-
-Register.propTypes = {
-  onRegister: PropTypes.func.isRequired,
 };
 
 export default Register;
