@@ -1,27 +1,52 @@
 import { useState, useRef, useEffect } from "react";
 import ProfileStyles from "./profile.module.css";
 import { NavLink } from "react-router-dom";
-import { Input } from "@ya.praktikum/react-developer-burger-ui-components";
+import { Input, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDispatch, useSelector } from "react-redux";
-import { getUserData } from "../../services/actions/user";
+import { getUserData, sendUserData } from "../../services/actions/user";
 
 const Profile = () => {
-  const [nameValue, setNameValue] = useState("Марк");
-  const [loginValue, setLoginValue] = useState("mail@stellar.burgers");
-  const [passwordValue, setPasswordValue] = useState("******|");
-  const inputRef = useRef(null);
+  const [nameValue, setNameValue] = useState("?");
+  const [loginValue, setLoginValue] = useState("?");
+  const [passwordValue, setPasswordValue] = useState("");
+  const nameInputRef = useRef(null);
+  const emailInputRef = useRef(null);
+  const passwordInputRef = useRef(null);
   const dispatch = useDispatch();
   const accessToken = useSelector((state) => state.userData.accessToken);
+  const userData = useSelector((state) => state.userData.userData);
 
-  const onIconClick = () => {
-    setTimeout(() => inputRef.current.focus(), 0);
-  };
+  const onNameClick = () => nameInputRef.current.focus();
+
+  const oтEmailClick = () => emailInputRef.current.focus();
+
+  const onPasswordClick = () => passwordInputRef.current.focus();
+
+  const onSubmit = (evt) => {
+    evt.preventDefault();
+    dispatch(sendUserData(accessToken, nameValue, loginValue, passwordValue))
+  }
+
+  const onCancelEditing = (evt) => {
+    evt.preventDefault();
+    console.log('отмена');
+    setNameValue(userData.name)
+    setLoginValue(userData.email)
+    setPasswordValue('')
+  }
 
   //! Запрос за данными пользователя
 
   useEffect(() => {
-    dispatch(getUserData(accessToken));
-  }, [accessToken, dispatch]);
+    if (!userData) {
+      dispatch(getUserData(accessToken));
+    }
+
+    if (userData) {
+      setLoginValue(userData.email);
+      setNameValue(userData.name);
+    }
+  }, [accessToken, dispatch, userData]);
 
   return (
     <section className={ProfileStyles.wrapper}>
@@ -64,7 +89,7 @@ const Profile = () => {
           В этом разделе вы можете изменить свои персональные данные
         </p>
       </nav>
-      <form className={ProfileStyles.form}>
+      <form onSubmit={onSubmit} className={ProfileStyles.form}>
         <Input
           type={"text"}
           placeholder={"Имя"}
@@ -73,8 +98,8 @@ const Profile = () => {
           value={nameValue}
           name={"name"}
           error={false}
-          ref={inputRef}
-          onIconClick={onIconClick}
+          ref={nameInputRef}
+          onIconClick={onNameClick}
           errorText={"Ошибка"}
           size={"default"}
         />
@@ -86,8 +111,8 @@ const Profile = () => {
           value={loginValue}
           name={"name"}
           error={false}
-          ref={inputRef}
-          onIconClick={onIconClick}
+          ref={emailInputRef}
+          onIconClick={oтEmailClick}
           errorText={"Ошибка"}
           size={"default"}
         />
@@ -99,11 +124,19 @@ const Profile = () => {
           value={passwordValue}
           name={"name"}
           error={false}
-          ref={inputRef}
-          onIconClick={onIconClick}
+          ref={passwordInputRef}
+          onIconClick={onPasswordClick}
           errorText={"Ошибка"}
           size={"default"}
         />
+        <div className={ProfileStyles.buttons_container}>
+          <Button onClick={onCancelEditing} type="secondary" size="medium">
+            Отмена
+          </Button>
+          <Button type="primary" size="medium">
+            Сохранить
+          </Button>
+        </div>
       </form>
     </section>
   );

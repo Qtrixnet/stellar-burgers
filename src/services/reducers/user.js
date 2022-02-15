@@ -17,6 +17,12 @@ import {
   LOGOUT,
   LOGOUT_SUCCESS,
   LOGOUT_FAILED,
+  REFRESH_TOKEN,
+  REFRESH_TOKEN_SUCCESS,
+  REFRESH_TOKEN_FAILED,
+  SEND_USER_DATA,
+  SEND_USER_DATA_SUCCESS,
+  SEND_USER_DATA_FAILED
 } from '../actions/user';
 
 const initialState = {
@@ -32,7 +38,12 @@ const initialState = {
   getUserDataRequestFailed: false,
   logoutRequest: false,
   logoutRequestFailed: false,
+  refreshTokenRequest: false,
+  refreshTokenRequestFailed: false,
+  sendUserDataRequest: false,
+  sendUserDataRequestFailed: false,
   accessToken: null,
+  userData: null
 };
 
 export const userReducer = (state = initialState, action) => {
@@ -131,6 +142,7 @@ export const userReducer = (state = initialState, action) => {
       return {
         ...state,
         getUserDataRequest: false,
+        userData: action.payload
       };
     }
     case GET_USER_DATA_FAILED: {
@@ -158,6 +170,48 @@ export const userReducer = (state = initialState, action) => {
         ...state,
         logoutRequest: false,
         logoutRequestFailed: true,
+      };
+    }
+    case REFRESH_TOKEN: {
+      return {
+        ...state,
+        refreshTokenRequest: true,
+        refreshTokenRequestFailed: false,
+      };
+    }
+    case REFRESH_TOKEN_SUCCESS: {
+      return {
+        ...state,
+        refreshTokenRequest: false,
+        accessToken: action.payload,
+      };
+    }
+    case REFRESH_TOKEN_FAILED: {
+      return {
+        ...state,
+        refreshTokenRequest: false,
+        refreshTokenRequestFailed: true,
+      };
+    }
+    case SEND_USER_DATA: {
+      return {
+        ...state,
+        sendUserDataRequest: true,
+        sendUserDataRequestFailed: false,
+      };
+    }
+    case SEND_USER_DATA_SUCCESS: {
+      return {
+        ...state,
+        sendUserDataRequest: false,
+        userData: action.payload,
+      };
+    }
+    case SEND_USER_DATA_FAILED: {
+      return {
+        ...state,
+        sendUserDataRequest: false,
+        sendUserDataRequestFailed: true,
       };
     }
     default: {

@@ -15,7 +15,7 @@
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 26px;
+  gap: 36px;
 }
 
 .link {
@@ -46,4 +46,10 @@
   display: flex;
   flex-direction: column;
   gap: 24px;
+}
+
+.buttons_container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }

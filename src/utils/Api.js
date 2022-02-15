@@ -94,15 +94,42 @@ class Api {
   }
 
   //* Запрос данных пользователя
-
   getUserData(token) {
     return fetch(`${this._baseUrl}/auth/user`, {
-      method: "POST",
+      method: "GET",
       headers: {
         "Content-Type": "application/json;charset=utf-8",
-        'authorization': token,
+        "authorization": token
       },
-      body: JSON.stringify({}),
+    }).then((res) => this._requestResult(res));
+  }
+
+  //* Запрос на редактирвоание данных пользователя
+  sendUserData(token, name, email, password) {
+    return fetch(`${this._baseUrl}/auth/user`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json;charset=utf-8",
+        "authorization": token
+      },
+      body: JSON.stringify({
+        "email": email,
+        "name": name,
+        "password": password
+      }),
+    }).then((res) => this._requestResult(res));
+  }
+
+  //* Запрос для обновления токена
+  refreshToken(refreshToken) {
+    return fetch(`${this._baseUrl}/auth/token`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        "token": refreshToken
+      }),
     }).then((res) => this._requestResult(res));
   }
 }
