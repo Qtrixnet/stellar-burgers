@@ -23,7 +23,7 @@ const ForgotPassword = () => {
 
     dispatch(forgotPassword(emailValue));
     setEmailValue("");
-    history.push('/reset-password')
+    // history.push('/reset-password')
   };
 
   return (

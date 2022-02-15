@@ -30,7 +30,7 @@ const ResetPassword = () => {
     dispatch(resetPassword(passwordValue, codeValue))
     setCodeValue("");
     setPasswordValue("");
-    history.push('/');
+    // history.push('/');
   };
 
   return (

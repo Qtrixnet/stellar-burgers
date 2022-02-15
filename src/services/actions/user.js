@@ -25,7 +25,7 @@ export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
 export const LOGOUT_FAILED = 'LOGOUT_FAILED';
 
 export const setRegistrationLoading = () => ({ type: REGISTRATION });
-export const setRegistrationLoadingSuccess = () => ({ type: REGISTRATION_SUCCESS });
+export const setRegistrationLoadingSuccess = (token) => ({ type: REGISTRATION_SUCCESS, payload: token });
 export const setRegistrationLoadingFailed = () => ({ type: REGISTRATION_FAILED });
 
 export const setLoginLoading = () => ({ type: LOGIN });
@@ -80,14 +80,14 @@ export const login = (email, password) => {
   }
 }
 
-export const getUserData = () => {
+export const getUserData = (accessToken) => {
   return (dispatch) => {
     dispatch(setGetUserDataLoading())
 
-    mainApi.login()
-      .then(res => {
+    mainApi.getUserData(accessToken)
+      .then((data) => {
+        console.log(data)
         dispatch(setGetUserDataLoadingSuccess())
-        localStorage.setItem('refreshToken', res.refreshToken)
       })
       .catch((err) => {
         dispatch(setGetUserDataLoadingFailed())
@@ -116,7 +116,7 @@ export const resetPassword = (password, code) => {
     dispatch(setResetPasswordLoading())
 
     mainApi.resetPassword(password, code)
-      .then((res) => {
+      .then(() => {
         setForgotPasswordLoadingSuccess()
       })
       .catch((err) => {
