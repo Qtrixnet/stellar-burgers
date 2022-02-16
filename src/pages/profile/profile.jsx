@@ -29,7 +29,6 @@ const Profile = () => {
 
   const onCancelEditing = (evt) => {
     evt.preventDefault();
-    console.log('отмена');
     setNameValue(userData.name)
     setLoginValue(userData.email)
     setPasswordValue('')
