@@ -132,6 +132,19 @@ class Api {
       }),
     }).then((res) => this._requestResult(res));
   }
+
+  //* Запрос на выход из системы
+  logout(refreshToken) {
+    return fetch(`${this._baseUrl}/auth/logout`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        "token": refreshToken
+      }),
+    }).then((res) => this._requestResult(res));
+  }
 }
 
 const mainApi = new Api(BASE_URL);

@@ -3,7 +3,7 @@ import ProfileStyles from "./profile.module.css";
 import { NavLink } from "react-router-dom";
 import { Input, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDispatch, useSelector } from "react-redux";
-import { getUserData, sendUserData } from "../../services/actions/user";
+import { getUserData, sendUserData, logout } from "../../services/actions/user";
 
 const Profile = () => {
   const [nameValue, setNameValue] = useState("?");
@@ -34,7 +34,10 @@ const Profile = () => {
     setPasswordValue('')
   }
 
-  //! Запрос за данными пользователя
+  const handleLogout = () => {
+    const refreshToken = localStorage.getItem('refreshToken');
+    dispatch(logout(refreshToken))
+  }
 
   useEffect(() => {
     if (!userData) {
@@ -77,6 +80,7 @@ const Profile = () => {
               className={`${ProfileStyles.link} text text_type_main-medium`}
               exact
               to="/"
+              onClick={handleLogout}
             >
               Выход
             </NavLink>

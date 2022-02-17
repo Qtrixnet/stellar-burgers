@@ -172,3 +172,19 @@ export const resetPassword = (password, code) => {
       })
   }
 }
+
+export const logout = (refreshToken) => {
+  return (dispatch) => {
+    dispatch(setLogoutLoading())
+
+    mainApi.refreshToken(refreshToken)
+      .then(() => {
+        localStorage.removeItem('refreshToken')
+        dispatch(setLogoutLoadingSuccess())
+      })
+      .catch((err) => {
+        dispatch(setLoginLoadingFailed())
+        console.log(err)
+      })
+  }
+}
