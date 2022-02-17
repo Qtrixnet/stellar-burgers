@@ -1,20 +1,19 @@
 import { useState, useRef } from "react";
 import LoginStyles from "./login.module.css";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {
   Input,
   Button,
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { login } from "../../services/actions/user";
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 const Login = () => {
   const [emailValue, setEmailValue] = useState("");
   const [passwordValue, setPasswordValue] = useState("");
   const inputRef = useRef(null);
   const dispatch = useDispatch();
-  const history = useHistory();
 
   const onPasswordChange = (e) => {
     setPasswordValue(e.target.value);

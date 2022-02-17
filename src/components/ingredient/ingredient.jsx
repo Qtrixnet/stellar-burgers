@@ -11,9 +11,12 @@ import {
 } from "../../services/actions/ingredients";
 import { changeIngredientsPopupState } from "../../services/actions/popup";
 import PropTypes from "prop-types";
+import { Link, useLocation } from 'react-router-dom';
 
 const Ingredient = ({ ingredient }) => {
   const { image, price, name, _id } = ingredient;
+
+  const location = useLocation();
 
   const dispatch = useDispatch();
   const chosenIngredients = useSelector(
@@ -74,31 +77,35 @@ const Ingredient = ({ ingredient }) => {
       data-id={_id}
       onContextMenu={handleChoseIngredient}
       onClick={handleIngredientExplore}
-      className={`${ingredientStyles.list_item} ${
-        isDrag && ingredientStyles.moving
-      }`}
+      className={`${ingredientStyles.list_item} ${isDrag && ingredientStyles.moving
+        }`}
       ref={dragRef}
     >
-      <img
-        alt={name}
-        src={image}
-        className={`${ingredientStyles.image} ml-4 mr-4`}
-      />
-      <div className={`${ingredientStyles.price_info} mt-4 mb-4`}>
-        <span className="text text_type_digits-default mr-2">{price}</span>
-        <CurrencyIcon type="primary" />
-      </div>
-      <h3 className={`${ingredientStyles.text} text text_type_main-default`}>
-        {name}
-      </h3>
-      {ingredientCounter > 0 && (
-        <Counter count={ingredientCounter} size="default" />
-      )}
-      <div className={`${ingredientStyles.hint_icons}`}>
-        <span className={`${ingredientStyles.left_click_icon}`}></span>
-        <span className={`${ingredientStyles.right_click_icon}`}></span>
-        <span className={`${ingredientStyles.drag_icon}`}></span>
-      </div>
+      <Link className={ingredientStyles.link} to={{
+        pathname: `/ingredients/${_id}`,
+        state: { background: location },
+      }}>
+        <img
+          alt={name}
+          src={image}
+          className={`${ingredientStyles.image} ml-4 mr-4`}
+        />
+        <div className={`${ingredientStyles.price_info} mt-4 mb-4`}>
+          <span className="text text_type_digits-default mr-2">{price}</span>
+          <CurrencyIcon type="primary" />
+        </div>
+        <h3 className={`${ingredientStyles.text} text text_type_main-default`}>
+          {name}
+        </h3>
+        {ingredientCounter > 0 && (
+          <Counter count={ingredientCounter} size="default" />
+        )}
+        <div className={`${ingredientStyles.hint_icons}`}>
+          <span className={`${ingredientStyles.left_click_icon}`}></span>
+          <span className={`${ingredientStyles.right_click_icon}`}></span>
+          <span className={`${ingredientStyles.drag_icon}`}></span>
+        </div>
+      </Link>
     </li>
   );
 };

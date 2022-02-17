@@ -86,7 +86,7 @@ export const login = (email, password) => {
 
     mainApi.login(email, password)
       .then(res => {
-        dispatch(setLoginLoadingSuccess(res.accessToken))
+        dispatch(setLoginLoadingSuccess(res))
         localStorage.setItem('refreshToken', res.refreshToken)
       })
       .catch((err) => {

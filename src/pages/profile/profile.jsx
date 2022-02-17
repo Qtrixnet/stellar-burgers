@@ -3,7 +3,7 @@ import ProfileStyles from "./profile.module.css";
 import { NavLink } from "react-router-dom";
 import { Input, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDispatch, useSelector } from "react-redux";
-import { getUserData, sendUserData, logout } from "../../services/actions/user";
+import { sendUserData, logout } from "../../services/actions/user";
 
 const Profile = () => {
   const [nameValue, setNameValue] = useState("?");
@@ -40,15 +40,11 @@ const Profile = () => {
   }
 
   useEffect(() => {
-    if (!userData) {
-      dispatch(getUserData(accessToken));
-    }
-
     if (userData) {
       setLoginValue(userData.email);
       setNameValue(userData.name);
     }
-  }, [accessToken, dispatch, userData]);
+  }, [userData]);
 
   return (
     <section className={ProfileStyles.wrapper}>
