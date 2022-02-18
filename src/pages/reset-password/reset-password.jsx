@@ -1,19 +1,21 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import ResetPasswordStyles from "./reset-password.module.css";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import {
   Input,
   Button,
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { resetPassword } from "../../services/actions/user";
-import { useDispatch } from 'react-redux';
+import { resetPassword, setForgotPasswordState } from "../../services/actions/user";
+import { useDispatch, useSelector } from 'react-redux';
 
 const ResetPassword = () => {
   const [codeValue, setCodeValue] = useState("");
   const [passwordValue, setPasswordValue] = useState("");
   const inputRef = useRef(null);
   const dispatch = useDispatch();
+  const history = useHistory();
+  const isPasswordForgot = useSelector((state) => state.userData.isPasswordForgot);
 
   const onPasswordChange = (e) => {
     setPasswordValue(e.target.value);
@@ -26,11 +28,16 @@ const ResetPassword = () => {
       return;
     }
 
-    dispatch(resetPassword(passwordValue, codeValue))
+    dispatch(resetPassword(passwordValue, codeValue));
+    dispatch(setForgotPasswordState(false));
     setCodeValue("");
     setPasswordValue("");
-    // history.push('/');
+    history.push('/');
   };
+
+  useEffect(() => {
+    !isPasswordForgot && history.push('/forgot-password');
+  }, [isPasswordForgot, history])
 
   return (
     <section className={ResetPasswordStyles.wrapper}>

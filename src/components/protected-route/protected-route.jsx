@@ -2,6 +2,7 @@ import { Route, Redirect } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { getUserData } from '../../services/actions/user';
+import PropTypes from "prop-types";
 
 const ProtectedRoute = ({ children, ...rest }) => {
   const dispatch = useDispatch();
@@ -23,5 +24,9 @@ const ProtectedRoute = ({ children, ...rest }) => {
     />
   );
 }
+
+ProtectedRoute.propTypes = {
+  children: PropTypes.element.isRequired,
+};
 
 export default ProtectedRoute;

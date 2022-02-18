@@ -32,6 +32,8 @@ export const REFRESH_TOKEN = 'REFRESH_TOKEN';
 export const REFRESH_TOKEN_SUCCESS = 'REFRESH_TOKEN_SUCCESS';
 export const REFRESH_TOKEN_FAILED = 'REFRESH_TOKEN_FAILED';
 
+export const SET_FORGOT_PASSWORD_STATE = 'SET_FORGOT_PASSWORD_STATE';
+
 export const setRegistrationLoading = () => ({ type: REGISTRATION });
 export const setRegistrationLoadingSuccess = (token) => ({ type: REGISTRATION_SUCCESS, payload: token });
 export const setRegistrationLoadingFailed = () => ({ type: REGISTRATION_FAILED });
@@ -63,6 +65,8 @@ export const setLogoutLoadingFailed = () => ({ type: LOGOUT_FAILED });
 export const setRefreshTokenLoading = () => ({ type: REFRESH_TOKEN });
 export const setRefreshTokenLoadingSuccess = (token) => ({ type: REFRESH_TOKEN_SUCCESS, payload: token });
 export const setRefreshTokenLoadingFailed = () => ({ type: REFRESH_TOKEN_FAILED });
+
+export const setForgotPasswordState = (state) => ({ type: SET_FORGOT_PASSWORD_STATE, payload: state });
 
 export const registration = (email, name, password) => {
   return (dispatch) => {

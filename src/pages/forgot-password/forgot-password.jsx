@@ -1,17 +1,18 @@
 import { useState, useRef } from "react";
 import ForgotPasswordStyles from "./forgot-password.module.css";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import {
   Input,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { forgotPassword } from "../../services/actions/user";
+import { forgotPassword, setForgotPasswordState } from "../../services/actions/user";
 import { useDispatch } from 'react-redux';
 
 const ForgotPassword = () => {
   const [emailValue, setEmailValue] = useState("");
   const inputRef = useRef(null);
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -21,8 +22,10 @@ const ForgotPassword = () => {
     }
 
     dispatch(forgotPassword(emailValue));
+    dispatch(setForgotPasswordState(true));
     setEmailValue("");
-    // history.push('/reset-password')
+    history.push('/reset-password')
+
   };
 
   return (
