@@ -5,14 +5,6 @@ import mainStyles from './main.module.css';
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { addIngredient } from '../../services/actions/ingredients';
-// import Login from '../../pages/login/login';
-// import Register from '../../pages/register/register';
-// import ForgotPassword from '../../pages/forgot-password/forgot-password';
-// import ResetPassword from '../../pages/reset-password/reset-password';
-// import Profile from '../../pages/profile/profile';
-// import NotFound from '../../pages/not-found/not-found';
-// import IngredientPage from '../../pages/ingredient-page/ingredient-page';
-// import ProtectedRoute from '../protected-route/protected-route';
 
 const Main = () => {
   const dispatch = useDispatch();
@@ -40,38 +32,6 @@ const Main = () => {
           <BurgerIngredients />
           <BurgerConstructor onDropHandler={handleDrop} />
         </section>
-        {/* <Switch>
-          <Route exact path="/">
-            <section className={mainStyles.main_container}>
-              <BurgerIngredients />
-              <BurgerConstructor onDropHandler={handleDrop} />
-            </section>
-          </Route>
-          <Route path='/'>
-            <IngredientPage />
-          </Route>
-          <Route path="/login">
-            <Login />
-          </Route>
-          <Route path="/register">
-            <Register />
-          </Route>
-          <Route path="/forgot-password">
-            <ForgotPassword />
-          </Route>
-          <Route path="/reset-password">
-            <ResetPassword />
-          </Route>
-          <ProtectedRoute path="/profile">
-            <Profile />
-          </ProtectedRoute>
-          <ProtectedRoute path="/profile/orders">
-            <Profile />
-          </ProtectedRoute>
-          <Route path="*">
-            <NotFound />
-          </Route>
-        </Switch> */}
       </DndProvider>
     </main>
   );

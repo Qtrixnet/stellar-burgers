@@ -18,7 +18,7 @@ const Header = () => {
               </NavLink>
             </li>
             <li>
-              <NavLink activeClassName={headerStyles.link_active} className={`p-5 ${headerStyles.link}`} to="/orders">
+              <NavLink activeClassName={headerStyles.link_active} className={`p-5 ${headerStyles.link}`} to="/profile/orders">
                 <ListIcon type="secondary" />
                 <span className={`ml-2`}>Лента заказов</span>
               </NavLink>

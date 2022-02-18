@@ -7,7 +7,6 @@ import ForgotPassword from "../../pages/forgot-password/forgot-password";
 import ResetPassword from "../../pages/reset-password/reset-password";
 import Profile from "../../pages/profile/profile";
 import NotFound from "../../pages/not-found/not-found";
-import IngredientPage from "../../pages/ingredient-page/ingredient-page";
 import ProtectedRoute from "../protected-route/protected-route";
 import {
   changeOrderDetailsPopupState,
@@ -25,10 +24,11 @@ const ModalSwitch = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const orderData = useSelector((state) => state.orderData.orderDetails);
-  // const isIngredientsPopupOpen = useSelector(state => state.popupState.isIngredientsPopupOpen);
   const isOrderDetailsPopupOpen = useSelector(
     (state) => state.popupState.isOrderDetailsPopupOpen
   );
+  const location = useLocation();
+  let background = location.state && location.state.background;
 
   const handlePopupClose = () => {
     isOrderDetailsPopupOpen
@@ -37,11 +37,9 @@ const ModalSwitch = () => {
     isOrderDetailsPopupOpen
       ? dispatch(deleteOrderData())
       : dispatch(deleteSelectedIngredient());
-    history.goBack();
+    background && history.goBack();
   };
 
-  const location = useLocation();
-  let background = location.state && location.state.background;
 
   return (
     <div className={`${modalSwitchStyles.container} pb-10`}>
@@ -67,9 +65,7 @@ const ModalSwitch = () => {
         <ProtectedRoute exact path="/profile">
           <Profile />
         </ProtectedRoute>
-        <ProtectedRoute exact path="/profile/orders">
-          <Profile />
-        </ProtectedRoute>
+        <Route exact path="/profile/orders" />
         <Route>
           <Modal handlePopupClose={handlePopupClose}>
             {orderData ? <OrderDetails /> : <Loader />}
@@ -99,17 +95,6 @@ const ModalSwitch = () => {
           }
         />
       )}
-
-      {/* {background && (
-        <ProtectedRoute
-          path="/profile/orders/:orderNumber"
-          children={
-            <Modal handlePopupClose={handlePopupClose}>
-              {orderData ? <OrderDetails /> : <Loader />}
-            </Modal>
-          }
-        />
-      )} */}
     </div>
   );
 };

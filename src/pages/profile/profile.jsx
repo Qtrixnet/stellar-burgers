@@ -9,6 +9,7 @@ const Profile = () => {
   const [nameValue, setNameValue] = useState("?");
   const [loginValue, setLoginValue] = useState("?");
   const [passwordValue, setPasswordValue] = useState("");
+  const [isDataChanged, setIsDataChanged] = useState(false);
   const nameInputRef = useRef(null);
   const emailInputRef = useRef(null);
   const passwordInputRef = useRef(null);
@@ -21,6 +22,24 @@ const Profile = () => {
   const oтEmailClick = () => emailInputRef.current.focus();
 
   const onPasswordClick = () => passwordInputRef.current.focus();
+
+  const onNameChange = (evt) => {
+    const value = evt.target.value
+    setNameValue(value)
+    value === userData.name ? setIsDataChanged(false) : setIsDataChanged(true)
+  }
+
+  const onEmailChange = (evt) => {
+    const value = evt.target.value
+    setLoginValue(value)
+    value === userData.email ? setIsDataChanged(false) : setIsDataChanged(true)
+  }
+
+  const onPasswordChange = (evt) => {
+    const value = evt.target.value
+    setPasswordValue(value)
+    value === passwordValue ? setIsDataChanged(false) : setIsDataChanged(true)
+  }
 
   const onSubmit = (evt) => {
     evt.preventDefault();
@@ -43,6 +62,7 @@ const Profile = () => {
     if (userData) {
       setLoginValue(userData.email);
       setNameValue(userData.name);
+      setPasswordValue('');
     }
   }, [userData]);
 
@@ -75,7 +95,7 @@ const Profile = () => {
               activeClassName={ProfileStyles.link_active}
               className={`${ProfileStyles.link} text text_type_main-medium`}
               exact
-              to="/"
+              to="/login"
               onClick={handleLogout}
             >
               Выход
@@ -92,7 +112,7 @@ const Profile = () => {
         <Input
           type={"text"}
           placeholder={"Имя"}
-          onChange={(e) => setNameValue(e.target.value)}
+          onChange={onNameChange}
           icon={"EditIcon"}
           value={nameValue}
           name={"name"}
@@ -105,7 +125,7 @@ const Profile = () => {
         <Input
           type={"text"}
           placeholder={"Логин"}
-          onChange={(e) => setLoginValue(e.target.value)}
+          onChange={onEmailChange}
           icon={"EditIcon"}
           value={loginValue}
           name={"name"}
@@ -118,7 +138,7 @@ const Profile = () => {
         <Input
           type={"text"}
           placeholder={"Пароль"}
-          onChange={(e) => setPasswordValue(e.target.value)}
+          onChange={onPasswordChange}
           icon={"EditIcon"}
           value={passwordValue}
           name={"name"}
@@ -128,14 +148,16 @@ const Profile = () => {
           errorText={"Ошибка"}
           size={"default"}
         />
-        <div className={ProfileStyles.buttons_container}>
-          <Button onClick={onCancelEditing} type="secondary" size="medium">
-            Отмена
-          </Button>
-          <Button type="primary" size="medium">
-            Сохранить
-          </Button>
-        </div>
+        {
+          isDataChanged && (<div className={ProfileStyles.buttons_container}>
+            <Button onClick={onCancelEditing} type="secondary" size="medium">
+              Отмена
+            </Button>
+            <Button type="primary" size="medium">
+              Сохранить
+            </Button>
+          </div>)
+        }
       </form>
     </section>
   );

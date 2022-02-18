@@ -1,9 +1,10 @@
 .container {
   z-index: 1000;
-  width: 720px; 
+  width: 720px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin: 0 auto;
 }
 
 .list {
@@ -44,7 +45,7 @@
 }
 
 .closeButton:hover {
-  opacity: .8;
+  opacity: 0.8;
   cursor: pointer;
 }
 
