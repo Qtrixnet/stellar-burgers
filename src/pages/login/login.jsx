@@ -27,7 +27,7 @@ const Login = () => {
       return;
     }
 
-    dispatch(login(emailValue, passwordValue));
+    dispatch(login(emailValue, passwordValue))
     history.push("/");
   };
 

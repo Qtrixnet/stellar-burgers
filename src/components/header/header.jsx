@@ -12,13 +12,13 @@ const Header = () => {
         <nav>
           <ul className={headerStyles.list}>
             <li>
-              <NavLink activeClassName={headerStyles.link_active} className={`pt-5 pr-5 pb-5 ${headerStyles.link}`} to="/">
-                <BurgerIcon type="primary" />
+              <NavLink activeClassName={headerStyles.link_active} className={`pt-5 pr-5 pb-5 ${headerStyles.link}`} exact to="/">
+                <BurgerIcon type="secondary" />
                 <span className={`ml-2`}>Конструктор</span>
               </NavLink>
             </li>
             <li>
-              <NavLink activeClassName={headerStyles.link_active} className={`p-5 ${headerStyles.link}`} to="/profile/orders">
+              <NavLink activeClassName={headerStyles.link_active} className={`p-5 ${headerStyles.link}`} exact to="/profile/orders">
                 <ListIcon type="secondary" />
                 <span className={`ml-2`}>Лента заказов</span>
               </NavLink>
@@ -29,13 +29,17 @@ const Header = () => {
           <Logo />
         </div>
         {
-          userData ? (<NavLink activeClassName={headerStyles.link_active} className={`p-5 ${headerStyles.link} ${headerStyles.profile}`} to="/profile">
-            <ProfileIcon type="secondary" />
-            <span className={`ml-2`}>Личный кабинет</span>
-          </NavLink>) : (<NavLink activeClassName={headerStyles.link_active} className={`p-5 ${headerStyles.link} ${headerStyles.profile}`} to="/login">
-            <ProfileIcon type="secondary" />
-            <span className={`ml-2`}>Войти</span>
-          </NavLink>)
+          userData ? (
+            <NavLink activeClassName={headerStyles.link_active} className={`p-5 ${headerStyles.link} ${headerStyles.profile}`} to="/profile">
+              <ProfileIcon type="secondary" />
+              <span className={`ml-2`}>Личный кабинет</span>
+            </NavLink>
+          ) : (
+            <NavLink activeClassName={headerStyles.link_active} className={`p-5 ${headerStyles.link} ${headerStyles.profile}`} exact to="/login">
+              <ProfileIcon type="secondary" />
+              <span className={`ml-2`}>Войти</span>
+            </NavLink>
+          )
         }
       </div>
     </header >

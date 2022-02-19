@@ -47,30 +47,24 @@ const ModalSwitch = () => {
         <Route exact path="/">
           <Main />
         </Route>
-        <Route path="/login">
+        <Route exact path="/login">
           <Login />
         </Route>
-        <Route path="/register">
+        <Route exact path="/register">
           <Register />
         </Route>
-        <Route path="/forgot-password">
+        <Route exact path="/forgot-password">
           <ForgotPassword />
         </Route>
-        <Route path="/reset-password">
+        <Route exact path="/reset-password">
           <ResetPassword />
         </Route>
         <Route exact path="/ingredients/:id">
           <IngredientDetails title="Детали ингредиента" />
         </Route>
-        <ProtectedRoute exact path="/profile">
+        <ProtectedRoute path="/profile">
           <Profile />
         </ProtectedRoute>
-        <Route exact path="/profile/orders" />
-        <Route>
-          <Modal handlePopupClose={handlePopupClose}>
-            {orderData ? <OrderDetails /> : <Loader />}
-          </Modal>
-        </Route>
         <Route path="*">
           <NotFound />
         </Route>
@@ -84,7 +78,7 @@ const ModalSwitch = () => {
 
       {background && (
         <Route
-          path="/ingredients/:id"
+          exact path="/ingredients/:id"
           children={
             <Modal
               handlePopupClose={handlePopupClose}

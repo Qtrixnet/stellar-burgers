@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import ProfileStyles from "./profile.module.css";
-import { NavLink } from "react-router-dom";
+import { NavLink, Route, useRouteMatch } from "react-router-dom";
 import { Input, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDispatch, useSelector } from "react-redux";
 import { sendUserData, logout } from "../../services/actions/user";
@@ -16,6 +16,7 @@ const Profile = () => {
   const dispatch = useDispatch();
   const accessToken = useSelector((state) => state.userData.accessToken);
   const userData = useSelector((state) => state.userData.userData);
+  const { path, url } = useRouteMatch();
 
   const onNameClick = () => nameInputRef.current.focus();
 
@@ -74,8 +75,8 @@ const Profile = () => {
             <NavLink
               activeClassName={ProfileStyles.link_active}
               className={`${ProfileStyles.link} text text_type_main-medium`}
+              to={`${url}`}
               exact
-              to="/profile"
             >
               Профиль
             </NavLink>
@@ -84,8 +85,7 @@ const Profile = () => {
             <NavLink
               activeClassName={ProfileStyles.link_active}
               className={`${ProfileStyles.link} text text_type_main-medium`}
-              exact
-              to="/profile/orders"
+              to={`${url}/orders`}
             >
               История заказов
             </NavLink>
@@ -94,7 +94,6 @@ const Profile = () => {
             <NavLink
               activeClassName={ProfileStyles.link_active}
               className={`${ProfileStyles.link} text text_type_main-medium`}
-              exact
               to="/login"
               onClick={handleLogout}
             >
@@ -108,57 +107,62 @@ const Profile = () => {
           В этом разделе вы можете изменить свои персональные данные
         </p>
       </nav>
-      <form onSubmit={onSubmit} className={ProfileStyles.form}>
-        <Input
-          type={"text"}
-          placeholder={"Имя"}
-          onChange={onNameChange}
-          icon={"EditIcon"}
-          value={nameValue}
-          name={"name"}
-          error={false}
-          ref={nameInputRef}
-          onIconClick={onNameClick}
-          errorText={"Ошибка"}
-          size={"default"}
-        />
-        <Input
-          type={"text"}
-          placeholder={"Логин"}
-          onChange={onEmailChange}
-          icon={"EditIcon"}
-          value={loginValue}
-          name={"name"}
-          error={false}
-          ref={emailInputRef}
-          onIconClick={oтEmailClick}
-          errorText={"Ошибка"}
-          size={"default"}
-        />
-        <Input
-          type={"text"}
-          placeholder={"Пароль"}
-          onChange={onPasswordChange}
-          icon={"EditIcon"}
-          value={passwordValue}
-          name={"name"}
-          error={false}
-          ref={passwordInputRef}
-          onIconClick={onPasswordClick}
-          errorText={"Ошибка"}
-          size={"default"}
-        />
-        {
-          isDataChanged && (<div className={ProfileStyles.buttons_container}>
-            <Button onClick={onCancelEditing} type="secondary" size="medium">
-              Отмена
-            </Button>
-            <Button type="primary" size="medium">
-              Сохранить
-            </Button>
-          </div>)
-        }
-      </form>
+      <Route exact path={`${path}`}>
+        <form onSubmit={onSubmit} className={ProfileStyles.form}>
+          <Input
+            type={"text"}
+            placeholder={"Имя"}
+            onChange={onNameChange}
+            icon={"EditIcon"}
+            value={nameValue}
+            name={"name"}
+            error={false}
+            ref={nameInputRef}
+            onIconClick={onNameClick}
+            errorText={"Ошибка"}
+            size={"default"}
+          />
+          <Input
+            type={"text"}
+            placeholder={"Логин"}
+            onChange={onEmailChange}
+            icon={"EditIcon"}
+            value={loginValue}
+            name={"name"}
+            error={false}
+            ref={emailInputRef}
+            onIconClick={oтEmailClick}
+            errorText={"Ошибка"}
+            size={"default"}
+          />
+          <Input
+            type={"text"}
+            placeholder={"Пароль"}
+            onChange={onPasswordChange}
+            icon={"EditIcon"}
+            value={passwordValue}
+            name={"name"}
+            error={false}
+            ref={passwordInputRef}
+            onIconClick={onPasswordClick}
+            errorText={"Ошибка"}
+            size={"default"}
+          />
+          {
+            isDataChanged && (<div className={ProfileStyles.buttons_container}>
+              <Button onClick={onCancelEditing} type="secondary" size="medium">
+                Отмена
+              </Button>
+              <Button type="primary" size="medium">
+                Сохранить
+              </Button>
+            </div>)
+          }
+        </form>
+      </Route>
+      <Route exact path={`${path}/orders`}>
+        {null}
+      </Route>
     </section>
   );
 };
