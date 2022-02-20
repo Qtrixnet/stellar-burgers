@@ -29,13 +29,13 @@ const ForgotPassword = () => {
   };
 
   return (
-    <section className={ForgotPasswordStyles.wrapper}>
+    <article className={ForgotPasswordStyles.wrapper}>
       <form onSubmit={handleSubmit} className={ForgotPasswordStyles.form}>
-        <p
+        <h1
           className={`${ForgotPasswordStyles.title} text text_type_main-medium mb-6`}
         >
           Восстановление пароля
-        </p>
+        </h1>
         <div className="mb-6">
           <Input
             type={"text"}
@@ -59,7 +59,7 @@ const ForgotPassword = () => {
           Войти
         </Link>
       </p>
-    </section>
+    </article>
   );
 };
 

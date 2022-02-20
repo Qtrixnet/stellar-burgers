@@ -97,11 +97,10 @@ const BurgerConstructor = ({ onDropHandler }) => {
     falseValue
   ) =>
     chosenIngredients.find((ingredient) => ingredient.type === "bun")
-      ? `${
-          chosenIngredients.find((ingredient) => ingredient.type === "bun")[
-            property
-          ]
-        } ${trueValue}`
+      ? `${chosenIngredients.find((ingredient) => ingredient.type === "bun")[
+      property
+      ]
+      } ${trueValue}`
       : falseValue;
 
   return (

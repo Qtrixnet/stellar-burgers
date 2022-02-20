@@ -11,9 +11,7 @@ class Api {
     if (res.ok) {
       return res.json();
     } else {
-      return Promise.reject(
-        `Что-то пошло не так: Ошибка ${res.status} - ${res.statusText}`
-      );
+      return Promise.reject(res)
     }
   }
 
@@ -99,7 +97,7 @@ class Api {
       method: "GET",
       headers: {
         "Content-Type": "application/json;charset=utf-8",
-        "authorization": token
+        "authorization": token,
       },
     }).then((res) => this._requestResult(res));
   }

@@ -110,7 +110,11 @@ export const getUserData = (accessToken) => {
       })
       .catch((err) => {
         dispatch(setGetUserDataLoadingFailed())
-        dispatch(refreshToken(localStorage.getItem('refreshToken')))
+
+        if (err.status === 403) {
+          dispatch(refreshToken(localStorage.getItem('refreshToken'), 'getUserData'))
+        }
+
         console.log(err)
       })
   }
@@ -126,12 +130,17 @@ export const sendUserData = (accessToken, name, email, password) => {
       })
       .catch((err) => {
         console.log(err)
+
+        if (err.status === 403) {
+          dispatch(refreshToken(localStorage.getItem('refreshToken')))
+        }
+
         dispatch(setSendUserDataLoadingFailed())
       })
   }
 }
 
-export const refreshToken = (refreshToken) => {
+const refreshToken = (refreshToken) => {
   return (dispatch) => {
     dispatch(setRefreshTokenLoading())
 
@@ -141,7 +150,7 @@ export const refreshToken = (refreshToken) => {
         dispatch(setRefreshTokenLoadingSuccess(res.accessToken))
       })
       .catch((err) => {
-        dispatch(setForgotPasswordLoadingFailed())
+        dispatch(setRefreshTokenLoadingFailed())
         console.log(err)
       })
   }
@@ -168,7 +177,7 @@ export const resetPassword = (password, code) => {
 
     mainApi.resetPassword(password, code)
       .then(() => {
-        setForgotPasswordLoadingSuccess()
+        setResetPasswordLoadingSuccess()
       })
       .catch((err) => {
         setResetPasswordLoadingFailed();
@@ -181,7 +190,7 @@ export const logout = (refreshToken) => {
   return (dispatch) => {
     dispatch(setLogoutLoading())
 
-    mainApi.refreshToken(refreshToken)
+    mainApi.logout(refreshToken)
       .then(() => {
         localStorage.removeItem('refreshToken')
         dispatch(setLogoutLoadingSuccess())

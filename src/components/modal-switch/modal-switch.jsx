@@ -28,18 +28,18 @@ const ModalSwitch = () => {
     (state) => state.popupState.isOrderDetailsPopupOpen
   );
   const location = useLocation();
-  let background = location.state && location.state.background;
+  const background = location.state && location.state.background;
 
-  const handlePopupClose = () => {
-    isOrderDetailsPopupOpen
-      ? dispatch(changeOrderDetailsPopupState(false))
-      : dispatch(changeIngredientsPopupState(false));
-    isOrderDetailsPopupOpen
-      ? dispatch(deleteOrderData())
-      : dispatch(deleteSelectedIngredient());
+  const handleOrderDetailsPopupClose = () => {
+    dispatch(changeOrderDetailsPopupState(false))
+    dispatch(deleteOrderData())
+  }
+
+  const handleIngredientsDetailsPopupClose = () => {
+    dispatch(changeIngredientsPopupState(false));
+    dispatch(deleteSelectedIngredient());
     background && history.goBack();
-  };
-
+  }
 
   return (
     <div className={`${modalSwitchStyles.container} pb-10`}>
@@ -71,7 +71,7 @@ const ModalSwitch = () => {
       </Switch>
 
       {isOrderDetailsPopupOpen && (
-        <Modal handlePopupClose={handlePopupClose}>
+        <Modal handlePopupClose={handleOrderDetailsPopupClose}>
           {orderData ? <OrderDetails /> : <Loader />}
         </Modal>
       )}
@@ -81,7 +81,7 @@ const ModalSwitch = () => {
           exact path="/ingredients/:id"
           children={
             <Modal
-              handlePopupClose={handlePopupClose}
+              handlePopupClose={handleIngredientsDetailsPopupClose}
               title="Детали ингредиента"
             >
               <IngredientDetails />

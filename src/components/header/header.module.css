@@ -41,6 +41,10 @@
   color: rgba(242, 242, 243, 1);
 }
 
+.link_active svg {
+  fill: white;
+}
+
 .list {
   padding: 0;
   margin: 0;

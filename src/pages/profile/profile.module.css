@@ -41,15 +41,3 @@
   opacity: 0.4;
   margin-top: 80px;
 }
-
-.form {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-}
-
-.buttons_container {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}

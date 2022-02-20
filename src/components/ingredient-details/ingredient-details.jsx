@@ -1,26 +1,14 @@
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import ingredientDetailsStyles from "./ingredient-details.module.css";
-import { useLocation } from "react-router-dom";
-import { useEffect } from "react";
-import { selectIngredient } from "../../services/actions/ingredients";
+import { useParams } from "react-router-dom";
 import PropTypes from "prop-types";
 
 const IngredientDetails = ({ title }) => {
-  const location = useLocation();
-  const dispatch = useDispatch();
+  const { id } = useParams();
 
   const ingredients = useSelector((state) => state.ingredientsData.ingredients);
 
-  const selectedIngredient = useSelector(
-    (state) => state.ingredientsData.selectedIngredient
-  );
-
-  useEffect(() => {
-    ingredients.forEach((ingredient) => {
-      location.pathname.includes(ingredient._id) &&
-        dispatch(selectIngredient(ingredient));
-    });
-  }, [ingredients, dispatch, location.pathname]);
+  const selectedIngredient = ingredients.find(ingredient => ingredient._id === id)
 
   return (
     <>

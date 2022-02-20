@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import ResetPasswordStyles from "./reset-password.module.css";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useHistory, useLocation } from "react-router-dom";
 import {
   Input,
   Button,
@@ -16,6 +16,8 @@ const ResetPassword = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const isPasswordForgot = useSelector((state) => state.userData.isPasswordForgot);
+  const location = useLocation();
+  const userData = useSelector((state) => state.userData.userData);
 
   const onPasswordChange = (e) => {
     setPasswordValue(e.target.value);
@@ -36,17 +38,21 @@ const ResetPassword = () => {
   };
 
   useEffect(() => {
-    !isPasswordForgot && history.push('/forgot-password');
-  }, [isPasswordForgot, history])
+    if (userData) {
+      (location.state && location.state.previousLocation) ? history.push(location.state.previousLocation.pathname) : history.push('/');
+    } else {
+      !isPasswordForgot && history.push('/forgot-password');
+    }
+  }, [userData, history, location, isPasswordForgot])
 
   return (
-    <section className={ResetPasswordStyles.wrapper}>
+    <article className={ResetPasswordStyles.wrapper}>
       <form onSubmit={handleSubmit} className={ResetPasswordStyles.form}>
-        <p
+        <h1
           className={`${ResetPasswordStyles.title} text text_type_main-medium mb-6`}
         >
           Восстановление пароля
-        </p>
+        </h1>
         <PasswordInput
           onChange={onPasswordChange}
           value={passwordValue}
@@ -76,7 +82,7 @@ const ResetPassword = () => {
           Войти
         </Link>
       </p>
-    </section>
+    </article>
   );
 };
 

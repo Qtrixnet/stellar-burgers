@@ -1,13 +1,13 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import LoginStyles from "./login.module.css";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useHistory, useLocation } from "react-router-dom";
 import {
   Input,
   Button,
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { login } from "../../services/actions/user";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const Login = () => {
   const [emailValue, setEmailValue] = useState("");
@@ -15,6 +15,8 @@ const Login = () => {
   const inputRef = useRef(null);
   const dispatch = useDispatch();
   const history = useHistory();
+  const location = useLocation();
+  const userData = useSelector((state) => state.userData.userData);
 
   const onPasswordChange = (e) => {
     setPasswordValue(e.target.value);
@@ -28,15 +30,20 @@ const Login = () => {
     }
 
     dispatch(login(emailValue, passwordValue))
-    history.push("/");
   };
 
+  useEffect(() => {
+    if (userData) {
+      (location.state && location.state.previousLocation) ? history.push(location.state.previousLocation.pathname) : history.push('/');
+    }
+  }, [userData, history, location])
+
   return (
-    <section className={LoginStyles.wrapper}>
+    <article className={LoginStyles.wrapper}>
       <form onSubmit={handleSubmit} className={LoginStyles.form}>
-        <p className={`${LoginStyles.title} text text_type_main-medium`}>
+        <h1 className={`${LoginStyles.title} text text_type_main-medium`}>
           Вход
-        </p>
+        </h1>
         <div className="mt-6 mb-6">
           <Input
             type={"text"}
@@ -73,7 +80,7 @@ const Login = () => {
           Восстановить пароль
         </Link>
       </p>
-    </section>
+    </article>
   );
 };
 
