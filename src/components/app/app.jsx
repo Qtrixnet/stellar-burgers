@@ -14,7 +14,7 @@ const App = () => {
 
   useEffect(() => {
     dispatch(getIngredients());
-    accessToken && dispatch(getUserData(accessToken));
+    dispatch(getUserData(accessToken));
   }, [dispatch, accessToken])
 
   return (

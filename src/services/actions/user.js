@@ -1,4 +1,5 @@
 import mainApi from '../../utils/Api';
+import { tokenExpiredError, unauthorizedError } from '../../utils/constants';
 
 export const REGISTRATION = 'REGISTRATION';
 export const REGISTRATION_SUCCESS = 'REGISTRATION_SUCCESS';
@@ -111,7 +112,7 @@ export const getUserData = (accessToken) => {
       .catch((err) => {
         dispatch(setGetUserDataLoadingFailed())
 
-        if (err.status === 403) {
+        if (err.status === tokenExpiredError || err.status === unauthorizedError) {
           dispatch(refreshToken(localStorage.getItem('refreshToken'), 'getUserData'))
         }
 
@@ -131,7 +132,7 @@ export const sendUserData = (accessToken, name, email, password) => {
       .catch((err) => {
         console.log(err)
 
-        if (err.status === 403) {
+        if (err.status === tokenExpiredError) {
           dispatch(refreshToken(localStorage.getItem('refreshToken')))
         }
 
