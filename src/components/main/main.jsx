@@ -26,7 +26,7 @@ const Main = () => {
   };
 
   return (
-    <main className={mainStyles.main}>
+    <main>
       <DndProvider backend={HTML5Backend}>
         <section className={mainStyles.main_container}>
           <BurgerIngredients />

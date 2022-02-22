@@ -1,7 +1,7 @@
 .header {
   width: 100%;
   margin: 0 auto;
-  background-color: #1C1C21;
+  background-color: #1c1c21;
 }
 
 .headerContainer {
@@ -39,6 +39,10 @@
 
 .link_active {
   color: rgba(242, 242, 243, 1);
+}
+
+.link_active svg {
+  fill: white;
 }
 
 .list {

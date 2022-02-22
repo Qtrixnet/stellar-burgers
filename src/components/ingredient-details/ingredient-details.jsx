@@ -1,42 +1,63 @@
+import { useSelector } from "react-redux";
+import ingredientDetailsStyles from "./ingredient-details.module.css";
+import { useParams } from "react-router-dom";
+import PropTypes from "prop-types";
 
-import { useSelector } from 'react-redux';
-import ingredientDetailsStyles from './ingredient-details.module.css';
+const IngredientDetails = ({ title }) => {
+  const { id } = useParams();
 
-const IngredientDetails = () => {
-  const selectedIngredient = useSelector(state => state.ingredientsData.selectedIngredient);
+  const ingredients = useSelector((state) => state.ingredientsData.ingredients);
+
+  const selectedIngredient = ingredients.find(ingredient => ingredient._id === id)
 
   return (
-    <div className={`${ingredientDetailsStyles.container}`}>
-      <img width="480" height="240" alt={selectedIngredient.name} src={selectedIngredient && selectedIngredient.image} />
-      <p className="text text_type_main-medium pt-4 pb-8">{selectedIngredient && selectedIngredient.name}</p>
-      <ul className={`${ingredientDetailsStyles.list} pt-8`}>
-        <li className={`${ingredientDetailsStyles.listItem} text text_type_main-default text_color_inactive`}>
-          <span>
-            Калории,ккал
-          </span>
-          {selectedIngredient.calories}
-        </li>
-        <li className={`${ingredientDetailsStyles.listItem} text text_type_main-default text_color_inactive`}>
-          <span>
-            Белки, г
-          </span>
-          {selectedIngredient.proteins}
-        </li>
-        <li className={`${ingredientDetailsStyles.listItem} text text_type_main-default text_color_inactive`}>
-          <span>
-            Жиры, г
-          </span>
-          {selectedIngredient.fat}
-        </li>
-        <li className={`${ingredientDetailsStyles.listItem} text text_type_main-default text_color_inactive`}>
-          <span>
-            Углеводы, г
-          </span>
-          {selectedIngredient.carbohydrates}
-        </li>
-      </ul>
-    </div>
+    <>
+      {selectedIngredient && (
+        <div className={`${ingredientDetailsStyles.container}`}>
+          {title && (<h2 className={`${ingredientDetailsStyles.title} text text_type_main-large`}>{title}</h2>)}
+          <img
+            width="480"
+            height="240"
+            alt={selectedIngredient.name}
+            src={selectedIngredient && selectedIngredient.image}
+          />
+          <p className="text text_type_main-medium pt-4 pb-8">
+            {selectedIngredient && selectedIngredient.name}
+          </p>
+          <ul className={`${ingredientDetailsStyles.list} pt-8`}>
+            <li
+              className={`${ingredientDetailsStyles.listItem} text text_type_main-default text_color_inactive`}
+            >
+              <span>Калории,ккал</span>
+              {selectedIngredient.calories}
+            </li>
+            <li
+              className={`${ingredientDetailsStyles.listItem} text text_type_main-default text_color_inactive`}
+            >
+              <span>Белки, г</span>
+              {selectedIngredient.proteins}
+            </li>
+            <li
+              className={`${ingredientDetailsStyles.listItem} text text_type_main-default text_color_inactive`}
+            >
+              <span>Жиры, г</span>
+              {selectedIngredient.fat}
+            </li>
+            <li
+              className={`${ingredientDetailsStyles.listItem} text text_type_main-default text_color_inactive`}
+            >
+              <span>Углеводы, г</span>
+              {selectedIngredient.carbohydrates}
+            </li>
+          </ul>
+        </div>
+      )}
+    </>
   );
+};
+
+IngredientDetails.propTypes = {
+  title: PropTypes.string,
 };
 
 export default IngredientDetails;
