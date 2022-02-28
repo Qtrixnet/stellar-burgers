@@ -1,5 +1,5 @@
 /* eslint-disable no-restricted-globals */
-export const getCoords = (elem) => {
+export const getCoords = (elem: HTMLElement): { top: number, left: number } => {
   let box = elem.getBoundingClientRect();
 
   return {
