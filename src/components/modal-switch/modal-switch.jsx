@@ -18,7 +18,7 @@ import Main from "../main/main";
 import Modal from "../modal/modal";
 import OrderDetails from "../order-details/order-details";
 import IngredientDetails from "../ingredient-details/ingredient-details";
-import Loader from "../loader/loader";
+import Loader from "../loader/loader.tsx";
 
 const ModalSwitch = () => {
   const dispatch = useDispatch();
