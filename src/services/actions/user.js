@@ -1,4 +1,4 @@
-import mainApi from '../../utils/Api';
+import mainApi from '../../utils/Api.ts';
 import { tokenExpiredError, unauthorizedError } from '../../utils/constants.ts';
 
 export const REGISTRATION = 'REGISTRATION';

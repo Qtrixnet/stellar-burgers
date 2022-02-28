@@ -1,4 +1,4 @@
-import mainApi from "../../utils/Api";
+import mainApi from "../../utils/Api.ts";
 import { v4 as generateUniqueId } from "uuid";
 
 export const GET_INGREDIENTS = "GET_INGREDIENTS";

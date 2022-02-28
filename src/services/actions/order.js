@@ -1,4 +1,4 @@
-import mainApi from '../../utils/Api';
+import mainApi from '../../utils/Api.ts';
 import { deleteAllIngredients } from '../actions/ingredients';
 
 export const GET_ORDER_DATA = 'GET_ORDER_DATA';

@@ -1,13 +1,16 @@
-import { BASE_URL } from '../utils/constants.ts';
+import { BASE_URL } from '../utils/constants';
 
 //* Класс для взаимодействия с сервером
 class Api {
-  constructor(data) {
+  private _baseUrl: string;
+  constructor(data: string) {
     this._baseUrl = data;
   }
 
   //* Проверка статуса запроса
-  _requestResult(res) {
+  _requestResult(res: {
+    body: any, bodyUsed: boolean, headers: object, ok: boolean, redirected: boolean, status: number, statusText: string, type: string, url: string, json?: any
+  }) {
     if (res.ok) {
       return res.json();
     } else {
@@ -21,7 +24,7 @@ class Api {
   }
 
   //* Отправка данных заказа
-  sendIngredients(ingredientsIds) {
+  sendIngredients(ingredientsIds: Array<string>) {
     const burgerData = {
       'ingredients': ingredientsIds
     }
@@ -36,7 +39,7 @@ class Api {
   }
 
   //* Запрос на восстановление пароля
-  sendEmail(email) {
+  sendEmail(email: string) {
     return fetch(`${this._baseUrl}/password-reset`, {
       method: "POST",
       headers: {
@@ -49,7 +52,7 @@ class Api {
   }
 
   //* Запрос на обновление пароля
-  resetPassword(passwordValue, codeValue) {
+  resetPassword(passwordValue: string, codeValue: string) {
     return fetch(`${this._baseUrl}/password-reset/reset`, {
       method: "POST",
       headers: {
@@ -63,7 +66,7 @@ class Api {
   }
 
   //* Запрос на авторизацию
-  login(email, password) {
+  login(email: string, password: string) {
     return fetch(`${this._baseUrl}/auth/login`, {
       method: "POST",
       headers: {
@@ -77,7 +80,7 @@ class Api {
   }
 
   //* Запрос на регистрацию
-  register(email, name, password) {
+  register(email: string, name: string, password: string) {
     return fetch(`${this._baseUrl}/auth/register`, {
       method: "POST",
       headers: {
@@ -92,7 +95,7 @@ class Api {
   }
 
   //* Запрос данных пользователя
-  getUserData(token) {
+  getUserData(token: string) {
     return fetch(`${this._baseUrl}/auth/user`, {
       method: "GET",
       headers: {
@@ -103,7 +106,7 @@ class Api {
   }
 
   //* Запрос на редактирвоание данных пользователя
-  sendUserData(token, name, email, password) {
+  sendUserData(token: string, name: string, email: string, password: string) {
     return fetch(`${this._baseUrl}/auth/user`, {
       method: "PATCH",
       headers: {
@@ -119,7 +122,7 @@ class Api {
   }
 
   //* Запрос для обновления токена
-  refreshToken(refreshToken) {
+  refreshToken(refreshToken: string) {
     return fetch(`${this._baseUrl}/auth/token`, {
       method: "POST",
       headers: {
@@ -132,7 +135,7 @@ class Api {
   }
 
   //* Запрос на выход из системы
-  logout(refreshToken) {
+  logout(refreshToken: string) {
     return fetch(`${this._baseUrl}/auth/logout`, {
       method: "POST",
       headers: {
