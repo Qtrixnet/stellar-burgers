@@ -9,9 +9,17 @@ import {
   SORT_INGREDIENTS,
   DELETE_ALL_INGREDIENTS
 } from '../actions/ingredients';
+import { AnyAction } from 'redux';
 
+interface ICounterState {
+  ingredients: Array<object>,
+  selectedIngredient: object | null,
+  chosenIngredients: Array<object>,
+  ingredientsRequest: boolean,
+  ingredientsFailed: boolean,
+}
 
-const initialState = {
+const initialState: ICounterState = {
   ingredients: [],
   selectedIngredient: null,
   chosenIngredients: [],
@@ -19,7 +27,7 @@ const initialState = {
   ingredientsFailed: false,
 };
 
-export const ingredientsReducer = (state = initialState, action) => {
+export const ingredientsReducer = (state = initialState, action: AnyAction): ICounterState => {
 
   switch (action.type) {
     case DELETE_ALL_INGREDIENTS: {

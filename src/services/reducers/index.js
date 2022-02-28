@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { ingredientsReducer } from './ingredients';
+import { ingredientsReducer } from './ingredients.ts';
 import { orderReducer } from './order';
 import { popupReducer } from './popup';
 import { userReducer } from './user';
