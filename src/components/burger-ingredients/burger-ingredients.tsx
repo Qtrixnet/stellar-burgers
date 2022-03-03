@@ -1,23 +1,25 @@
-import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useState, MouseEvent} from 'react';
+import { useSelector, RootStateOrAny } from 'react-redux';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import burgerIngredientsStyle from './burger-ingredients.module.css';
 import { compareCoords } from '../../utils/compare-coords';
 import Ingredient from '../ingredient/ingredient';
+import {Iingredient} from "../../services/types/types";
 
 const BurgerIngredients = () => {
-  const initialIngredients = useSelector(state => state.ingredientsData.ingredients)
+  const initialIngredients = useSelector((state: RootStateOrAny) => state.ingredientsData.ingredients)
 
   const [current, setCurrent] = useState('bun')
 
-  const scrollHandler = (evt) => {
+  const scrollHandler = (evt: MouseEvent<HTMLDivElement>) => {
     evt.target.addEventListener('scroll', function () {
       setCurrent(compareCoords(burgerIngredientsStyle.main_container))
     });
   }
 
-  const handleTabClick = (type) => {
+  const handleTabClick = (type: string) => {
     setCurrent(type)
+    // @ts-ignore
     document.querySelector(`#${type}`).scrollIntoView({ block: "start", behavior: "smooth" })
   }
 
@@ -40,19 +42,19 @@ const BurgerIngredients = () => {
           Булки
         </h2>
         <ul className={`${burgerIngredientsStyle.list} pt-6 pb-10 pr-4 pl-4`}>
-          {initialIngredients.map((item) => item.type === 'bun' && <Ingredient key={item._id} ingredient={item} />)}
+          {initialIngredients.map((item: Iingredient) => item.type === 'bun' && <Ingredient key={item._id} ingredient={item} />)}
         </ul>
         <h2 id="sauce" className="mb-6 text text_type_main-medium">
           Соусы
         </h2>
         <ul className={`${burgerIngredientsStyle.list} pt-6 pb-10 pr-4 pl-4`}>
-          {initialIngredients.map((item) => item.type === 'sauce' && <Ingredient key={item._id} ingredient={item} />)}
+          {initialIngredients.map((item: Iingredient) => item.type === 'sauce' && <Ingredient key={item._id} ingredient={item} />)}
         </ul>
         <h2 id="main" className="mb-6 text text_type_main-medium">
           Начинки
         </h2>
         <ul className={`${burgerIngredientsStyle.list} pt-6 pb-10 pr-4 pl-4`}>
-          {initialIngredients.map((item) => item.type === 'main' && <Ingredient key={item._id} ingredient={item} />)}
+          {initialIngredients.map((item: Iingredient) => item.type === 'main' && <Ingredient key={item._id} ingredient={item} />)}
         </ul>
       </div>
     </div>

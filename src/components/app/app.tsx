@@ -1,16 +1,16 @@
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import {useEffect} from 'react';
+import {RootStateOrAny, useDispatch, useSelector} from 'react-redux';
 import appStyles from './app.module.css';
 import Header from '../header/header';
 import Loader from '../loader/loader';
-import { getIngredients } from '../../services/actions/ingredients';
+import {getIngredients} from '../../services/actions/ingredients';
 import ModalSwitch from '../modal-switch/modal-switch';
-import { getUserData } from '../../services/actions/user';
+import {getUserData} from '../../services/actions/user';
 
 const App = () => {
-  const ingredientsRequest = useSelector(state => state.ingredientsData.ingredientsRequest);
+  const ingredientsRequest = useSelector((state: RootStateOrAny) => state.ingredientsData.ingredientsRequest);
   const dispatch = useDispatch();
-  const accessToken = useSelector((state) => state.userData.accessToken);
+  const accessToken = useSelector((state: RootStateOrAny) => state.userData.accessToken);
 
   useEffect(() => {
     dispatch(getIngredients());
@@ -20,13 +20,13 @@ const App = () => {
   return (
     <div className={`${appStyles.app}`}>
       {
-        ingredientsRequest ? (<Loader />) :
+        ingredientsRequest ? (<Loader/>) :
           <>
-            <Header />
-            <ModalSwitch />
+            <Header/>
+            <ModalSwitch/>
           </>
       }
-    </div >
+    </div>
 
   );
 };

@@ -1,45 +1,40 @@
-import { useMemo, useCallback } from "react";
-import { useHistory } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  ConstructorElement,
-  Button,
-  CurrencyIcon,
-} from "@ya.praktikum/react-developer-burger-ui-components";
+import {FC, useCallback, useMemo} from "react";
+import {useHistory} from "react-router-dom";
+import {useDispatch, useSelector, RootStateOrAny} from "react-redux";
+import {Button, ConstructorElement, CurrencyIcon,} from "@ya.praktikum/react-developer-burger-ui-components";
 import burgerConstructorStyle from "./burger-constructor.module.css";
-import { getOrderData } from "../../services/actions/order";
-import { useDrop } from "react-dnd";
-import { DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
+import {getOrderData} from "../../services/actions/order";
+import {DndProvider, useDrop} from "react-dnd";
+import {HTML5Backend} from "react-dnd-html5-backend";
 import ChosenIngredient from "../chosen-ingredient/chosen-ingredient";
 import update from "immutability-helper";
-import { sortIngredients } from "../../services/actions/ingredients";
-import { changeOrderDetailsPopupState } from "../../services/actions/popup";
-import PropTypes from "prop-types";
+import {sortIngredients} from "../../services/actions/ingredients";
+import {changeOrderDetailsPopupState} from "../../services/actions/popup";
+import {IburgerConstructorProps, Iingredient, TingredientId, TingredientType} from "../../services/types/types";
 
-const BurgerConstructor = ({ onDropHandler }) => {
+const BurgerConstructor: FC<IburgerConstructorProps> = ({onDropHandler}) => {
   const dispatch = useDispatch();
   const history = useHistory();
 
   const chosenIngredients = useSelector(
-    (state) => state.ingredientsData.chosenIngredients
+    (state: RootStateOrAny) => state.ingredientsData.chosenIngredients
   );
 
-  const userData = useSelector((state) => state.userData.userData);
+  const userData = useSelector((state: RootStateOrAny) => state.userData.userData);
 
   const totalSumm = useMemo(
     () =>
       chosenIngredients.reduce(
-        (acc, cur) =>
+        (acc: number, cur: Iingredient) =>
           cur.type === "bun" ? acc + cur.price * 2 : acc + cur.price,
         0
       ),
     [chosenIngredients]
   );
 
-  const [{ isHover }, burgerIngredientsContainer] = useDrop({
+  const [{isHover}, burgerIngredientsContainer] = useDrop({
     accept: "ingredient",
-    drop(ingredientId) {
+    drop(ingredientId: TingredientId) {
       onDropHandler(ingredientId);
     },
     collect: (monitor) => ({
@@ -50,10 +45,10 @@ const BurgerConstructor = ({ onDropHandler }) => {
   const moveIngredient = useCallback(
     (dragIndex, hoverIndex) => {
       const ingredientWithTypeBan = chosenIngredients.filter(
-        (ingredient) => ingredient.type === "bun"
+        ({type}: TingredientType) => type === "bun"
       );
       const ingredientsWithoutBan = chosenIngredients.filter(
-        (ingredient) => ingredient.type !== "bun"
+        ({type}: TingredientType) => type !== "bun"
       );
       const sortedIngredients = update(
         ingredientsWithoutBan,
@@ -63,6 +58,7 @@ const BurgerConstructor = ({ onDropHandler }) => {
             [hoverIndex, 0, ingredientsWithoutBan[dragIndex]],
           ],
         },
+      // @ts-ignore
         [ingredientsWithoutBan]
       );
       const sortedInregientsWithBun = [
@@ -79,7 +75,7 @@ const BurgerConstructor = ({ onDropHandler }) => {
 
   const handleOrderButtonClick = () => {
     const ingredientsIds = chosenIngredients.map(
-      (ingredient) => ingredient._id
+      (ingredient: Iingredient) => ingredient._id
     );
 
     if (userData) {
@@ -91,23 +87,24 @@ const BurgerConstructor = ({ onDropHandler }) => {
   };
 
   const bunElementHandler = (
-    chosenIngredients,
-    property,
-    trueValue,
-    falseValue
+    chosenIngredients: Iingredient[],
+    property: string,
+    trueValue: string,
+    falseValue: string
   ) =>
-    chosenIngredients.find((ingredient) => ingredient.type === "bun")
-      ? `${chosenIngredients.find((ingredient) => ingredient.type === "bun")[
-      property
-      ]
+    chosenIngredients.find((ingredient: Iingredient) => ingredient.type === "bun")
+  // @ts-ignore
+      ? `${chosenIngredients.find((ingredient: Iingredient) => ingredient.type === "bun")[
+        property
+        ]
       } ${trueValue}`
       : falseValue;
-
+  
   return (
     <DndProvider backend={HTML5Backend}>
       <div
         ref={burgerIngredientsContainer}
-        style={{ borderColor }}
+        style={{borderColor}}
         className={`${burgerConstructorStyle.constructor_container} mt-25 pt-5 pb-5`}
       >
         <div className={`${burgerConstructorStyle.constructor_element} pr-5`}>
@@ -121,7 +118,7 @@ const BurgerConstructor = ({ onDropHandler }) => {
                 "(верх)",
                 "Выберите булку"
               )}
-              price={bunElementHandler(chosenIngredients, "price", "", "0")}
+              price={+bunElementHandler(chosenIngredients, "price", "", "0")}
               thumbnail={bunElementHandler(chosenIngredients, "image", "", "")}
             />
           ) : (
@@ -130,7 +127,7 @@ const BurgerConstructor = ({ onDropHandler }) => {
         </div>
         <ul className={`${burgerConstructorStyle.list} pl-4 pr-4`}>
           {chosenIngredients.map(
-            (ingredient, idx) =>
+            (ingredient: Iingredient, idx: number) =>
               ingredient.type !== "bun" && (
                 <ChosenIngredient
                   key={ingredient.uuid}
@@ -153,7 +150,7 @@ const BurgerConstructor = ({ onDropHandler }) => {
                 "(низ)",
                 "Выберите булку"
               )}
-              price={bunElementHandler(chosenIngredients, "price", "", "0")}
+              price={+bunElementHandler(chosenIngredients, "price", "", "0")}
               thumbnail={bunElementHandler(chosenIngredients, "image", "", "")}
             />
           )}
@@ -164,9 +161,10 @@ const BurgerConstructor = ({ onDropHandler }) => {
             <span className="text text_type_digits-medium mr-2">
               {totalSumm}
             </span>
-            <CurrencyIcon type="primary" />
+            <CurrencyIcon type="primary"/>
           </div>
           <Button
+            // @ts-ignore
             disabled={chosenIngredients.length > 0 ? false : true}
             onClick={handleOrderButtonClick}
             className="pt-10"
@@ -181,8 +179,8 @@ const BurgerConstructor = ({ onDropHandler }) => {
   );
 };
 
-BurgerConstructor.propTypes = {
-  onDropHandler: PropTypes.func.isRequired,
-};
+// BurgerConstructor.propTypes = {
+//   onDropHandler: PropTypes.func.isRequired,
+// };
 
 export default BurgerConstructor;
