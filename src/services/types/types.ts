@@ -1,6 +1,13 @@
 export interface IburgerConstructorProps {
-  onDropHandler: (ingredientId: TingredientId) => void;
-};
+  onDropHandler: (ingredientId: TingredientId) => void,
+}
+
+export interface IchosenIngredientProps {
+  ingredient: Iingredient,
+  id: string,
+  moveIngredient: (dragIndex: number, hoverIndex: number) => void,
+  index: number,
+}
 
 export interface Iingredient {
   calories: number,
@@ -16,7 +23,7 @@ export interface Iingredient {
   uuid: string,
   __v: string,
   _id: string,
-};
+}
 
 export type TingredientId = Pick<Iingredient, '_id'> ;
 export type TingredientType = Pick<Iingredient, 'type'>;
