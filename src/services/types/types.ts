@@ -1,5 +1,5 @@
 export interface IburgerConstructorProps {
-  onDropHandler: (ingredientId: TingredientId) => void,
+  onDropHandler: (ingredientId: Iingredient) => void,
 }
 
 export interface IchosenIngredientProps {

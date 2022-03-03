@@ -1,19 +1,20 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector, RootStateOrAny } from 'react-redux';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
 import mainStyles from './main.module.css';
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { addIngredient } from '../../services/actions/ingredients';
+import {Iingredient} from "../../services/types/types";
 
 const Main = () => {
   const dispatch = useDispatch();
-  const chosenIngredients = useSelector(state => state.ingredientsData.chosenIngredients);
-  const initialIngredients = useSelector(state => state.ingredientsData.ingredients);
+  const chosenIngredients = useSelector((state: RootStateOrAny) => state.ingredientsData.chosenIngredients);
+  const initialIngredients = useSelector((state: RootStateOrAny) => state.ingredientsData.ingredients);
 
-  const handleDrop = (ingredientId) => {
-    const targetIngredient = initialIngredients.find(ingredient => ingredient._id === ingredientId._id)
-    const selectedBun = chosenIngredients.find(ingredient => ingredient.type === 'bun')
+  const handleDrop = (ingredientId: Iingredient) => {
+    const targetIngredient = initialIngredients.find((ingredient: Iingredient) => ingredient._id === ingredientId._id)
+    const selectedBun = chosenIngredients.find((ingredient: Iingredient) => ingredient.type === 'bun')
     const selectedBunIndex = chosenIngredients.indexOf(selectedBun)
 
     if (targetIngredient.type === 'bun' && selectedBun) {
