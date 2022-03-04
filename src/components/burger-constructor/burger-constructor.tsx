@@ -10,7 +10,7 @@ import ChosenIngredient from "../chosen-ingredient/chosen-ingredient";
 import update from "immutability-helper";
 import {sortIngredients} from "../../services/actions/ingredients";
 import {changeOrderDetailsPopupState} from "../../services/actions/popup";
-import {IburgerConstructorProps, Iingredient, TingredientId, TingredientType} from "../../services/types/types";
+import {IburgerConstructorProps, Iingredient, TingredientType} from "../../services/types/types";
 
 const BurgerConstructor: FC<IburgerConstructorProps> = ({onDropHandler}) => {
   const dispatch = useDispatch();
@@ -34,7 +34,7 @@ const BurgerConstructor: FC<IburgerConstructorProps> = ({onDropHandler}) => {
 
   const [{isHover}, burgerIngredientsContainer] = useDrop({
     accept: "ingredient",
-    drop(ingredientId: TingredientId) {
+    drop(ingredientId: Iingredient) {
       onDropHandler(ingredientId);
     },
     collect: (monitor) => ({
