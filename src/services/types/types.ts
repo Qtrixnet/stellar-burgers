@@ -28,6 +28,10 @@ export interface IModalProps {
   title?: string
 }
 
+export interface IModalOverlayProps {
+  handlePopupClose: () => void,
+}
+
 export interface IChosenIngredientProps {
   ingredient: IIngredient,
   id: string,
