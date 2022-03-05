@@ -9,6 +9,10 @@ export interface IchosenIngredientProps {
   index: number,
 }
 
+export interface IingredientProps {
+  ingredient: Iingredient,
+}
+
 export interface Iingredient {
   calories: number,
   carbohydrates: number,
