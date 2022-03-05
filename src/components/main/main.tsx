@@ -5,16 +5,16 @@ import mainStyles from './main.module.css';
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { addIngredient } from '../../services/actions/ingredients';
-import {Iingredient} from "../../services/types/types";
+import {IIngredient} from "../../services/types/types";
 
 const Main = () => {
   const dispatch = useDispatch();
   const chosenIngredients = useSelector((state: RootStateOrAny) => state.ingredientsData.chosenIngredients);
   const initialIngredients = useSelector((state: RootStateOrAny) => state.ingredientsData.ingredients);
 
-  const handleDrop = (ingredientId: Iingredient) => {
-    const targetIngredient = initialIngredients.find((ingredient: Iingredient) => ingredient._id === ingredientId._id)
-    const selectedBun = chosenIngredients.find((ingredient: Iingredient) => ingredient.type === 'bun')
+  const handleDrop = (ingredientId: IIngredient) => {
+    const targetIngredient = initialIngredients.find((ingredient: IIngredient) => ingredient._id === ingredientId._id)
+    const selectedBun = chosenIngredients.find((ingredient: IIngredient) => ingredient.type === 'bun')
     const selectedBunIndex = chosenIngredients.indexOf(selectedBun)
 
     if (targetIngredient.type === 'bun' && selectedBun) {

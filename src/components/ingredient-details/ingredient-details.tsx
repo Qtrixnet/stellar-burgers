@@ -1,14 +1,15 @@
-import { useSelector } from "react-redux";
+import { useSelector, RootStateOrAny } from "react-redux";
 import ingredientDetailsStyles from "./ingredient-details.module.css";
 import { useParams } from "react-router-dom";
-import PropTypes from "prop-types";
+import {IIngredient, IIngredientDetailsProps} from "../../services/types/types";
+import {FC} from 'react'
 
-const IngredientDetails = ({ title }) => {
+const IngredientDetails: FC<IIngredientDetailsProps>= ({ title }) => {
   const { id } = useParams();
 
-  const ingredients = useSelector((state) => state.ingredientsData.ingredients);
+  const ingredients = useSelector((state: RootStateOrAny) => state.ingredientsData.ingredients);
 
-  const selectedIngredient = ingredients.find(ingredient => ingredient._id === id)
+  const selectedIngredient = ingredients.find((ingredient: IIngredient) => ingredient._id === id)
 
   return (
     <>
@@ -54,10 +55,6 @@ const IngredientDetails = ({ title }) => {
       )}
     </>
   );
-};
-
-IngredientDetails.propTypes = {
-  title: PropTypes.string,
 };
 
 export default IngredientDetails;

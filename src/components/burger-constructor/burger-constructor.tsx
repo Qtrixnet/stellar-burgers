@@ -10,9 +10,9 @@ import ChosenIngredient from "../chosen-ingredient/chosen-ingredient";
 import update from "immutability-helper";
 import {sortIngredients} from "../../services/actions/ingredients";
 import {changeOrderDetailsPopupState} from "../../services/actions/popup";
-import {IburgerConstructorProps, Iingredient, TingredientType} from "../../services/types/types";
+import {IBurgerConstructorProps, IIngredient, TIngredientType} from "../../services/types/types";
 
-const BurgerConstructor: FC<IburgerConstructorProps> = ({onDropHandler}) => {
+const BurgerConstructor: FC<IBurgerConstructorProps> = ({onDropHandler}) => {
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -25,7 +25,7 @@ const BurgerConstructor: FC<IburgerConstructorProps> = ({onDropHandler}) => {
   const totalSumm = useMemo(
     () =>
       chosenIngredients.reduce(
-        (acc: number, cur: Iingredient) =>
+        (acc: number, cur: IIngredient) =>
           cur.type === "bun" ? acc + cur.price * 2 : acc + cur.price,
         0
       ),
@@ -34,7 +34,7 @@ const BurgerConstructor: FC<IburgerConstructorProps> = ({onDropHandler}) => {
 
   const [{isHover}, burgerIngredientsContainer] = useDrop({
     accept: "ingredient",
-    drop(ingredientId: Iingredient) {
+    drop(ingredientId: IIngredient) {
       onDropHandler(ingredientId);
     },
     collect: (monitor) => ({
@@ -45,10 +45,10 @@ const BurgerConstructor: FC<IburgerConstructorProps> = ({onDropHandler}) => {
   const moveIngredient = useCallback(
     (dragIndex, hoverIndex) => {
       const ingredientWithTypeBan = chosenIngredients.filter(
-        ({type}: TingredientType) => type === "bun"
+        ({type}: TIngredientType) => type === "bun"
       );
       const ingredientsWithoutBan = chosenIngredients.filter(
-        ({type}: TingredientType) => type !== "bun"
+        ({type}: TIngredientType) => type !== "bun"
       );
       const sortedIngredients = update(
         ingredientsWithoutBan,
@@ -75,7 +75,7 @@ const BurgerConstructor: FC<IburgerConstructorProps> = ({onDropHandler}) => {
 
   const handleOrderButtonClick = () => {
     const ingredientsIds = chosenIngredients.map(
-      (ingredient: Iingredient) => ingredient._id
+      (ingredient: IIngredient) => ingredient._id
     );
 
     if (userData) {
@@ -87,14 +87,14 @@ const BurgerConstructor: FC<IburgerConstructorProps> = ({onDropHandler}) => {
   };
 
   const bunElementHandler = (
-    chosenIngredients: Iingredient[],
+    chosenIngredients: IIngredient[],
     property: string,
     trueValue: string,
     falseValue: string
   ) =>
-    chosenIngredients.find((ingredient: Iingredient) => ingredient.type === "bun")
+    chosenIngredients.find((ingredient: IIngredient) => ingredient.type === "bun")
   // @ts-ignore
-      ? `${chosenIngredients.find((ingredient: Iingredient) => ingredient.type === "bun")[
+      ? `${chosenIngredients.find((ingredient: IIngredient) => ingredient.type === "bun")[
         property
         ]
       } ${trueValue}`
@@ -127,7 +127,7 @@ const BurgerConstructor: FC<IburgerConstructorProps> = ({onDropHandler}) => {
         </div>
         <ul className={`${burgerConstructorStyle.list} pl-4 pr-4`}>
           {chosenIngredients.map(
-            (ingredient: Iingredient, idx: number) =>
+            (ingredient: IIngredient, idx: number) =>
               ingredient.type !== "bun" && (
                 <ChosenIngredient
                   key={ingredient.uuid}

@@ -4,7 +4,7 @@ import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import burgerIngredientsStyle from './burger-ingredients.module.css';
 import { compareCoords } from '../../utils/compare-coords';
 import Ingredient from '../ingredient/ingredient';
-import {Iingredient} from "../../services/types/types";
+import {IIngredient} from "../../services/types/types";
 
 const BurgerIngredients = () => {
   const initialIngredients = useSelector((state: RootStateOrAny) => state.ingredientsData.ingredients)
@@ -42,19 +42,19 @@ const BurgerIngredients = () => {
           Булки
         </h2>
         <ul className={`${burgerIngredientsStyle.list} pt-6 pb-10 pr-4 pl-4`}>
-          {initialIngredients.map((item: Iingredient) => item.type === 'bun' && <Ingredient key={item._id} ingredient={item} />)}
+          {initialIngredients.map((item: IIngredient) => item.type === 'bun' && <Ingredient key={item._id} ingredient={item} />)}
         </ul>
         <h2 id="sauce" className="mb-6 text text_type_main-medium">
           Соусы
         </h2>
         <ul className={`${burgerIngredientsStyle.list} pt-6 pb-10 pr-4 pl-4`}>
-          {initialIngredients.map((item: Iingredient) => item.type === 'sauce' && <Ingredient key={item._id} ingredient={item} />)}
+          {initialIngredients.map((item: IIngredient) => item.type === 'sauce' && <Ingredient key={item._id} ingredient={item} />)}
         </ul>
         <h2 id="main" className="mb-6 text text_type_main-medium">
           Начинки
         </h2>
         <ul className={`${burgerIngredientsStyle.list} pt-6 pb-10 pr-4 pl-4`}>
-          {initialIngredients.map((item: Iingredient) => item.type === 'main' && <Ingredient key={item._id} ingredient={item} />)}
+          {initialIngredients.map((item: IIngredient) => item.type === 'main' && <Ingredient key={item._id} ingredient={item} />)}
         </ul>
       </div>
     </div>

@@ -12,9 +12,9 @@ import {
 import {changeIngredientsPopupState} from "../../services/actions/popup";
 import {Link, useLocation} from 'react-router-dom';
 import {FC, MouseEvent} from 'react';
-import {Iingredient, IingredientProps} from "../../services/types/types";
+import {IIngredient, IIngredientProps} from "../../services/types/types";
 
-const Ingredient: FC<IingredientProps> = ({ingredient}) => {
+const Ingredient: FC<IIngredientProps> = ({ingredient}) => {
   console.log(ingredient)
   const {image, price, name, _id} = ingredient;
 
@@ -39,7 +39,7 @@ const Ingredient: FC<IingredientProps> = ({ingredient}) => {
   let ingredientCounter = 0;
 
   chosenIngredients.forEach(
-    (ingredient: Iingredient) =>
+    (ingredient: IIngredient) =>
       ingredient.name === name &&
       (ingredient.type === "bun"
         ? (ingredientCounter += 2)
@@ -49,10 +49,10 @@ const Ingredient: FC<IingredientProps> = ({ingredient}) => {
   const handleChoseIngredient = (evt: MouseEvent<HTMLLIElement>) => {
     evt.preventDefault();
     const targetIngredient = initialIngredients.find(
-      (ingredient: Iingredient) => ingredient._id === evt.currentTarget.dataset.id
+      (ingredient: IIngredient) => ingredient._id === evt.currentTarget.dataset.id
     );
     const selectedBun = chosenIngredients.find(
-      (ingredient: Iingredient) => ingredient.type === "bun"
+      (ingredient: IIngredient) => ingredient.type === "bun"
     );
     const selectedBunIndex = chosenIngredients.indexOf(selectedBun);
 
@@ -68,7 +68,7 @@ const Ingredient: FC<IingredientProps> = ({ingredient}) => {
   const handleIngredientExplore = (evt: MouseEvent<HTMLLIElement>) => {
     const id = evt.currentTarget.dataset.id;
     const foundIngredient = initialIngredients.find(
-      (ingredient: Iingredient) => ingredient._id === id
+      (ingredient: IIngredient) => ingredient._id === id
     );
     dispatch(selectIngredient(foundIngredient));
     dispatch(changeIngredientsPopupState(true));

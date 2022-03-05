@@ -4,9 +4,9 @@ import {DragIcon, ConstructorElement} from '@ya.praktikum/react-developer-burger
 import {useDrag, useDrop} from "react-dnd";
 import {useRef, FC} from 'react';
 import {deleteIngredient} from '../../services/actions/ingredients';
-import {Iingredient, IchosenIngredientProps} from '../../services/types/types';
+import {IIngredient, IChosenIngredientProps} from '../../services/types/types';
 
-const ChosenIngredient: FC<IchosenIngredientProps> = ({ingredient, id, moveIngredient, index}) => {
+const ChosenIngredient: FC<IChosenIngredientProps> = ({ingredient, id, moveIngredient, index}) => {
   const {name, price, image,} = ingredient;
   const dispatch = useDispatch();
   const chosenIngredients = useSelector((state: RootStateOrAny) => state.ingredientsData.chosenIngredients);
@@ -66,7 +66,7 @@ const ChosenIngredient: FC<IchosenIngredientProps> = ({ingredient, id, moveIngre
 
   drag(drop(ref));
 
-  const handleDeleteIngredient = (item: Iingredient) => () => {
+  const handleDeleteIngredient = (item: IIngredient) => () => {
     const selectedIngredientIndex = chosenIngredients.indexOf(item)
     const chosenIngredientsClone = chosenIngredients.slice();
     chosenIngredientsClone.splice(selectedIngredientIndex, 1);
