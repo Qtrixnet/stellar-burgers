@@ -10,7 +10,7 @@ const ProtectedRoute: FC<IProtectedRouteProps> = ({children, ...rest}) => {
   return (
     <Route
       {...rest}
-      // @ts-ignore
+      //@ts-ignore
       render={
         () => userData ? (children) : <Redirect to={{
           pathname: `/login`,

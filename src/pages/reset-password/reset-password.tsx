@@ -1,4 +1,4 @@
-import {useState, useRef, useEffect, ChangeEvent, FormEvent} from "react";
+import {FC, useState, useRef, useEffect, ChangeEvent, FormEvent} from "react";
 import ResetPasswordStyles from "./reset-password.module.css";
 import { Link, useHistory, useLocation } from "react-router-dom";
 import {
@@ -9,7 +9,7 @@ import {
 import { resetPassword, setForgotPasswordState } from "../../services/actions/user";
 import {RootStateOrAny, useDispatch, useSelector} from 'react-redux';
 
-const ResetPassword = () => {
+const ResetPassword: FC = () => {
   const [codeValue, setCodeValue] = useState("");
   const [passwordValue, setPasswordValue] = useState("");
   const inputRef = useRef(null);
@@ -57,7 +57,7 @@ const ResetPassword = () => {
           onChange={onPasswordChange}
           value={passwordValue}
           name={"password"}
-          // @ts-ignore
+          //@ts-ignore
           placeholder={"Введите новый пароль"}
         />
         <div className="mb-6 mt-6">

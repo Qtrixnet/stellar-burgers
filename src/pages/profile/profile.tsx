@@ -4,8 +4,9 @@ import {useDispatch,} from "react-redux";
 import {logout} from "../../services/actions/user";
 import ProfileForm from '../../components/profile-form/profile-form';
 import OrderHistory from '../../components/order-history/order-history';
+import {FC} from 'react';
 
-const Profile = () => {
+const Profile:FC = () => {
   const dispatch = useDispatch();
   const {path, url} = useRouteMatch();
 
@@ -55,14 +56,12 @@ const Profile = () => {
         </p>
       </nav>
       <Route
-        // @ts-ignore
-        exact
+        //@ts-ignore
+        exact={true}
         path={`${path}`}>
         <ProfileForm/>
       </Route>
-      <Route 
-        // @ts-ignore
-        exact 
+      <Route
         path={`${path}/orders`}>
         <OrderHistory/>
       </Route>

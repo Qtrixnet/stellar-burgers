@@ -4,6 +4,7 @@ import {
   GET_ORDER_DATA_SUCCESS,
   DELETE_ORDER_DATA
 } from '../actions/order';
+import { AnyAction } from 'redux';
 
 const initialState = {
   orderDetails: null,
@@ -11,8 +12,7 @@ const initialState = {
   orderFailed: false,
 };
 
-// @ts-ignore
-export const orderReducer = (state = initialState, action) => {
+export const orderReducer = (state = initialState, action: AnyAction) => {
 
   switch (action.type) {
     case GET_ORDER_DATA: {

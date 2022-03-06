@@ -1,10 +1,11 @@
 import NotFoundStyles from "./not-found.module.css";
-import { Link } from "react-router-dom";
+import {Link} from "react-router-dom";
 import {
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import {FC} from 'react';
 
-const NotFound = () => {
+const NotFound: FC = () => {
   return (
     <article className={NotFoundStyles.wrapper}>
       <p className="text text_type_digits-large text_color_inactive">404</p>

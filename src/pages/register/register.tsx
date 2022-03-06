@@ -1,4 +1,4 @@
-import {useState, useRef, useEffect, ChangeEvent, FormEvent} from "react";
+import {FC, useState, useRef, useEffect, ChangeEvent, FormEvent} from "react";
 import RegisterStyles from "./register.module.css";
 import { Link, useHistory } from "react-router-dom";
 import {
@@ -9,7 +9,7 @@ import {
 import { registration } from "../../services/actions/user";
 import {RootStateOrAny, useDispatch, useSelector} from 'react-redux';
 
-const Register = () => {
+const Register: FC = () => {
   const [nameValue, setNameValue] = useState("");
   const [emailValue, setEmailValue] = useState("");
   const [passwordValue, setPasswordValue] = useState("");

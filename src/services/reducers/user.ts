@@ -25,6 +25,7 @@ import {
   SEND_USER_DATA_FAILED,
   SET_FORGOT_PASSWORD_STATE
 } from '../actions/user';
+import {AnyAction} from 'redux';
 
 const initialState = {
   registrationRequest: false,
@@ -48,8 +49,7 @@ const initialState = {
   userData: null
 };
 
-// @ts-ignore
-export const userReducer = (state = initialState, action) => {
+export const userReducer = (state = initialState, action: AnyAction) => {
 
   switch (action.type) {
     case REGISTRATION: {

@@ -1,4 +1,4 @@
-import {useState, useRef, useEffect, FormEvent, ChangeEvent} from "react";
+import {FC, useState, useRef, useEffect, FormEvent, ChangeEvent} from "react";
 import LoginStyles from "./login.module.css";
 import { Link, useHistory, useLocation } from "react-router-dom";
 import {
@@ -9,7 +9,7 @@ import {
 import { login } from "../../services/actions/user";
 import {RootStateOrAny, useDispatch, useSelector} from "react-redux";
 
-const Login = () => {
+const Login:FC = () => {
   const [emailValue, setEmailValue] = useState("");
   const [passwordValue, setPasswordValue] = useState("");
   const inputRef = useRef(null);
@@ -69,7 +69,7 @@ const Login = () => {
         </Button>
       </form>
       <p className="text text_type_main-default text_color_inactive">
-        {"Вы — новый пользователь? "}
+        {"Вы — новый пользователь? "}
         <Link className={LoginStyles.link} to="/register">
           Зарегистрироваться
         </Link>

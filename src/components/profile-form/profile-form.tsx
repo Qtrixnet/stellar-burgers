@@ -1,10 +1,10 @@
 import ProfileFormStyles from './profile-form.module.css';
-import {useState, useRef, useEffect, ChangeEvent, FormEvent} from "react";
+import {FC, useState, useRef, useEffect, ChangeEvent, FormEvent} from "react";
 import {useSelector, useDispatch, RootStateOrAny} from "react-redux";
 import {sendUserData} from "../../services/actions/user";
 import {Input, Button} from "@ya.praktikum/react-developer-burger-ui-components";
 
-const ProfileForm = () => {
+const ProfileForm: FC = () => {
   const userData = useSelector((state: RootStateOrAny) => state.userData.userData);
   const accessToken = useSelector((state: RootStateOrAny) => state.userData.accessToken);
   const dispatch = useDispatch();

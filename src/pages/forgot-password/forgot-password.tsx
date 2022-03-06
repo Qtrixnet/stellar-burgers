@@ -1,4 +1,4 @@
-import {useState, useRef, FormEvent} from "react";
+import {FC, useState, useRef, FormEvent} from "react";
 import ForgotPasswordStyles from "./forgot-password.module.css";
 import { Link, useHistory } from "react-router-dom";
 import {
@@ -8,7 +8,7 @@ import {
 import { forgotPassword, setForgotPasswordState } from "../../services/actions/user";
 import { useDispatch } from 'react-redux';
 
-const ForgotPassword = () => {
+const ForgotPassword:FC = () => {
   const [emailValue, setEmailValue] = useState("");
   const inputRef = useRef(null);
   const dispatch = useDispatch();
