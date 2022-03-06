@@ -22,7 +22,7 @@ const BurgerConstructor: FC<IBurgerConstructorProps> = ({onDropHandler}) => {
 
   const userData = useSelector((state: RootStateOrAny) => state.userData.userData);
 
-  const totalSumm = useMemo(
+  const totalSum = useMemo(
     () =>
       chosenIngredients.reduce(
         (acc: number, cur: IIngredient) =>
@@ -58,8 +58,6 @@ const BurgerConstructor: FC<IBurgerConstructorProps> = ({onDropHandler}) => {
             [hoverIndex, 0, ingredientsWithoutBan[dragIndex]],
           ],
         },
-      // @ts-ignore
-        [ingredientsWithoutBan]
       );
       const sortedInregientsWithBun = [
         ...ingredientWithTypeBan,
@@ -91,15 +89,14 @@ const BurgerConstructor: FC<IBurgerConstructorProps> = ({onDropHandler}) => {
     property: string,
     trueValue: string,
     falseValue: string
-  ) =>
-    chosenIngredients.find((ingredient: IIngredient) => ingredient.type === "bun")
-  // @ts-ignore
-      ? `${chosenIngredients.find((ingredient: IIngredient) => ingredient.type === "bun")[
-        property
-        ]
-      } ${trueValue}`
-      : falseValue;
-  
+  ) => chosenIngredients.find((ingredient: IIngredient) => ingredient.type === "bun")
+    // @ts-ignore
+    ? `${chosenIngredients.find((ingredient: IIngredient) => ingredient.type === "bun")[
+      property
+      ]
+    } ${trueValue}`
+    : falseValue;
+
   return (
     <DndProvider backend={HTML5Backend}>
       <div
@@ -159,15 +156,12 @@ const BurgerConstructor: FC<IBurgerConstructorProps> = ({onDropHandler}) => {
         <div className={`${burgerConstructorStyle.button_container} pt-5 pr-5`}>
           <div className="mr-10">
             <span className="text text_type_digits-medium mr-2">
-              {totalSumm}
+              {totalSum}
             </span>
             <CurrencyIcon type="primary"/>
           </div>
           <Button
-            // @ts-ignore
-            disabled={chosenIngredients.length > 0 ? false : true}
             onClick={handleOrderButtonClick}
-            className="pt-10"
             type="primary"
             size="medium"
           >

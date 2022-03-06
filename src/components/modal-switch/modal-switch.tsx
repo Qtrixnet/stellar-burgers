@@ -81,7 +81,10 @@ const ModalSwitch = () => {
             <IngredientDetails title="Детали ингредиента"/>
           </Route>
         }
-        <ProtectedRoute path="/profile">
+        <ProtectedRoute 
+        // @ts-ignore
+          path="/profile"
+        >
           <Profile/>
         </ProtectedRoute>
         <Route path="*">
