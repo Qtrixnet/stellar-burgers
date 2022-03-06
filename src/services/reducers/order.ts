@@ -11,6 +11,7 @@ const initialState = {
   orderFailed: false,
 };
 
+// @ts-ignore
 export const orderReducer = (state = initialState, action) => {
 
   switch (action.type) {

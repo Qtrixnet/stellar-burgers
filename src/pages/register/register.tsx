@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import {useState, useRef, useEffect, ChangeEvent, FormEvent} from "react";
 import RegisterStyles from "./register.module.css";
 import { Link, useHistory } from "react-router-dom";
 import {
@@ -7,7 +7,7 @@ import {
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { registration } from "../../services/actions/user";
-import { useDispatch, useSelector } from 'react-redux';
+import {RootStateOrAny, useDispatch, useSelector} from 'react-redux';
 
 const Register = () => {
   const [nameValue, setNameValue] = useState("");
@@ -15,14 +15,14 @@ const Register = () => {
   const [passwordValue, setPasswordValue] = useState("");
   const inputRef = useRef(null);
   const dispatch = useDispatch();
-  const userData = useSelector((state) => state.userData.userData);
+  const userData = useSelector((state: RootStateOrAny) => state.userData.userData);
   const history = useHistory();
 
-  const onPasswordChange = (e) => {
+  const onPasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
     setPasswordValue(e.target.value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (!nameValue || !emailValue || !passwordValue) {

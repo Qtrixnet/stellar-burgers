@@ -1,9 +1,9 @@
-import { useSelector } from 'react-redux';
+import { useSelector, RootStateOrAny } from 'react-redux';
 import orderDetailsStyles from './order-details.module.css';
 import doneGif from '../../images/done.gif';
 
 const OrderDetails = () => {
-  const orderData = useSelector(state => state.orderData.orderDetails);
+  const orderData = useSelector((state: RootStateOrAny) => state.orderData.orderDetails);
   return (
     <div className={`${orderDetailsStyles.container}`}>
       <h3 className={`text text_type_digits-large pt-10 ${orderDetailsStyles.title}`}>{orderData.order.number}</h3>

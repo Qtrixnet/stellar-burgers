@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import {useState, useRef, FormEvent} from "react";
 import ForgotPasswordStyles from "./forgot-password.module.css";
 import { Link, useHistory } from "react-router-dom";
 import {
@@ -14,7 +14,7 @@ const ForgotPassword = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (!emailValue) {

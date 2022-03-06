@@ -8,6 +8,7 @@ const initialState = {
   isIngredientsPopupOpen: false,
 };
 
+// @ts-ignore
 export const popupReducer = (state = initialState, action) => {
 
   switch (action.type) {

@@ -1,4 +1,4 @@
-import {useEffect} from 'react';
+import {useEffect, FC} from 'react';
 import {RootStateOrAny, useDispatch, useSelector} from 'react-redux';
 import appStyles from './app.module.css';
 import Header from '../header/header';
@@ -7,7 +7,7 @@ import {getIngredients} from '../../services/actions/ingredients';
 import ModalSwitch from '../modal-switch/modal-switch';
 import {getUserData} from '../../services/actions/user';
 
-const App = () => {
+const App: FC = () => {
   const ingredientsRequest = useSelector((state: RootStateOrAny) => state.ingredientsData.ingredientsRequest);
   const dispatch = useDispatch();
   const accessToken = useSelector((state: RootStateOrAny) => state.userData.accessToken);

@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import {useState, useRef, useEffect, ChangeEvent, FormEvent} from "react";
 import ResetPasswordStyles from "./reset-password.module.css";
 import { Link, useHistory, useLocation } from "react-router-dom";
 import {
@@ -7,7 +7,7 @@ import {
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { resetPassword, setForgotPasswordState } from "../../services/actions/user";
-import { useDispatch, useSelector } from 'react-redux';
+import {RootStateOrAny, useDispatch, useSelector} from 'react-redux';
 
 const ResetPassword = () => {
   const [codeValue, setCodeValue] = useState("");
@@ -15,15 +15,15 @@ const ResetPassword = () => {
   const inputRef = useRef(null);
   const dispatch = useDispatch();
   const history = useHistory();
-  const isPasswordForgot = useSelector((state) => state.userData.isPasswordForgot);
+  const isPasswordForgot = useSelector((state: RootStateOrAny) => state.userData.isPasswordForgot);
   const location = useLocation();
-  const userData = useSelector((state) => state.userData.userData);
+  const userData = useSelector((state: RootStateOrAny) => state.userData.userData);
 
-  const onPasswordChange = (e) => {
+  const onPasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
     setPasswordValue(e.target.value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (!passwordValue || !codeValue) {
@@ -57,6 +57,7 @@ const ResetPassword = () => {
           onChange={onPasswordChange}
           value={passwordValue}
           name={"password"}
+          // @ts-ignore
           placeholder={"Введите новый пароль"}
         />
         <div className="mb-6 mt-6">

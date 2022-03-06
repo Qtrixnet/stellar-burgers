@@ -1,13 +1,13 @@
 import ProfileStyles from "./profile.module.css";
-import { NavLink, Route, useRouteMatch } from "react-router-dom";
-import { useDispatch, } from "react-redux";
-import { logout } from "../../services/actions/user";
+import {NavLink, Route, useRouteMatch} from "react-router-dom";
+import {useDispatch,} from "react-redux";
+import {logout} from "../../services/actions/user";
 import ProfileForm from '../../components/profile-form/profile-form';
 import OrderHistory from '../../components/order-history/order-history';
 
 const Profile = () => {
   const dispatch = useDispatch();
-  const { path, url } = useRouteMatch();
+  const {path, url} = useRouteMatch();
 
   const handleLogout = () => {
     const refreshToken = localStorage.getItem('refreshToken');
@@ -54,11 +54,17 @@ const Profile = () => {
           В этом разделе вы можете изменить свои персональные данные
         </p>
       </nav>
-      <Route exact path={`${path}`}>
-        <ProfileForm />
+      <Route
+        // @ts-ignore
+        exact
+        path={`${path}`}>
+        <ProfileForm/>
       </Route>
-      <Route exact path={`${path}/orders`}>
-        <OrderHistory />
+      <Route 
+        // @ts-ignore
+        exact 
+        path={`${path}/orders`}>
+        <OrderHistory/>
       </Route>
     </article>
   );

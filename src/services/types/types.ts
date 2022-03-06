@@ -14,7 +14,7 @@ export interface IIngredient {
   _id: string,
 }
 
-export type TIngredientId = Pick<IIngredient, '_id'> ;
+export type TIngredientId = Pick<IIngredient, '_id'>;
 
 export type TIngredientType = Pick<IIngredient, 'type'>;
 
@@ -24,8 +24,12 @@ export interface IBurgerConstructorProps {
 
 export interface IModalProps {
   handlePopupClose: () => void,
-  children: '', 
+  children: React.ReactChild | React.ReactNode,
   title?: string
+}
+
+export interface IProtectedRouteProps {
+  children: React.ReactChild | React.ReactNode,
 }
 
 export interface IModalOverlayProps {
@@ -45,4 +49,17 @@ export interface IIngredientProps {
 
 export interface IIngredientDetailsProps {
   title?: string,
+}
+
+export interface IRequestResult {
+  body: any,
+  bodyUsed: boolean,
+  headers: object,
+  ok: boolean,
+  redirected: boolean,
+  status: number,
+  statusText: string,
+  type: string,
+  url: string,
+  json?: any,
 }

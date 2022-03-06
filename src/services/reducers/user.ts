@@ -48,6 +48,7 @@ const initialState = {
   userData: null
 };
 
+// @ts-ignore
 export const userReducer = (state = initialState, action) => {
 
   switch (action.type) {

@@ -1,31 +1,31 @@
 import modalSwitchStyles from "./modal-switch.module.css";
-import { useLocation, Switch, Route, useHistory } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import {useLocation, Switch, Route, useHistory} from "react-router-dom";
+import {useDispatch, useSelector, RootStateOrAny} from "react-redux";
 import Login from "../../pages/login/login";
 import Register from "../../pages/register/register";
 import ForgotPassword from "../../pages/forgot-password/forgot-password";
 import ResetPassword from "../../pages/reset-password/reset-password";
 import Profile from "../../pages/profile/profile";
-import NotFound from "../../pages/not-found/not-found.tsx";
+import NotFound from "../../pages/not-found/not-found";
 import ProtectedRoute from "../protected-route/protected-route";
 import {
   changeOrderDetailsPopupState,
   changeIngredientsPopupState,
 } from "../../services/actions/popup";
-import { deleteSelectedIngredient } from "../../services/actions/ingredients";
-import { deleteOrderData } from "../../services/actions/order";
+import {deleteSelectedIngredient} from "../../services/actions/ingredients";
+import {deleteOrderData} from "../../services/actions/order";
 import Main from "../main/main";
 import Modal from "../modal/modal";
 import OrderDetails from "../order-details/order-details";
 import IngredientDetails from "../ingredient-details/ingredient-details";
-import Loader from "../loader/loader.tsx";
+import Loader from "../loader/loader";
 
 const ModalSwitch = () => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const orderData = useSelector((state) => state.orderData.orderDetails);
+  const orderData = useSelector((state: RootStateOrAny) => state.orderData.orderDetails);
   const isOrderDetailsPopupOpen = useSelector(
-    (state) => state.popupState.isOrderDetailsPopupOpen
+    (state: RootStateOrAny) => state.popupState.isOrderDetailsPopupOpen
   );
   const location = useLocation();
   const background = location.state && location.state.background;
@@ -41,50 +41,70 @@ const ModalSwitch = () => {
     background && history.goBack();
   }
 
+  // @ts-ignore
   return (
     <div className={`${modalSwitchStyles.container} pb-10`}>
       <Switch location={background || location}>
-        <Route exact path="/">
-          <Main />
-        </Route>
-        <Route exact path="/login">
-          <Login />
-        </Route>
-        <Route exact path="/register">
-          <Register />
-        </Route>
-        <Route exact path="/forgot-password">
-          <ForgotPassword />
-        </Route>
-        <Route exact path="/reset-password">
-          <ResetPassword />
-        </Route>
-        <Route exact path="/ingredients/:id">
-          <IngredientDetails title="Детали ингредиента" />
-        </Route>
+        {
+          // @ts-ignore
+          <Route exact path="/">
+            <Main/>
+          </Route>
+        }
+        {
+          // @ts-ignore
+          <Route exact path="/login">
+            <Login/>
+          </Route>
+        }
+        {
+          // @ts-ignore
+          <Route exact path="/register">
+            <Register/>
+          </Route>
+        }
+        {
+          // @ts-ignore
+          <Route exact path="/forgot-password">
+            <ForgotPassword/>
+          </Route>
+        }
+        {
+          // @ts-ignore
+          <Route exact path="/reset-password">
+            <ResetPassword/>
+          </Route>
+        }
+        {
+          // @ts-ignore
+          <Route exact path="/ingredients/:id">
+            <IngredientDetails title="Детали ингредиента"/>
+          </Route>
+        }
         <ProtectedRoute path="/profile">
-          <Profile />
+          <Profile/>
         </ProtectedRoute>
         <Route path="*">
-          <NotFound />
+          <NotFound/>
         </Route>
       </Switch>
 
       {isOrderDetailsPopupOpen && (
         <Modal handlePopupClose={handleOrderDetailsPopupClose}>
-          {orderData ? <OrderDetails /> : <Loader />}
+          {orderData ? <OrderDetails/> : <Loader/>}
         </Modal>
       )}
 
       {background && (
         <Route
+          // @ts-ignore
           exact path="/ingredients/:id"
           children={
             <Modal
               handlePopupClose={handleIngredientsDetailsPopupClose}
               title="Детали ингредиента"
             >
-              <IngredientDetails />
+              <IngredientDetails/>
             </Modal>
           }
         />

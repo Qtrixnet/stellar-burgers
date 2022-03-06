@@ -1,4 +1,5 @@
-import { BASE_URL } from '../utils/constants';
+import { BASE_URL } from './constants';
+import {IRequestResult} from "../services/types/types";
 
 //* Класс для взаимодействия с сервером
 class Api {
@@ -8,9 +9,7 @@ class Api {
   }
 
   //* Проверка статуса запроса
-  _requestResult(res: {
-    body: any, bodyUsed: boolean, headers: object, ok: boolean, redirected: boolean, status: number, statusText: string, type: string, url: string, json?: any
-  }) {
+  _requestResult(res: IRequestResult) {
     if (res.ok) {
       return res.json();
     } else {

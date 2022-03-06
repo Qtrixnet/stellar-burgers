@@ -179,8 +179,4 @@ const BurgerConstructor: FC<IBurgerConstructorProps> = ({onDropHandler}) => {
   );
 };
 
-// BurgerConstructor.propTypes = {
-//   onDropHandler: PropTypes.func.isRequired,
-// };
-
 export default BurgerConstructor;
