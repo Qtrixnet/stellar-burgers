@@ -19,8 +19,7 @@ const BurgerIngredients = () => {
 
   const handleTabClick = (type: string) => {
     setCurrent(type)
-    // @ts-ignore
-    document.querySelector(`#${type}`).scrollIntoView({ block: "start", behavior: "smooth" })
+    document.querySelector<HTMLElement>(`#${type}`)?.scrollIntoView({ block: "start", behavior: "smooth" })
   }
 
   return (
