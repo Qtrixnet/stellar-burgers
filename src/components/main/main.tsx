@@ -6,8 +6,9 @@ import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { addIngredient } from '../../services/actions/ingredients';
 import {IIngredient} from "../../services/types/types";
+import {FC} from 'react';
 
-const Main = () => {
+const Main: FC = () => {
   const dispatch = useDispatch();
   const chosenIngredients = useSelector((state: RootStateOrAny) => state.ingredientsData.chosenIngredients);
   const initialIngredients = useSelector((state: RootStateOrAny) => state.ingredientsData.ingredients);
