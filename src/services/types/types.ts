@@ -28,12 +28,6 @@ export interface IModalProps {
   title?: string
 }
 
-export interface IProtectedRouteProps {
-  children: React.ReactChild | React.ReactNode,
-  path: string,
-  render?: () => {}
-}
-
 export interface IModalOverlayProps {
   handlePopupClose: () => void,
 }
@@ -53,15 +47,7 @@ export interface IIngredientDetailsProps {
   title?: string,
 }
 
-export interface IRequestResult {
-  body: any,
-  bodyUsed: boolean,
-  headers: object,
-  ok: boolean,
-  redirected: boolean,
-  status: number,
-  statusText: string,
-  type: string,
-  url: string,
-  json?: any,
+export interface IGetCoords {
+  top: number,
+  left: number,
 }

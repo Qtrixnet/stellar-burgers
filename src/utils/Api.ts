@@ -1,5 +1,4 @@
 import { BASE_URL } from './constants';
-import {IRequestResult} from "../services/types/types";
 
 //* Класс для взаимодействия с сервером
 class Api {
@@ -9,7 +8,7 @@ class Api {
   }
 
   //* Проверка статуса запроса
-  _requestResult(res: IRequestResult) {
+  _requestResult(res: Response) {
     if (res.ok) {
       return res.json();
     } else {

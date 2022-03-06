@@ -1,11 +1,11 @@
 import {getCoords} from './get-coords'
 
-export const compareCoords = (className) => {
+export const compareCoords = (className: string) => {
 
-  const bunTitleTopCoords = getCoords(document.querySelector('#bun')).top
-  const sauceTitleTopCoords = getCoords(document.querySelector('#sauce')).top
-  const mainTitleTopCoords = getCoords(document.querySelector('#main')).top
-  const mainContainerTopCoords = getCoords(document.querySelector(`.${className}`)).top
+  const bunTitleTopCoords = getCoords(document.querySelector('#bun'))!.top
+  const sauceTitleTopCoords = getCoords(document.querySelector('#sauce'))!.top
+  const mainTitleTopCoords = getCoords(document.querySelector('#main'))!.top
+  const mainContainerTopCoords = getCoords(document.querySelector(`.${className}`))!.top
 
   const absoluteCoords = [
     {
@@ -24,5 +24,5 @@ export const compareCoords = (className) => {
 
   const coordsValues = absoluteCoords.map(coord => coord.value)
   const minValue = Math.min(...coordsValues)
-  return absoluteCoords.find(coord => coord.value === minValue).title
+  return absoluteCoords.find(coord => coord.value === minValue)!.title
 }

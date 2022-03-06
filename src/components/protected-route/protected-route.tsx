@@ -1,9 +1,8 @@
-import {Route, Redirect, useLocation} from 'react-router-dom';
+import {Route, Redirect, useLocation, RouteProps} from 'react-router-dom';
 import {useSelector, RootStateOrAny} from "react-redux";
 import {FC} from 'react';
-import {IProtectedRouteProps} from "../../services/types/types";
 
-const ProtectedRoute: FC<IProtectedRouteProps> = ({children, ...rest}) => {
+const ProtectedRoute: FC<RouteProps> = ({children, ...rest}) => {
   const userData = useSelector((state: RootStateOrAny) => state.userData.userData);
   const location = useLocation();
 
