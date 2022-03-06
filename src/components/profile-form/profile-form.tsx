@@ -1,8 +1,8 @@
 import ProfileFormStyles from './profile-form.module.css';
-import {useState, useRef, useEffect, ChangeEvent, MouseEvent, FormEvent} from "react";
+import {useState, useRef, useEffect, ChangeEvent, FormEvent} from "react";
 import {useSelector, useDispatch, RootStateOrAny} from "react-redux";
-import { sendUserData } from "../../services/actions/user";
-import { Input, Button } from "@ya.praktikum/react-developer-burger-ui-components";
+import {sendUserData} from "../../services/actions/user";
+import {Input, Button} from "@ya.praktikum/react-developer-burger-ui-components";
 
 const ProfileForm = () => {
   const userData = useSelector((state: RootStateOrAny) => state.userData.userData);
@@ -13,18 +13,15 @@ const ProfileForm = () => {
   const [loginValue, setLoginValue] = useState("?");
   const [passwordValue, setPasswordValue] = useState("");
   const [isDataChanged, setIsDataChanged] = useState(false);
-  const nameInputRef = useRef(null);
-  const emailInputRef = useRef(null);
-  const passwordInputRef = useRef(null);
+  const nameInputRef = useRef<HTMLInputElement | null>(null);
+  const emailInputRef = useRef<HTMLInputElement | null>(null);
+  const passwordInputRef = useRef<HTMLInputElement | null>(null);
 
-  // @ts-ignore
-  const onNameClick = () => nameInputRef.current.focus();
+  const onNameClick = () => null !== nameInputRef.current && nameInputRef.current.focus();
 
-  // @ts-ignore
-  const oтEmailClick = () => emailInputRef.current.focus();
+  const onEmailClick = () => null !== emailInputRef.current && emailInputRef.current.focus();
 
-  // @ts-ignore
-  const onPasswordClick = () => passwordInputRef.current.focus();
+  const onPasswordClick = () => null !== passwordInputRef.current && passwordInputRef.current.focus();
 
   const onNameChange = (evt: ChangeEvent<HTMLInputElement>) => {
     const value = evt.target.value
@@ -50,8 +47,6 @@ const ProfileForm = () => {
   }
 
   const onCancelEditing = () => {
-    // @ts-ignore
-    // evt.preventDefault();
     setNameValue(userData.name)
     setLoginValue(userData.email)
     setPasswordValue('')
@@ -89,7 +84,7 @@ const ProfileForm = () => {
         name={"name"}
         error={false}
         ref={emailInputRef}
-        onIconClick={oтEmailClick}
+        onIconClick={onEmailClick}
         errorText={"Ошибка"}
         size={"default"}
       />
