@@ -30,6 +30,7 @@ export interface IModalProps {
 
 export interface IProtectedRouteProps {
   children: React.ReactChild | React.ReactNode,
+  path: string,
 }
 
 export interface IModalOverlayProps {

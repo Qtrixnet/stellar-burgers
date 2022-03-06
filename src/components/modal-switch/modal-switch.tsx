@@ -41,7 +41,6 @@ const ModalSwitch = () => {
     background && history.goBack();
   }
 
-  // @ts-ignore
   return (
     <div className={`${modalSwitchStyles.container} pb-10`}>
       <Switch location={background || location}>
@@ -52,37 +51,31 @@ const ModalSwitch = () => {
           </Route>
         }
         {
-          // @ts-ignore
-          <Route exact path="/login">
+          <Route path="/login">
             <Login/>
           </Route>
         }
         {
-          // @ts-ignore
-          <Route exact path="/register">
+          <Route path="/register">
             <Register/>
           </Route>
         }
         {
-          // @ts-ignore
-          <Route exact path="/forgot-password">
+          <Route path="/forgot-password">
             <ForgotPassword/>
           </Route>
         }
         {
-          // @ts-ignore
-          <Route exact path="/reset-password">
+          <Route path="/reset-password">
             <ResetPassword/>
           </Route>
         }
         {
-          // @ts-ignore
-          <Route exact path="/ingredients/:id">
+          <Route path="/ingredients/:id">
             <IngredientDetails title="Детали ингредиента"/>
           </Route>
         }
-        <ProtectedRoute 
-        // @ts-ignore
+        <ProtectedRoute
           path="/profile"
         >
           <Profile/>
@@ -100,8 +93,7 @@ const ModalSwitch = () => {
 
       {background && (
         <Route
-          // @ts-ignore
-          exact path="/ingredients/:id"
+          path="/ingredients/:id"
           children={
             <Modal
               handlePopupClose={handleIngredientsDetailsPopupClose}

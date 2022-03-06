@@ -1,8 +1,9 @@
 import { useSelector, RootStateOrAny } from 'react-redux';
 import orderDetailsStyles from './order-details.module.css';
 import doneGif from '../../images/done.gif';
+import {FC} from 'react';
 
-const OrderDetails = () => {
+const OrderDetails:FC = () => {
   const orderData = useSelector((state: RootStateOrAny) => state.orderData.orderDetails);
   return (
     <div className={`${orderDetailsStyles.container}`}>
