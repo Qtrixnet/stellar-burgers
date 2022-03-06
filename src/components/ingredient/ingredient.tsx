@@ -15,7 +15,6 @@ import {FC, MouseEvent} from 'react';
 import {IIngredient, IIngredientProps} from "../../services/types/types";
 
 const Ingredient: FC<IIngredientProps> = ({ingredient}) => {
-  console.log(ingredient)
   const {image, price, name, _id} = ingredient;
 
   const location = useLocation();
@@ -103,9 +102,9 @@ const Ingredient: FC<IIngredientProps> = ({ingredient}) => {
           <Counter count={ingredientCounter} size="default"/>
         )}
         <div className={`${ingredientStyles.hint_icons}`}>
-          <span className={`${ingredientStyles.left_click_icon}`}></span>
-          <span className={`${ingredientStyles.right_click_icon}`}></span>
-          <span className={`${ingredientStyles.drag_icon}`}></span>
+          <span className={`${ingredientStyles.left_click_icon}`}/>
+          <span className={`${ingredientStyles.right_click_icon}`}/>
+          <span className={`${ingredientStyles.drag_icon}`}/>
         </div>
       </Link>
     </li>

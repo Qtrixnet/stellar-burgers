@@ -1,4 +1,4 @@
-import { useState, MouseEvent} from 'react';
+import { useState, MouseEvent, FC} from 'react';
 import { useSelector, RootStateOrAny } from 'react-redux';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import burgerIngredientsStyle from './burger-ingredients.module.css';
@@ -6,7 +6,7 @@ import { compareCoords } from '../../utils/compare-coords';
 import Ingredient from '../ingredient/ingredient';
 import {IIngredient} from "../../services/types/types";
 
-const BurgerIngredients = () => {
+const BurgerIngredients: FC = () => {
   const initialIngredients = useSelector((state: RootStateOrAny) => state.ingredientsData.ingredients)
 
   const [current, setCurrent] = useState('bun')

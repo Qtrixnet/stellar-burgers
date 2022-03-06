@@ -23,7 +23,7 @@ const ChosenIngredient: FC<IChosenIngredientProps> = ({ingredient, id, moveIngre
       if (!ref.current) {
         return;
       }
-
+      
       // @ts-ignore
       const dragIndex = item.index;
       const hoverIndex = index;

@@ -1,8 +1,9 @@
 import { NavLink } from 'react-router-dom';
 import { Logo, BurgerIcon, ListIcon, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import headerStyles from './header.module.css';
+import {FC} from 'react';
 
-const Header = () => {
+const Header: FC = () => {
 
   return (
     <header className={`${headerStyles.header} text text_type_main-default pt-4 pb-4`}>
