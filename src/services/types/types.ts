@@ -51,3 +51,8 @@ export interface IGetCoords {
   top: number,
   left: number,
 }
+
+export interface IAbsoluteCoords {
+  title: string,
+  value: number,
+}
