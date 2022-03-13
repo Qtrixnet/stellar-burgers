@@ -17,7 +17,7 @@ const Header: FC = () => {
               </NavLink>
             </li>
             <li>
-              <NavLink activeClassName={headerStyles.link_active} className={`p-5 ${headerStyles.link}`} exact to="/profile/orders">
+              <NavLink activeClassName={headerStyles.link_active} className={`p-5 ${headerStyles.link}`} exact to="/feed">
                 <ListIcon type="secondary" />
                 <span className={`ml-2`}>Лента заказов</span>
               </NavLink>
