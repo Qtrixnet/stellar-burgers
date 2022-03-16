@@ -34,7 +34,7 @@ const OrderInfo = () => {
         <p className="text text_type_main-medium">
           Выполнено за сегодня:
         </p>
-        <span className={`${orderInfoStyles.digits} text text_type_digits-large`}>138</span>
+        <span className="text text_type_digits-large">138</span>
       </div>
     </div>
   );
