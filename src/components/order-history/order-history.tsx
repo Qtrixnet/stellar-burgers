@@ -5,7 +5,7 @@ import OrderComponent from "../order-component/order-component";
 
 const OrderHistory: FC = () => {
   return (
-    <ul className={orderHistoryStyles.main_container}>
+    <ul className={orderHistoryStyles.list}>
       {
         allOrdersData.map((order, idx) => (
           <OrderComponent key={idx} order={order}/>

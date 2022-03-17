@@ -10,6 +10,9 @@ const OrderComponent = ({order}) => {
         <p className="text text_type_main-default text_color_inactive">{order.timestamp}</p>
       </div>
       <h2 className="text text_type_main-medium">{order.name}</h2>
+      {
+        order.status && <p className="text text_type_main-default">{order.status}</p>
+      }
       <div className={orderComponentStyles.footer}>
         <ul className={orderComponentStyles.ingredients_list}>
           {

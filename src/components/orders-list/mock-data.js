@@ -5,6 +5,7 @@ export const allOrdersData = [
     timestamp: 'Сегодня, 16:20 i-GMT+3',
     name: 'Death Star Starship Main бургер',
     total: 480,
+    status: 'Создан',
     ingredients: [
       {
         image: 'https://code.s3.yandex.net/react/code/bun-01.png'
