@@ -1,0 +1,15 @@
+.container {
+  background-color: red;
+  width: 100%;
+  min-height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.order_info {
+  background-color: black;
+  margin-top: 120px;
+  width: 100%;
+  max-width: 640px;
+}
