@@ -9,19 +9,39 @@ const OrderInfo = () => {
           <p className="text text_type_main-medium pb-6">
             Готовы:
           </p>
-          <p className="text text_type_digits-default">1234567890</p>
-          <p className="text text_type_digits-default">1234567890</p>
-          <p className="text text_type_digits-default">1234567890</p>
-          <p className="text text_type_digits-default">1234567890</p>
+          <ul className={orderInfoStyles.list_accent}>
+            <li className="text text_type_digits-default pb-2">
+              1234567890
+            </li>
+            <li className="text text_type_digits-default pb-2">
+              1234567890
+            </li>
+            <li className="text text_type_digits-default pb-2">
+              1234567890
+            </li>
+            <li className="text text_type_digits-default pb-2">
+              1234567890
+            </li>
+            <li className="text text_type_digits-default pb-2">
+              1234567890
+            </li>
+          </ul>
         </div>
         <div className={orderInfoStyles.atWork}>
           <p className="text text_type_main-medium pb-6">
             В работе:
           </p>
-          <p className="text text_type_digits-default">1234567890</p>
-          <p className="text text_type_digits-default">1234567890</p>
-          <p className="text text_type_digits-default">1234567890</p>
-          <p className="text text_type_digits-default">1234567890</p>
+          <ul className={orderInfoStyles.list}>
+            <li className="text text_type_digits-default pb-2">
+              1234567890
+            </li>
+            <li className="text text_type_digits-default pb-2">
+              1234567890
+            </li>
+            <li className="text text_type_digits-default pb-2">
+              1234567890
+            </li>
+          </ul>
         </div>
       </div>
       <div className={orderInfoStyles.all_time}>
