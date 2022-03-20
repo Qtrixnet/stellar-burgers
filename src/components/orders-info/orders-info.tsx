@@ -1,7 +1,7 @@
 import React from 'react';
 import orderInfoStyles from './orders-info.module.css';
 
-const OrderInfo = () => {
+const OrdersInfo = () => {
   return (
     <div className={orderInfoStyles.container}>
       <div className={orderInfoStyles.order_numbers}>
@@ -60,4 +60,4 @@ const OrderInfo = () => {
   );
 };
 
-export default OrderInfo;
+export default OrdersInfo;

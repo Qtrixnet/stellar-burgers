@@ -20,7 +20,6 @@ import OrderDetails from "../order-details/order-details";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import Loader from "../loader/loader";
 import Feed from "../../pages/feed/feed";
-import OrderFullInfo from "../order-full-info/order-full-info";
 
 const ModalSwitch = () => {
   const dispatch = useDispatch();
@@ -83,8 +82,7 @@ const ModalSwitch = () => {
           <Profile/>
         </ProtectedRoute>
         <Route path="/feed">
-          {/*<Feed />*/}
-          <OrderFullInfo />
+          <Feed />
         </Route>
         <Route path="*">
           <NotFound/>

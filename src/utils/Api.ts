@@ -1,4 +1,5 @@
 import { BASE_URL } from './constants';
+import {TIngredientId} from "../services/types/types";
 
 //* Класс для взаимодействия с сервером
 class Api {
@@ -22,7 +23,7 @@ class Api {
   }
 
   //* Отправка данных заказа
-  sendIngredients(ingredientsIds: Array<string>) {
+  sendIngredients(ingredientsIds: TIngredientId[]) {
     const burgerData = {
       'ingredients': ingredientsIds
     }

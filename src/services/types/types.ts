@@ -56,3 +56,22 @@ export interface IAbsoluteCoords {
   title: string,
   value: number,
 }
+
+export interface IOrder {
+  createdAt: string,
+  ingredients: string[],
+  name: string,
+  number: number,
+  status: string,
+  updatedAt: string,
+  _id: string,
+}
+
+export type TWSState = {
+  wsConnected: boolean;
+  orders: [];
+  error?: Event;
+}
+
+// export type AppDispatch = typeof store.dispatch;
+// export type RootState = ReturnType<typeof store.getState>; 

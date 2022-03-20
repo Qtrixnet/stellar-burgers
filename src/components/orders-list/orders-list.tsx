@@ -3,7 +3,7 @@ import orderListStyles from './orders-list.module.css';
 import {allOrdersData} from './mock-data';
 import OrderComponent from "../order-component/order-component";
 
-const OrderList = () => {
+const OrderSList = () => {
   return (
     <div className={orderListStyles.main_container}>
       <h1 className="mt-10 mb-5 text text_type_main-large">Лента заказов</h1>
@@ -21,4 +21,4 @@ const OrderList = () => {
   );
 };
 
-export default OrderList;
+export default OrderSList;
