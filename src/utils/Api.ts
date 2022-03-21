@@ -23,17 +23,16 @@ class Api {
   }
 
   //* Отправка данных заказа
-  sendIngredients(ingredientsIds: TIngredientId[]) {
-    const burgerData = {
-      'ingredients': ingredientsIds
-    }
-
+  sendIngredients(ingredientsIds: TIngredientId[], token: string) {
     return fetch(`${this._baseUrl}/orders`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json;charset=utf-8'
       },
-      body: JSON.stringify(burgerData)
+      body: JSON.stringify({
+        ingredients: ingredientsIds,
+        token: token,
+      }),
     }).then((res) => this._requestResult(res));
   }
 
@@ -134,7 +133,7 @@ class Api {
   }
 
   //* Запрос на выход из системы
-  logout(refreshToken: string) {
+  logout(refreshToken: string | null) {
     return fetch(`${this._baseUrl}/auth/logout`, {
       method: "POST",
       headers: {

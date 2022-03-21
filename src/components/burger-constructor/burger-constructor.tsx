@@ -21,6 +21,7 @@ const BurgerConstructor: FC<IBurgerConstructorProps> = ({onDropHandler}) => {
   );
 
   const userData = useSelector((state: RootStateOrAny) => state.userData.userData);
+  const accessToken = useSelector((state: RootStateOrAny) => state.userData.accessToken);
 
   const totalSum = useMemo(
     () =>
@@ -77,7 +78,7 @@ const BurgerConstructor: FC<IBurgerConstructorProps> = ({onDropHandler}) => {
     );
 
     if (userData) {
-      dispatch(getOrderData(ingredientsIds));
+      dispatch(getOrderData(ingredientsIds, accessToken));
       dispatch(changeOrderDetailsPopupState(true));
     } else {
       history.push('/login')

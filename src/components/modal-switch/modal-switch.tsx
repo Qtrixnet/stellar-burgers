@@ -10,7 +10,7 @@ import NotFound from "../../pages/not-found/not-found";
 import ProtectedRoute from "../protected-route/protected-route";
 import {
   changeOrderDetailsPopupState,
-  changeIngredientsPopupState,
+  changeIngredientsPopupState, changeOrderPopupState,
 } from "../../services/actions/popup";
 import {deleteSelectedIngredient} from "../../services/actions/ingredients";
 import {deleteOrderData} from "../../services/actions/order";
@@ -20,6 +20,7 @@ import OrderDetails from "../order-details/order-details";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import Loader from "../loader/loader";
 import Feed from "../../pages/feed/feed";
+import OrderFullInfo from "../order-full-info/order-full-info";
 
 const ModalSwitch = () => {
   const dispatch = useDispatch();
@@ -39,6 +40,11 @@ const ModalSwitch = () => {
   const handleIngredientsDetailsPopupClose = () => {
     dispatch(changeIngredientsPopupState(false));
     dispatch(deleteSelectedIngredient());
+    background && history.goBack();
+  }
+
+  const handleOrderPopupClose = () => {
+    dispatch(changeOrderPopupState(false));
     background && history.goBack();
   }
 
@@ -76,6 +82,11 @@ const ModalSwitch = () => {
             <IngredientDetails title="Детали ингредиента"/>
           </Route>
         }
+        {
+          <Route path="/feed/:id">
+            <OrderFullInfo/>
+          </Route>
+        }
         <ProtectedRoute
           path="/profile"
         >
@@ -104,6 +115,19 @@ const ModalSwitch = () => {
               title="Детали ингредиента"
             >
               <IngredientDetails/>
+            </Modal>
+          }
+        />
+      )}
+
+      {background && (
+        <Route
+          path="/feed/:id"
+          children={
+            <Modal
+              handlePopupClose={handleOrderPopupClose}
+            >
+              <OrderFullInfo/>
             </Modal>
           }
         />

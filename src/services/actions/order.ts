@@ -12,11 +12,11 @@ export const setOrderDataLoadingSuccess = (data: any) => ({type: GET_ORDER_DATA_
 export const setOrderDataLoadingFailed = () => ({type: GET_ORDER_DATA_FAILED})
 export const deleteOrderData = () => ({type: DELETE_ORDER_DATA})
 
-export function getOrderData(ingredientsIds: TIngredientId[]) {
+export function getOrderData(ingredientsIds: TIngredientId[], token: string) {
   return function (dispatch: any) {
     dispatch(setOrderDataLoading())
 
-    mainApi.sendIngredients(ingredientsIds)
+    mainApi.sendIngredients(ingredientsIds, token)
       .then(data => {
         if (data) {
           dispatch(setOrderDataLoadingSuccess(data))

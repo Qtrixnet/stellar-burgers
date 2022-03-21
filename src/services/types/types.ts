@@ -68,10 +68,12 @@ export interface IOrder {
 }
 
 export type TWSState = {
-  wsConnected: boolean;
-  orders: [];
-  error?: Event;
+  wsAllOrders: boolean;
+  wsUserOrders: boolean,
+  orders: IOrder[];
+  userOrders: IOrder[];
+  allOrdersError?: Event;
+  userOrdersError?: Event;
+  total: number;
+  totalToday: number;
 }
-
-// export type AppDispatch = typeof store.dispatch;
-// export type RootState = ReturnType<typeof store.getState>; 

@@ -27,3 +27,8 @@
   list-style: none;
   padding: 0;
 }
+
+.numbers_container {
+  display: flex;
+  gap: 40px;
+}

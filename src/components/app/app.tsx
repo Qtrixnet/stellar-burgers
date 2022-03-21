@@ -6,6 +6,7 @@ import Loader from '../loader/loader';
 import {getIngredients} from '../../services/actions/ingredients';
 import ModalSwitch from '../modal-switch/modal-switch';
 import {getUserData} from '../../services/actions/user';
+import {wsAllOrderConnectionStart, wsUserOrderConnectionStart} from '../../services/actions/orders';
 
 const App: FC = () => {
   const ingredientsRequest = useSelector((state: RootStateOrAny) => state.ingredientsData.ingredientsRequest);
@@ -15,6 +16,8 @@ const App: FC = () => {
   useEffect(() => {
     dispatch(getIngredients());
     dispatch(getUserData(accessToken));
+    dispatch(wsAllOrderConnectionStart());
+    dispatch(wsUserOrderConnectionStart());
   }, [dispatch, accessToken])
 
   return (

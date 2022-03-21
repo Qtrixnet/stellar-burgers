@@ -6,14 +6,14 @@ export const socketMiddleware = (wsUrl, wsActions) => {
       const { dispatch, getState } = store;
       const { type, payload } = action;
       const { wsInit, wsSendMessage, onOpen, onClose, onError, onMessage } = wsActions;
-      const { user } = getState().user;
-      if (type === wsInit && user) {
-        socket = new WebSocket(`${wsUrl}?token=${user.accessToken}`);
+      const { userData } = getState();
+      if (type === wsInit && userData) {
+        socket = new WebSocket(`${wsUrl}?token=${userData?.accessToken?.replace('Bearer ', '')}`);
       }
       if (socket) {
         socket.onopen = event => {
           dispatch({ type: onOpen, payload: event });
-        };``
+        };
 
         socket.onerror = event => {
           dispatch({ type: onError, payload: event });
@@ -33,7 +33,7 @@ export const socketMiddleware = (wsUrl, wsActions) => {
 
         if (type === wsSendMessage) {
           const message = payload;
-          message.token = user.token;
+          message.token = userData.accessToken;
           socket.send(JSON.stringify(message));
         }
       }

@@ -67,7 +67,7 @@ export const setRefreshTokenLoading = () => ({ type: REFRESH_TOKEN });
 export const setRefreshTokenLoadingSuccess = (token: string) => ({ type: REFRESH_TOKEN_SUCCESS, payload: token });
 export const setRefreshTokenLoadingFailed = () => ({ type: REFRESH_TOKEN_FAILED });
 
-export const setForgotPasswordState = (state: string) => ({ type: SET_FORGOT_PASSWORD_STATE, payload: state });
+export const setForgotPasswordState = (state: boolean) => ({ type: SET_FORGOT_PASSWORD_STATE, payload: state });
 
 export const registration = (email: string, name: string, password: string) => {
   return (dispatch: any) => {
@@ -189,7 +189,7 @@ export const resetPassword = (password: string, code: string) => {
   }
 }
 
-export const logout = (refreshToken: string) => {
+export const logout = (refreshToken: string | null) => {
   return (dispatch: any) => {
     dispatch(setLogoutLoading())
 
