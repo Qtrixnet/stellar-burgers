@@ -1,3 +1,45 @@
+import {store} from "../store";
+import {
+  IAddIngredient, IDeleteAllIngredients,
+  IDeleteIngredient,
+  IDeleteSelectedIngredient,
+  ISelectIngredient, ISortIngredients,
+} from "../actions/ingredients";
+import {Action, ActionCreator} from "redux";
+import {ThunkAction} from "redux-thunk";
+import {
+  IDeleteOrderData,
+  ISetOrderDataLoading,
+  ISetOrderDataLoadingFailed,
+  ISetOrderDataLoadingSuccess
+} from "../actions/order";
+import {IWSAllOrdersConnectionStart, IWSUserOrdersConnectionStart} from "../actions/orders";
+import {IChangeIngredientsPopupState, IChangeOrderDetailsPopupState, IChangeOrderPopupState} from "../actions/popup";
+import {
+  ISetForgotPasswordLoading,
+  ISetForgotPasswordLoadingFailed,
+  ISetForgotPasswordLoadingSuccess, ISetForgotPasswordState,
+  ISetGetUserDataLoading,
+  ISetGetUserDataLoadingFailed,
+  ISetGetUserDataLoadingSuccess,
+  ISetLoginLoading,
+  ISetLoginLoadingFailed,
+  ISetLoginLoadingSuccess,
+  ISetLogoutLoading,
+  ISetLogoutLoadingFailed,
+  ISetLogoutLoadingSuccess,
+  ISetRefreshTokenLoading, ISetRefreshTokenLoadingFailed, ISetRefreshTokenLoadingSuccess,
+  ISetRegistrationLoading,
+  ISetRegistrationLoadingFailed,
+  ISetRegistrationLoadingSuccess,
+  ISetResetPasswordLoading,
+  ISetResetPasswordLoadingFailed,
+  ISetResetPasswordLoadingSuccess,
+  ISetSendUserDataLoading,
+  ISetSendUserDataLoadingFailed,
+  ISetSendUserDataLoadingSuccess
+} from "../actions/user";
+
 export interface IIngredient {
   calories: number,
   carbohydrates: number,
@@ -67,13 +109,108 @@ export interface IOrder {
   _id: string,
 }
 
-export type TWSState = {
-  wsAllOrders: boolean;
-  wsUserOrders: boolean,
-  orders: IOrder[];
-  userOrders: IOrder[];
-  allOrdersError?: Event;
-  userOrdersError?: Event;
-  total: number;
-  totalToday: number;
+export interface IUser {
+  email: 'string',
+  name: 'string',
 }
+
+export interface IOrderState {
+  orderDetails: object | null,
+  orderRequest: boolean,
+  orderFailed: boolean,
+}
+
+export interface IOrdersState {
+  wsAllOrders: boolean,
+  wsUserOrders: boolean,
+  orders: IOrder[],
+  userOrders: IOrder[],
+  allOrdersError?: Event,
+  userOrdersError?: Event,
+  total: number,
+  totalToday: number,
+}
+
+export interface IIngredientsState {
+  ingredients: IIngredient[],
+  selectedIngredient: IIngredient | null,
+  chosenIngredients: IIngredient[],
+  ingredientsRequest: boolean,
+  ingredientsFailed: boolean,
+}
+
+export interface IUserState {
+  registrationRequest: boolean,
+  registrationRequestFailed: boolean,
+  loginRequest: boolean,
+  loginRequestFailed: boolean,
+  forgotPasswordRequest: boolean,
+  forgotPasswordRequestFailed: boolean,
+  resetPasswordRequest: boolean,
+  resetPasswordRequestFailed: boolean,
+  getUserDataRequest: boolean,
+  getUserDataRequestFailed: boolean,
+  logoutRequest: boolean,
+  logoutRequestFailed: boolean,
+  refreshTokenRequest: boolean,
+  refreshTokenRequestFailed: boolean,
+  sendUserDataRequest: boolean,
+  sendUserDataRequestFailed: boolean,
+  isPasswordForgot: boolean,
+  accessToken: string | null,
+  userData: object | null
+}
+
+export interface IPopupState {
+  isOrderDetailsPopupOpen: boolean,
+  isIngredientsPopupOpen: boolean,
+  isOrderPopupOpen: boolean,
+}
+
+type RootState = ReturnType<typeof store.getState>;
+
+type TApplicationActions =
+  | ISelectIngredient
+  | IDeleteSelectedIngredient
+  | IAddIngredient
+  | IDeleteIngredient
+  | IDeleteAllIngredients
+  | ISortIngredients
+  | ISetOrderDataLoading
+  | ISetOrderDataLoadingSuccess
+  | ISetOrderDataLoadingFailed
+  | IDeleteOrderData
+  | IWSAllOrdersConnectionStart
+  | IWSUserOrdersConnectionStart
+  | IChangeOrderDetailsPopupState
+  | IChangeIngredientsPopupState
+  | IChangeOrderPopupState
+  | ISetRegistrationLoading
+  | ISetRegistrationLoadingSuccess
+  | ISetRegistrationLoadingFailed
+  | ISetLoginLoading
+  | ISetLoginLoadingSuccess
+  | ISetLoginLoadingFailed
+  | ISetForgotPasswordLoading
+  | ISetForgotPasswordLoadingSuccess
+  | ISetForgotPasswordLoadingFailed
+  | ISetResetPasswordLoading
+  | ISetResetPasswordLoadingSuccess
+  | ISetResetPasswordLoadingFailed
+  | ISetGetUserDataLoading
+  | ISetGetUserDataLoadingSuccess
+  | ISetGetUserDataLoadingFailed
+  | ISetSendUserDataLoading
+  | ISetSendUserDataLoadingSuccess
+  | ISetSendUserDataLoadingFailed
+  | ISetLogoutLoading
+  | ISetLogoutLoadingSuccess
+  | ISetLogoutLoadingFailed
+  | ISetRefreshTokenLoading
+  | ISetRefreshTokenLoadingSuccess
+  | ISetRefreshTokenLoadingFailed
+  | ISetForgotPasswordState;
+
+export type AppThunk<TReturn = void> = ActionCreator<ThunkAction<TReturn, Action, RootState, TApplicationActions>>;
+
+export type AppDispatch = typeof store.dispatch; 

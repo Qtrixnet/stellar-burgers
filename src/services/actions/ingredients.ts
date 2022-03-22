@@ -1,6 +1,6 @@
 import mainApi from "../../utils/Api";
-import { v4 as generateUniqueId } from "uuid";
-import {IIngredient} from "../types/types";
+import {v4 as generateUniqueId} from "uuid";
+import {AppDispatch, AppThunk, IIngredient} from "../types/types";
 
 export const GET_INGREDIENTS: 'GET_INGREDIENTS' = "GET_INGREDIENTS";
 export const GET_INGREDIENTS_FAILED: 'GET_INGREDIENTS_FAILED' = "GET_INGREDIENTS_FAILED";
@@ -15,8 +15,36 @@ export const DELETE_ALL_INGREDIENTS: 'DELETE_ALL_INGREDIENTS' = "DELETE_ALL_INGR
 
 export const SORT_INGREDIENTS: 'SORT_INGREDIENTS' = "SORT_INGREDIENTS";
 
-export function getIngredients() {
-  return function (dispatch: any) {
+export interface ISelectIngredient {
+  readonly type: typeof SELECT_INGREDIENT;
+  readonly payload: IIngredient;
+}
+
+export interface IDeleteSelectedIngredient {
+  readonly type: typeof DELETE_SELECTED_INGREDIENT;
+}
+
+export interface IAddIngredient {
+  readonly type: typeof ADD_INGREDIENT;
+  readonly payload: IIngredient[];
+}
+
+export interface IDeleteIngredient {
+  readonly type: typeof DELETE_INGREDIENT;
+  readonly payload: IIngredient[];
+}
+
+export interface IDeleteAllIngredients {
+  readonly type: typeof DELETE_ALL_INGREDIENTS;
+}
+
+export interface ISortIngredients {
+  readonly type: typeof SORT_INGREDIENTS;
+  readonly payload: IIngredient[];
+}
+
+export const getIngredients: AppThunk = () => {
+  return function (dispatch: AppDispatch) {
     dispatch({
       type: GET_INGREDIENTS,
     });
@@ -55,7 +83,7 @@ export const addIngredient = (newIngredientsArray: IIngredient[]) => {
     return ingredientCopy;
   });
 
-  return { type: ADD_INGREDIENT, payload: modifiedArray };
+  return {type: ADD_INGREDIENT, payload: modifiedArray};
 };
 
 export const deleteIngredient = (newIngredientsArray: IIngredient[]) => ({
@@ -63,7 +91,7 @@ export const deleteIngredient = (newIngredientsArray: IIngredient[]) => ({
   payload: newIngredientsArray,
 });
 
-export const deleteAllIngredients = () => ({ type: DELETE_ALL_INGREDIENTS });
+export const deleteAllIngredients = () => ({type: DELETE_ALL_INGREDIENTS});
 
 export const sortIngredients = (newIngredientsArray: IIngredient[]) => ({
   type: SORT_INGREDIENTS,

@@ -1,5 +1,6 @@
 import mainApi from '../../utils/Api';
-import { tokenExpiredError, unauthorizedError } from '../../utils/constants';
+import {tokenExpiredError, unauthorizedError} from '../../utils/constants';
+import {AppDispatch, AppThunk, IUser} from "../types/types";
 
 export const REGISTRATION: 'REGISTRATION' = 'REGISTRATION';
 export const REGISTRATION_SUCCESS: 'REGISTRATION_SUCCESS' = 'REGISTRATION_SUCCESS';
@@ -35,42 +36,149 @@ export const REFRESH_TOKEN_FAILED: 'REFRESH_TOKEN_FAILED' = 'REFRESH_TOKEN_FAILE
 
 export const SET_FORGOT_PASSWORD_STATE: 'SET_FORGOT_PASSWORD_STATE' = 'SET_FORGOT_PASSWORD_STATE';
 
-export const setRegistrationLoading = () => ({ type: REGISTRATION });
-export const setRegistrationLoadingSuccess = (token: string) => ({ type: REGISTRATION_SUCCESS, payload: token });
-export const setRegistrationLoadingFailed = () => ({ type: REGISTRATION_FAILED });
+export interface ISetRegistrationLoading {
+  readonly type: typeof REGISTRATION;
+}
 
-export const setLoginLoading = () => ({ type: LOGIN });
-export const setLoginLoadingSuccess = (token: string) => ({ type: LOGIN_SUCCESS, payload: token });
-export const setLoginLoadingFailed = () => ({ type: LOGIN_FAILED });
+export interface ISetRegistrationLoadingSuccess {
+  readonly type: typeof REGISTRATION_SUCCESS;
+  payload: string;
+}
 
-export const setForgotPasswordLoading = () => ({ type: FORGOT_PASSWORD });
-export const setForgotPasswordLoadingSuccess = () => ({ type: FORGOT_PASSWORD_SUCCESS });
-export const setForgotPasswordLoadingFailed = () => ({ type: FORGOT_PASSWORD_FAILED });
+export interface ISetRegistrationLoadingFailed {
+  readonly type: typeof REGISTRATION_FAILED;
+}
 
-export const setResetPasswordLoading = () => ({ type: RESET_PASSWORD });
-export const setResetPasswordLoadingSuccess = () => ({ type: RESET_PASSWORD_SUCCESS });
-export const setResetPasswordLoadingFailed = () => ({ type: RESET_PASSWORD_FAILED });
+export interface ISetLoginLoading {
+  readonly type: typeof LOGIN;
+}
 
-export const setGetUserDataLoading = () => ({ type: GET_USER_DATA });
-export const setGetUserDataLoadingSuccess = (userData: any) => ({ type: GET_USER_DATA_SUCCESS, payload: userData });
-export const setGetUserDataLoadingFailed = () => ({ type: GET_USER_DATA_FAILED });
+export interface ISetLoginLoadingSuccess {
+  readonly type: typeof LOGIN_SUCCESS;
+  payload: string;
+}
 
-export const setSendUserDataLoading = () => ({ type: SEND_USER_DATA });
-export const setSendUserDataLoadingSuccess = (userData: any) => ({ type: SEND_USER_DATA_SUCCESS, payload: userData });
-export const setSendUserDataLoadingFailed = () => ({ type: SEND_USER_DATA_FAILED });
+export interface ISetLoginLoadingFailed {
+  readonly type: typeof LOGIN_FAILED;
+  payload: string;
+}
 
-export const setLogoutLoading = () => ({ type: LOGOUT });
-export const setLogoutLoadingSuccess = () => ({ type: LOGOUT_SUCCESS });
-export const setLogoutLoadingFailed = () => ({ type: LOGOUT_FAILED });
+export interface ISetForgotPasswordLoading {
+  readonly type: typeof FORGOT_PASSWORD;
+}
 
-export const setRefreshTokenLoading = () => ({ type: REFRESH_TOKEN });
-export const setRefreshTokenLoadingSuccess = (token: string) => ({ type: REFRESH_TOKEN_SUCCESS, payload: token });
-export const setRefreshTokenLoadingFailed = () => ({ type: REFRESH_TOKEN_FAILED });
+export interface ISetForgotPasswordLoadingSuccess {
+  readonly type: typeof FORGOT_PASSWORD_SUCCESS;
+}
 
-export const setForgotPasswordState = (state: boolean) => ({ type: SET_FORGOT_PASSWORD_STATE, payload: state });
+export interface ISetForgotPasswordLoadingFailed {
+  readonly type: typeof FORGOT_PASSWORD_FAILED;
+}
 
-export const registration = (email: string, name: string, password: string) => {
-  return (dispatch: any) => {
+export interface ISetResetPasswordLoading {
+  readonly type: typeof RESET_PASSWORD;
+}
+
+export interface ISetResetPasswordLoadingSuccess {
+  readonly type: typeof RESET_PASSWORD_SUCCESS;
+}
+
+export interface ISetResetPasswordLoadingFailed {
+  readonly type: typeof RESET_PASSWORD_FAILED;
+}
+
+export interface ISetGetUserDataLoading {
+  readonly type: typeof GET_USER_DATA;
+}
+
+export interface ISetGetUserDataLoadingSuccess {
+  readonly type: typeof GET_USER_DATA_SUCCESS;
+  payload: IUser;
+}
+
+export interface ISetGetUserDataLoadingFailed {
+  readonly type: typeof GET_USER_DATA_FAILED;
+}
+
+export interface ISetSendUserDataLoading {
+  readonly type: typeof SEND_USER_DATA;
+}
+
+export interface ISetSendUserDataLoadingSuccess {
+  readonly type: typeof SEND_USER_DATA_SUCCESS;
+  payload: IUser;
+}
+
+export interface ISetSendUserDataLoadingFailed {
+  readonly type: typeof SEND_USER_DATA_FAILED;
+}
+
+export interface ISetLogoutLoading {
+  readonly type: typeof LOGOUT;
+}
+
+export interface ISetLogoutLoadingSuccess {
+  readonly type: typeof LOGOUT_SUCCESS;
+}
+
+export interface ISetLogoutLoadingFailed {
+  readonly type: typeof LOGOUT_FAILED;
+}
+
+export interface ISetRefreshTokenLoading {
+  readonly type: typeof REFRESH_TOKEN;
+}
+
+export interface ISetRefreshTokenLoadingSuccess {
+  readonly type: typeof REFRESH_TOKEN_SUCCESS;
+  payload: string;
+}
+
+export interface ISetRefreshTokenLoadingFailed {
+  readonly type: typeof REFRESH_TOKEN_FAILED;
+}
+
+export interface ISetForgotPasswordState {
+  readonly type: typeof SET_FORGOT_PASSWORD_STATE;
+  payload: boolean;
+}
+
+export const setRegistrationLoading = () => ({type: REGISTRATION});
+export const setRegistrationLoadingSuccess = (token: string) => ({type: REGISTRATION_SUCCESS, payload: token});
+export const setRegistrationLoadingFailed = () => ({type: REGISTRATION_FAILED});
+
+export const setLoginLoading = () => ({type: LOGIN});
+export const setLoginLoadingSuccess = (token: string) => ({type: LOGIN_SUCCESS, payload: token});
+export const setLoginLoadingFailed = () => ({type: LOGIN_FAILED});
+
+export const setForgotPasswordLoading = () => ({type: FORGOT_PASSWORD});
+export const setForgotPasswordLoadingSuccess = () => ({type: FORGOT_PASSWORD_SUCCESS});
+export const setForgotPasswordLoadingFailed = () => ({type: FORGOT_PASSWORD_FAILED});
+
+export const setResetPasswordLoading = () => ({type: RESET_PASSWORD});
+export const setResetPasswordLoadingSuccess = () => ({type: RESET_PASSWORD_SUCCESS});
+export const setResetPasswordLoadingFailed = () => ({type: RESET_PASSWORD_FAILED});
+
+export const setGetUserDataLoading = () => ({type: GET_USER_DATA});
+export const setGetUserDataLoadingSuccess = (userData: IUser) => ({type: GET_USER_DATA_SUCCESS, payload: userData});
+export const setGetUserDataLoadingFailed = () => ({type: GET_USER_DATA_FAILED});
+
+export const setSendUserDataLoading = () => ({type: SEND_USER_DATA});
+export const setSendUserDataLoadingSuccess = (userData: IUser) => ({type: SEND_USER_DATA_SUCCESS, payload: userData});
+export const setSendUserDataLoadingFailed = () => ({type: SEND_USER_DATA_FAILED});
+
+export const setLogoutLoading = () => ({type: LOGOUT});
+export const setLogoutLoadingSuccess = () => ({type: LOGOUT_SUCCESS});
+export const setLogoutLoadingFailed = () => ({type: LOGOUT_FAILED});
+
+export const setRefreshTokenLoading = () => ({type: REFRESH_TOKEN});
+export const setRefreshTokenLoadingSuccess = (token: string) => ({type: REFRESH_TOKEN_SUCCESS, payload: token});
+export const setRefreshTokenLoadingFailed = () => ({type: REFRESH_TOKEN_FAILED});
+
+export const setForgotPasswordState = (state: boolean) => ({type: SET_FORGOT_PASSWORD_STATE, payload: state});
+
+export const registration: AppThunk = (email: string, name: string, password: string) => {
+  return (dispatch: AppDispatch) => {
     dispatch(setRegistrationLoading())
 
     mainApi.register(email, name, password)
@@ -85,8 +193,8 @@ export const registration = (email: string, name: string, password: string) => {
   }
 }
 
-export const login = (email: string, password: string) => {
-  return (dispatch: any) => {
+export const login: AppThunk = (email: string, password: string) => {
+  return (dispatch: AppDispatch) => {
     dispatch(setLoginLoading())
 
     mainApi.login(email, password)
@@ -101,12 +209,13 @@ export const login = (email: string, password: string) => {
   }
 }
 
-export const getUserData = (accessToken: string) => {
-  return (dispatch: any) => {
+export const getUserData: AppThunk = (accessToken: string) => {
+  return (dispatch: AppDispatch) => {
     dispatch(setGetUserDataLoading())
 
     mainApi.getUserData(accessToken)
       .then((res) => {
+        console.log(res.user)
         dispatch(setGetUserDataLoadingSuccess(res.user))
       })
       .catch((err) => {
@@ -122,8 +231,8 @@ export const getUserData = (accessToken: string) => {
   }
 }
 
-export const sendUserData = (accessToken: string, name: string, email: string, password: string) => {
-  return (dispatch: any) => {
+export const sendUserData: AppThunk = (accessToken: string, name: string, email: string, password: string) => {
+  return (dispatch: AppDispatch) => {
     dispatch(setSendUserDataLoading())
 
     mainApi.sendUserData(accessToken, name, email, password)
@@ -143,8 +252,8 @@ export const sendUserData = (accessToken: string, name: string, email: string, p
   }
 }
 
-const refreshToken = (refreshToken: string, userData: string) => {
-  return (dispatch: any) => {
+const refreshToken: AppThunk = (refreshToken: string) => {
+  return (dispatch: AppDispatch) => {
     dispatch(setRefreshTokenLoading())
 
     mainApi.refreshToken(refreshToken)
@@ -159,8 +268,8 @@ const refreshToken = (refreshToken: string, userData: string) => {
   }
 }
 
-export const forgotPassword = (email: string) => {
-  return (dispatch: any) => {
+export const forgotPassword: AppThunk = (email: string) => {
+  return (dispatch: AppDispatch) => {
     dispatch(setForgotPasswordLoading())
 
     mainApi.sendEmail(email)
@@ -174,8 +283,8 @@ export const forgotPassword = (email: string) => {
   }
 }
 
-export const resetPassword = (password: string, code: string) => {
-  return (dispatch: any) => {
+export const resetPassword: AppThunk = (password: string, code: string) => {
+  return (dispatch: AppDispatch) => {
     dispatch(setResetPasswordLoading())
 
     mainApi.resetPassword(password, code)
@@ -189,8 +298,8 @@ export const resetPassword = (password: string, code: string) => {
   }
 }
 
-export const logout = (refreshToken: string | null) => {
-  return (dispatch: any) => {
+export const logout: AppThunk = (refreshToken: string | null) => {
+  return (dispatch: AppDispatch) => {
     dispatch(setLogoutLoading())
 
     mainApi.logout(refreshToken)

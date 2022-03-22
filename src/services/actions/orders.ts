@@ -10,6 +10,14 @@ export const WS_USER_ORDERS_CONNECTION_ERROR: 'WS_USER_ORDERS_CONNECTION_ERROR' 
 export const WS_USER_ORDERS_CONNECTION_CLOSED: 'WS_USER_ORDERS_CONNECTION_CLOSED' = 'WS_USER_ORDERS_CONNECTION_CLOSED';
 export const WS_GET_USER_ORDERS: 'WS_GET_USER_ORDERS' = 'WS_GET_USER_ORDERS';
 
+export interface IWSAllOrdersConnectionStart {
+  readonly type: typeof WS_CONNECTION_START;
+}
+
+export interface IWSUserOrdersConnectionStart {
+  readonly type: typeof WS_USER_ORDERS_CONNECTION_START;
+}
+
 export const wsAllOrderConnectionStart = () => {
   return {
     type: WS_CONNECTION_START
@@ -21,22 +29,3 @@ export const wsUserOrderConnectionStart = () => {
     type: WS_USER_ORDERS_CONNECTION_START
   };
 };
-
-export const wsConnectionSuccess = () => {
-  return {
-    type: WS_CONNECTION_SUCCESS
-  };
-};
-
-export const wsConnectionError = () => {
-  return {
-    type: WS_CONNECTION_ERROR
-  };
-};
-
-export const wsConnectionClosed = () => {
-  return {
-    type: WS_CONNECTION_CLOSED
-  };
-};
-

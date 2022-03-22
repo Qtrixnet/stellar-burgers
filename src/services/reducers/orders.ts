@@ -8,9 +8,10 @@ import {
   WS_USER_ORDERS_CONNECTION_ERROR,
   WS_USER_ORDERS_CONNECTION_CLOSED
 } from '../actions/orders';
-import {TWSState} from "../types/types";
+import {IOrdersState} from "../types/types";
+import {AnyAction} from "redux";
 
-const initialState: TWSState = {
+const initialState: IOrdersState = {
   wsAllOrders: false,
   wsUserOrders: false,
   orders: [],
@@ -19,7 +20,7 @@ const initialState: TWSState = {
   totalToday: 0,
 };
 
-export const orders = (state = initialState, action: any) => {
+export const orders = (state = initialState, action: AnyAction): IOrdersState => {
   switch (action.type) {
     case WS_CONNECTION_SUCCESS:
       return {
@@ -76,7 +77,7 @@ export const orders = (state = initialState, action: any) => {
       return {
         ...state,
         allOrdersError: undefined,
-        userOrders: [],
+        userOrders: action.payload.orders,
       }
     default:
       return state;

@@ -4,14 +4,15 @@ import {
   CHANGE_ORDER_POPUP_STATE
 } from '../actions/popup';
 import {AnyAction} from 'redux';
+import {IPopupState} from "../types/types";
 
-const initialState = {
+const initialState: IPopupState = {
   isOrderDetailsPopupOpen: false,
   isIngredientsPopupOpen: false,
   isOrderPopupOpen: false,
 };
 
-export const popupReducer = (state = initialState, action: AnyAction) => {
+export const popupReducer = (state = initialState, action: AnyAction): IPopupState => {
 
   switch (action.type) {
     case CHANGE_ORDER_DETAILS_POPUP_STATE: {

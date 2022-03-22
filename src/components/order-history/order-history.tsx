@@ -9,8 +9,8 @@ const OrderHistory: FC = () => {
   return (
     <ul className={orderHistoryStyles.list}>
       {
-        userOrders.map((order: IOrder, idx: number) => (
-          <OrderComponent key={idx} order={order}/>
+        userOrders?.map((order: IOrder, idx: number) => (
+          <OrderComponent key={idx} isHistory={true} order={order}/>
         ))
       }
     </ul>

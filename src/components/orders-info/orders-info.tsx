@@ -26,6 +26,7 @@ const OrdersInfo = () => {
                           {order.number}
                         </li>)
                       }
+                      return null
                     })
                   }
                 </ul>
@@ -37,6 +38,7 @@ const OrdersInfo = () => {
                           {order.number}
                         </li>)
                       }
+                      return null
                     })
                   }
                 </ul>
@@ -58,6 +60,7 @@ const OrdersInfo = () => {
                         {order.number}
                       </li>)
                     }
+                    return null
                   })
                 }
               </ul>

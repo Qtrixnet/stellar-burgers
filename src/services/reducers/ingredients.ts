@@ -9,17 +9,10 @@ import {
   SORT_INGREDIENTS,
   DELETE_ALL_INGREDIENTS
 } from '../actions/ingredients';
-import { AnyAction } from 'redux';
+import {AnyAction} from 'redux';
+import {IIngredientsState} from "../types/types";
 
-interface ICounterState {
-  ingredients: Array<object>,
-  selectedIngredient: object | null,
-  chosenIngredients: Array<object>,
-  ingredientsRequest: boolean,
-  ingredientsFailed: boolean,
-}
-
-const initialState: ICounterState = {
+const initialState: IIngredientsState = {
   ingredients: [],
   selectedIngredient: null,
   chosenIngredients: [],
@@ -27,8 +20,7 @@ const initialState: ICounterState = {
   ingredientsFailed: false,
 };
 
-export const ingredientsReducer = (state = initialState, action: AnyAction): ICounterState => {
-
+export const ingredientsReducer = (state = initialState, action: AnyAction): IIngredientsState => {
   switch (action.type) {
     case DELETE_ALL_INGREDIENTS: {
       return {
@@ -82,7 +74,7 @@ export const ingredientsReducer = (state = initialState, action: AnyAction): ICo
       };
     }
     case DELETE_INGREDIENT: {
-      return { ...state, chosenIngredients: action.payload };
+      return {...state, chosenIngredients: action.payload};
     }
     default: {
       return state;

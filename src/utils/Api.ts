@@ -1,9 +1,10 @@
-import { BASE_URL } from './constants';
+import {BASE_URL} from './constants';
 import {TIngredientId} from "../services/types/types";
 
 //* Класс для взаимодействия с сервером
 class Api {
   private _baseUrl: string;
+
   constructor(data: string) {
     this._baseUrl = data;
   }
@@ -27,11 +28,11 @@ class Api {
     return fetch(`${this._baseUrl}/orders`, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json;charset=utf-8'
+        'Content-Type': 'application/json;charset=utf-8',
+        "Authorization": token,
       },
       body: JSON.stringify({
         ingredients: ingredientsIds,
-        token: token,
       }),
     }).then((res) => this._requestResult(res));
   }
