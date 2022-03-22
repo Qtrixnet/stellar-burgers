@@ -1,9 +1,9 @@
-import React from 'react';
+import {FC} from 'react';
 import orderInfoStyles from './orders-info.module.css';
 import {RootStateOrAny, useSelector} from "react-redux";
 import {IOrder} from "../../services/types/types";
 
-const OrdersInfo = () => {
+const OrdersInfo: FC = () => {
   const total = useSelector((state: RootStateOrAny) => state.ordersData.total)
   const totalToday = useSelector((state: RootStateOrAny) => state.ordersData.totalToday)
   const orders = useSelector((state: RootStateOrAny) => state.ordersData.orders)

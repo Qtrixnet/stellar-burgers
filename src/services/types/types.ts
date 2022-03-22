@@ -89,6 +89,15 @@ export interface IIngredientDetailsProps {
   title?: string,
 }
 
+export interface IOrderComponentProps {
+  order: IOrder,
+  isHistory: boolean,
+}
+
+export interface IOrderFullInfoProps {
+  isPopup: boolean,
+}
+
 export interface IGetCoords {
   top: number,
   left: number,

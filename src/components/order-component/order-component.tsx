@@ -1,12 +1,11 @@
-import React from 'react';
+import {FC} from 'react';
 import orderComponentStyles from "./order-component.module.css";
 import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Link, useLocation} from 'react-router-dom';
 import {RootStateOrAny, useSelector} from "react-redux";
-import {IIngredient} from "../../services/types/types";
+import {IIngredient, IOrderComponentProps} from "../../services/types/types";
 
-// @ts-ignore
-const OrderComponent = ({order, isHistory = false}) => {
+const OrderComponent: FC<IOrderComponentProps> = ({order, isHistory = false}) => {
   const location = useLocation();
   const {status, number, createdAt, name, ingredients, _id} = order;
   const orderIngredients = useSelector((state: RootStateOrAny) => state.ingredientsData.ingredients)
@@ -35,7 +34,7 @@ const OrderComponent = ({order, isHistory = false}) => {
   return (
     <li>
       <Link className={orderComponentStyles.link} to={{
-        pathname: `/feed/${_id}`,
+        pathname: `${location.pathname}/${_id}`,
         state: {background: location},
       }}>
         <div className={orderComponentStyles.header}>
@@ -49,7 +48,6 @@ const OrderComponent = ({order, isHistory = false}) => {
         <div className={orderComponentStyles.footer}>
           <ul className={orderComponentStyles.ingredients_list}>
             {
-              // @ts-ignore
               ingredients.map((ingredient, idx) => {
                   const foundIngredient = findIngredient(ingredient, orderIngredients)
                   if (idx < 5) {
@@ -60,6 +58,7 @@ const OrderComponent = ({order, isHistory = false}) => {
                       </li>
                     )
                   }
+                  return null
                 }
               )
             }

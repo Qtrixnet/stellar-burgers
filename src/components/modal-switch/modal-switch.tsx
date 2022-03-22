@@ -84,7 +84,7 @@ const ModalSwitch = () => {
         }
         {
           <Route path="/feed/:id">
-            <OrderFullInfo/>
+            <OrderFullInfo isPopup={false}/>
           </Route>
         }
         <ProtectedRoute
@@ -127,7 +127,20 @@ const ModalSwitch = () => {
             <Modal
               handlePopupClose={handleOrderPopupClose}
             >
-              <OrderFullInfo/>
+              <OrderFullInfo isPopup={true}/>
+            </Modal>
+          }
+        />
+      )}
+
+      {background && (
+        <Route
+          path="/profile/orders/:id"
+          children={
+            <Modal
+              handlePopupClose={handleOrderPopupClose}
+            >
+              <OrderFullInfo isPopup={true}/>
             </Modal>
           }
         />

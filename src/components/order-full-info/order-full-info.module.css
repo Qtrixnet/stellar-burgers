@@ -17,10 +17,6 @@
   text-align: center;
 }
 
-.order_status {
-  color: #00CCCC;
-}
-
 .currency_container {
   display: flex;
   align-items: center;

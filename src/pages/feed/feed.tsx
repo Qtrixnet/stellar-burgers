@@ -1,13 +1,13 @@
-import React from 'react';
+import {FC} from 'react';
 import feedStyles from './feed.module.css';
 import OrdersList from "../../components/orders-list/orders-list";
 import OrdersInfo from "../../components/orders-info/orders-info";
 
-const Feed = () => {
+const Feed: FC = () => {
   return (
     <article className={feedStyles.container}>
       <OrdersList/>
-      <OrdersInfo />
+      <OrdersInfo/>
     </article>
   );
 };
