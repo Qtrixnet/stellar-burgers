@@ -6,7 +6,7 @@
 .orders_container {
   overflow-y: scroll;
   overflow-x: hidden;
-  max-height: 720px;
+  max-height: 825px;
 }
 
 .list {

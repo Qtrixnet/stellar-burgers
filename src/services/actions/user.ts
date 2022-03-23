@@ -215,7 +215,6 @@ export const getUserData: AppThunk = (accessToken: string) => {
 
     mainApi.getUserData(accessToken)
       .then((res) => {
-        console.log(res.user)
         dispatch(setGetUserDataLoadingSuccess(res.user))
       })
       .catch((err) => {

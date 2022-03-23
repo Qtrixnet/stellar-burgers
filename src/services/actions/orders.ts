@@ -18,14 +18,26 @@ export interface IWSUserOrdersConnectionStart {
   readonly type: typeof WS_USER_ORDERS_CONNECTION_START;
 }
 
-export const wsAllOrderConnectionStart = () => {
+export const wsAllOrdersConnectionStart = () => {
   return {
     type: WS_CONNECTION_START
   };
 };
 
-export const wsUserOrderConnectionStart = () => {
+export const wsUserOrdersConnectionStart = () => {
   return {
     type: WS_USER_ORDERS_CONNECTION_START
+  };
+};
+
+export const wsAllOrdersConnectionClosed = () => {
+  return {
+    type: WS_CONNECTION_CLOSED
+  };
+};
+
+export const wsUserOrdersConnectionClosed = () => {
+  return {
+    type: WS_USER_ORDERS_CONNECTION_CLOSED
   };
 };

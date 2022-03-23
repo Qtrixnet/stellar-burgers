@@ -1,15 +1,15 @@
 import chosenIngredientStyle from './chosen-ingredient.module.css';
-import {useSelector, useDispatch, RootStateOrAny} from 'react-redux';
 import {DragIcon, ConstructorElement} from '@ya.praktikum/react-developer-burger-ui-components';
 import {useDrag, useDrop} from "react-dnd";
 import {useRef, FC} from 'react';
 import {deleteIngredient} from '../../services/actions/ingredients';
 import {IIngredient, IChosenIngredientProps} from '../../services/types/types';
+import {useDispatch, useSelector} from "../../services/hooks/hooks";
 
 const ChosenIngredient: FC<IChosenIngredientProps> = ({ingredient, id, moveIngredient, index}) => {
   const {name, price, image,} = ingredient;
   const dispatch = useDispatch();
-  const chosenIngredients = useSelector((state: RootStateOrAny) => state.ingredientsData.chosenIngredients);
+  const chosenIngredients = useSelector((state) => state.ingredientsData.chosenIngredients);
   const ref = useRef<HTMLLIElement>(null);
 
   const [{handlerId}, drop] = useDrop({

@@ -1,13 +1,13 @@
-import { useSelector, RootStateOrAny } from "react-redux";
 import ingredientDetailsStyles from "./ingredient-details.module.css";
 import { useParams } from "react-router-dom";
 import {IIngredient, IIngredientDetailsProps} from "../../services/types/types";
 import {FC} from 'react'
+import {useSelector} from "../../services/hooks/hooks";
 
 const IngredientDetails: FC<IIngredientDetailsProps>= ({ title }) => {
   const { id } = useParams();
 
-  const ingredients = useSelector((state: RootStateOrAny) => state.ingredientsData.ingredients);
+  const ingredients = useSelector((state) => state.ingredientsData.ingredients);
 
   const selectedIngredient = ingredients.find((ingredient: IIngredient) => ingredient._id === id)
 

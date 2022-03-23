@@ -1,7 +1,6 @@
 import {rootReducer} from './reducers';
 import thunk from 'redux-thunk';
 import {compose, createStore, applyMiddleware} from 'redux';
-import {socketMiddleware} from './middleware/socketMiddleware';
 import {
   WS_CONNECTION_START,
   WS_CONNECTION_SUCCESS,
@@ -14,6 +13,7 @@ import {
   WS_USER_ORDERS_CONNECTION_ERROR, WS_USER_ORDERS_CONNECTION_CLOSED
 } from './actions/orders';
 import {ALL_ORDERS_URL, USER_ORDERS_URL} from "../utils/constants";
+import {socketMiddleware} from "./middleware/socketMiddleware";
 
 const composeEnhancers =
   typeof window === 'object' && (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__

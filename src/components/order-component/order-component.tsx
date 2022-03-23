@@ -2,13 +2,13 @@ import {FC} from 'react';
 import orderComponentStyles from "./order-component.module.css";
 import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Link, useLocation} from 'react-router-dom';
-import {RootStateOrAny, useSelector} from "react-redux";
 import {IIngredient, IOrderComponentProps} from "../../services/types/types";
+import {useSelector} from "../../services/hooks/hooks";
 
 const OrderComponent: FC<IOrderComponentProps> = ({order, isHistory = false}) => {
   const location = useLocation();
   const {status, number, createdAt, name, ingredients, _id} = order;
-  const orderIngredients = useSelector((state: RootStateOrAny) => state.ingredientsData.ingredients)
+  const orderIngredients = useSelector((state) => state.ingredientsData.ingredients)
 
   const findIngredient = (ingredient: string, ingredients: IIngredient[]) => {
     return ingredients.find((foundIngredient: IIngredient) => foundIngredient._id === ingredient)
@@ -30,6 +30,10 @@ const OrderComponent: FC<IOrderComponentProps> = ({order, isHistory = false}) =>
     })
     return sum
   }
+  
+  function formatDate(str: string) {
+    return new Date(str).toLocaleString()
+  }
 
   return (
     <li>
@@ -39,7 +43,7 @@ const OrderComponent: FC<IOrderComponentProps> = ({order, isHistory = false}) =>
       }}>
         <div className={orderComponentStyles.header}>
           <p className="text text_type_digits-default">{`#${number}`}</p>
-          <p className="text text_type_main-default text_color_inactive">{createdAt}</p>
+          <p className="text text_type_main-default text_color_inactive">{formatDate(createdAt)}</p>
         </div>
         <h2 className="text text_type_main-medium">{name}</h2>
         {

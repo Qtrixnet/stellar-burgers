@@ -54,14 +54,20 @@ export const orders = (state = initialState, action: AnyAction): IOrdersState =>
       return {
         ...state,
         allOrdersError: undefined,
-        wsAllOrders: false
+        wsAllOrders: false,
+        orders: [],
+        total: 0,
+        totalToday: 0,
       };
 
     case WS_USER_ORDERS_CONNECTION_CLOSED:
       return {
         ...state,
         userOrdersError: undefined,
-        wsUserOrders: false
+        wsUserOrders: false,
+        userOrders: [],
+        total: 0,
+        totalToday: 0,
       };
 
     case WS_GET_ALL_ORDERS:

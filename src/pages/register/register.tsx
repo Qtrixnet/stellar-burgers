@@ -7,7 +7,7 @@ import {
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { registration } from "../../services/actions/user";
-import {RootStateOrAny, useDispatch, useSelector} from 'react-redux';
+import {useDispatch, useSelector} from "../../services/hooks/hooks";
 
 const Register: FC = () => {
   const [nameValue, setNameValue] = useState("");
@@ -15,7 +15,7 @@ const Register: FC = () => {
   const [passwordValue, setPasswordValue] = useState("");
   const inputRef = useRef(null);
   const dispatch = useDispatch();
-  const userData = useSelector((state: RootStateOrAny) => state.userData.userData);
+  const userData = useSelector((state) => state.userData.userData);
   const history = useHistory();
 
   const onPasswordChange = (e: ChangeEvent<HTMLInputElement>) => {

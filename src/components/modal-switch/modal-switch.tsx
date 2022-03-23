@@ -1,6 +1,5 @@
 import modalSwitchStyles from "./modal-switch.module.css";
 import {useLocation, Switch, Route, useHistory} from "react-router-dom";
-import {useDispatch, useSelector, RootStateOrAny} from "react-redux";
 import Login from "../../pages/login/login";
 import Register from "../../pages/register/register";
 import ForgotPassword from "../../pages/forgot-password/forgot-password";
@@ -21,13 +20,16 @@ import IngredientDetails from "../ingredient-details/ingredient-details";
 import Loader from "../loader/loader";
 import Feed from "../../pages/feed/feed";
 import OrderFullInfo from "../order-full-info/order-full-info";
+import {useDispatch, useSelector} from "../../services/hooks/hooks";
+import FeedWrapper from "../feed-wrapper/feed-wrapper";
+import UserOrdersWrapper from "../user-orders-wrapper/user-orders-wrapper";
 
 const ModalSwitch = () => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const orderData = useSelector((state: RootStateOrAny) => state.orderData.orderDetails);
+  const orderData = useSelector((state) => state.orderData.orderDetails);
   const isOrderDetailsPopupOpen = useSelector(
-    (state: RootStateOrAny) => state.popupState.isOrderDetailsPopupOpen
+    (state) => state.popupState.isOrderDetailsPopupOpen
   );
   const location = useLocation();
   const background = location.state && location.state.background;
@@ -84,7 +86,16 @@ const ModalSwitch = () => {
         }
         {
           <Route path="/feed/:id">
-            <OrderFullInfo isPopup={false}/>
+            <FeedWrapper>
+              <OrderFullInfo isAllOrders={true} isPopup={false}/>
+            </FeedWrapper>
+          </Route>
+        }
+        {
+          <Route path="/profile/orders/:id">
+            <UserOrdersWrapper>
+              <OrderFullInfo isAllOrders={false} isPopup={false}/>
+            </UserOrdersWrapper>
           </Route>
         }
         <ProtectedRoute
@@ -93,7 +104,9 @@ const ModalSwitch = () => {
           <Profile/>
         </ProtectedRoute>
         <Route path="/feed">
-          <Feed />
+          <FeedWrapper>
+            <Feed/>
+          </FeedWrapper>
         </Route>
         <Route path="*">
           <NotFound/>
@@ -127,7 +140,9 @@ const ModalSwitch = () => {
             <Modal
               handlePopupClose={handleOrderPopupClose}
             >
-              <OrderFullInfo isPopup={true}/>
+              <FeedWrapper>
+                <OrderFullInfo isAllOrders={true} isPopup={true}/>
+              </FeedWrapper>
             </Modal>
           }
         />
@@ -140,7 +155,9 @@ const ModalSwitch = () => {
             <Modal
               handlePopupClose={handleOrderPopupClose}
             >
-              <OrderFullInfo isPopup={true}/>
+              <UserOrdersWrapper>
+                <OrderFullInfo isAllOrders={false} isPopup={true}/>
+              </UserOrdersWrapper>
             </Modal>
           }
         />

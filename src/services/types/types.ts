@@ -13,7 +13,10 @@ import {
   ISetOrderDataLoadingFailed,
   ISetOrderDataLoadingSuccess
 } from "../actions/order";
-import {IWSAllOrdersConnectionStart, IWSUserOrdersConnectionStart} from "../actions/orders";
+import {
+  IWSAllOrdersConnectionStart,
+  IWSUserOrdersConnectionStart,
+} from "../actions/orders";
 import {IChangeIngredientsPopupState, IChangeOrderDetailsPopupState, IChangeOrderPopupState} from "../actions/popup";
 import {
   ISetForgotPasswordLoading,
@@ -96,6 +99,11 @@ export interface IOrderComponentProps {
 
 export interface IOrderFullInfoProps {
   isPopup: boolean,
+  isAllOrders: boolean,
+}
+
+export interface IFeedWrapperProps {
+  children: React.ReactChild | React.ReactNode,
 }
 
 export interface IGetCoords {
@@ -176,9 +184,17 @@ export interface IPopupState {
   isOrderPopupOpen: boolean,
 }
 
-type RootState = ReturnType<typeof store.getState>;
+export interface ISocketActions {
+  wsInit: string,
+  onOpen: string,
+  onClose: string,
+  onError: string,
+  onMessage: string
+}
 
-type TApplicationActions =
+export type RootState = ReturnType<typeof store.getState>;
+
+export type TApplicationActions =
   | ISelectIngredient
   | IDeleteSelectedIngredient
   | IAddIngredient
@@ -222,4 +238,4 @@ type TApplicationActions =
 
 export type AppThunk<TReturn = void> = ActionCreator<ThunkAction<TReturn, Action, RootState, TApplicationActions>>;
 
-export type AppDispatch = typeof store.dispatch; 
+export type AppDispatch = typeof store.dispatch;
