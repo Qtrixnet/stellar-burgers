@@ -85,11 +85,11 @@ const ModalSwitch = () => {
           </Route>
         }
         {
-          <Route path="/feed/:id">
-            <FeedWrapper>
-              <OrderFullInfo isAllOrders={true} isPopup={false}/>
-            </FeedWrapper>
-          </Route>
+          // <Route path="/feed/:id">
+          //   <FeedWrapper>
+          //     <OrderFullInfo isAllOrders={true} isPopup={false}/>
+          //   </FeedWrapper>
+          // </Route>
         }
         {
           <Route path="/profile/orders/:id">
@@ -98,9 +98,7 @@ const ModalSwitch = () => {
             </UserOrdersWrapper>
           </Route>
         }
-        <ProtectedRoute
-          path="/profile"
-        >
+        <ProtectedRoute path="/profile">
           <Profile/>
         </ProtectedRoute>
         <Route path="/feed">
