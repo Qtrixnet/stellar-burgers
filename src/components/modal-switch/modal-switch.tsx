@@ -21,8 +21,6 @@ import Loader from "../loader/loader";
 import Feed from "../../pages/feed/feed";
 import OrderFullInfo from "../order-full-info/order-full-info";
 import {useDispatch, useSelector} from "../../services/hooks/hooks";
-import FeedWrapper from "../feed-wrapper/feed-wrapper";
-import UserOrdersWrapper from "../user-orders-wrapper/user-orders-wrapper";
 
 const ModalSwitch = () => {
   const dispatch = useDispatch();
@@ -85,26 +83,20 @@ const ModalSwitch = () => {
           </Route>
         }
         {
-          <Route path="/feed/:id">
-            <FeedWrapper>
-              <OrderFullInfo isAllOrders={true} isPopup={false}/>
-            </FeedWrapper>
+          <Route path="/feed/:order_number">
+            <OrderFullInfo isPopup={false}/>
           </Route>
         }
         {
-          <Route path="/profile/orders/:id">
-            <UserOrdersWrapper>
-              <OrderFullInfo isAllOrders={false} isPopup={false}/>
-            </UserOrdersWrapper>
+          <Route path="/profile/orders/:order_number">
+            <OrderFullInfo isPopup={false}/>
           </Route>
         }
         <ProtectedRoute path="/profile">
           <Profile/>
         </ProtectedRoute>
         <Route path="/feed">
-          <FeedWrapper>
-            <Feed/>
-          </FeedWrapper>
+          <Feed/>
         </Route>
         <Route path="*">
           <NotFound/>
@@ -133,12 +125,12 @@ const ModalSwitch = () => {
 
       {background && (
         <Route
-          path="/feed/:id"
+          path="/feed/:order_number"
           children={
             <Modal
               handlePopupClose={handleOrderPopupClose}
             >
-              <OrderFullInfo isAllOrders={true} isPopup={true}/>
+              <OrderFullInfo isPopup={true}/>
             </Modal>
           }
         />
@@ -146,12 +138,12 @@ const ModalSwitch = () => {
 
       {background && (
         <Route
-          path="/profile/orders/:id"
+          path="/profile/orders/:order_number"
           children={
             <Modal
               handlePopupClose={handleOrderPopupClose}
             >
-              <OrderFullInfo isAllOrders={false} isPopup={true}/>
+              <OrderFullInfo isPopup={true}/>
             </Modal>
           }
         />

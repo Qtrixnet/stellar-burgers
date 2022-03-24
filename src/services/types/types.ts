@@ -99,11 +99,6 @@ export interface IOrderComponentProps {
 
 export interface IOrderFullInfoProps {
   isPopup: boolean,
-  isAllOrders: boolean,
-}
-
-export interface IFeedWrapperProps {
-  children: React.ReactChild | React.ReactNode,
 }
 
 export interface IGetCoords {

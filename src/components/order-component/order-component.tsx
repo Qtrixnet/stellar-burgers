@@ -38,7 +38,7 @@ const OrderComponent: FC<IOrderComponentProps> = ({order, isHistory = false}) =>
   return (
     <li>
       <Link className={orderComponentStyles.link} to={{
-        pathname: `${location.pathname}/${_id}`,
+        pathname: `${location.pathname}/${number}`,
         state: {background: location},
       }}>
         <div className={orderComponentStyles.header}>

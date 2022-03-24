@@ -37,6 +37,11 @@ class Api {
     }).then((res) => this._requestResult(res));
   }
 
+  //* Запрос данных заказа
+  getOrderInfo(order_number: number) {
+    return fetch(`${this._baseUrl}/orders/${order_number}`).then((res) => this._requestResult(res));
+  }
+
   //* Запрос на восстановление пароля
   sendEmail(email: string) {
     return fetch(`${this._baseUrl}/password-reset`, {
