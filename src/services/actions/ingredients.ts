@@ -1,4 +1,5 @@
 import mainApi from "../../utils/Api";
+// @ts-ignore
 import {v4 as generateUniqueId} from "uuid";
 import {AppDispatch, AppThunk, IIngredient} from "../types/types";
 

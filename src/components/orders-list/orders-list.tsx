@@ -6,7 +6,8 @@ import {useSelector} from "../../services/hooks/hooks";
 import Loader from "../loader/loader";
 
 const OrderSList: FC = () => {
-  const orders = useSelector((state) => state.ordersData.orders)
+  const orders = useSelector((state) => state.ordersData.orders);
+  
   return (
     <div className={orderListStyles.main_container}>
       <h1 className="mt-10 mb-5 text text_type_main-large">Лента заказов</h1>

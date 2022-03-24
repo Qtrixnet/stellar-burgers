@@ -85,11 +85,11 @@ const ModalSwitch = () => {
           </Route>
         }
         {
-          // <Route path="/feed/:id">
-          //   <FeedWrapper>
-          //     <OrderFullInfo isAllOrders={true} isPopup={false}/>
-          //   </FeedWrapper>
-          // </Route>
+          <Route path="/feed/:id">
+            <FeedWrapper>
+              <OrderFullInfo isAllOrders={true} isPopup={false}/>
+            </FeedWrapper>
+          </Route>
         }
         {
           <Route path="/profile/orders/:id">
@@ -138,9 +138,7 @@ const ModalSwitch = () => {
             <Modal
               handlePopupClose={handleOrderPopupClose}
             >
-              <FeedWrapper>
-                <OrderFullInfo isAllOrders={true} isPopup={true}/>
-              </FeedWrapper>
+              <OrderFullInfo isAllOrders={true} isPopup={true}/>
             </Modal>
           }
         />
@@ -153,9 +151,7 @@ const ModalSwitch = () => {
             <Modal
               handlePopupClose={handleOrderPopupClose}
             >
-              <UserOrdersWrapper>
-                <OrderFullInfo isAllOrders={false} isPopup={true}/>
-              </UserOrdersWrapper>
+              <OrderFullInfo isAllOrders={false} isPopup={true}/>
             </Modal>
           }
         />
@@ -165,3 +161,5 @@ const ModalSwitch = () => {
 };
 
 export default ModalSwitch;
+
+
