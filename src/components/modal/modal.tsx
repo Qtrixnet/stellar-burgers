@@ -4,14 +4,18 @@ import {CloseIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 import {createPortal} from 'react-dom';
 import ModalOverlay from '../modal-overlay/modal-overlay';
 import {IModalProps} from "../../services/types/types";
+import {cleanOrderInfo} from "../../services/actions/orders";
+import {useDispatch} from "../../services/hooks/hooks";
 
 const Modal: FC<IModalProps> = ({handlePopupClose, children, title = ''}) => {
+  const dispatch = useDispatch();
   const modalRoot: HTMLElement = document.getElementById("react-modals") as HTMLElement;
 
   useEffect(() => {
     const handleEscapeClose = (evt: { key: string; }) => {
       if (evt.key === 'Escape') {
         handlePopupClose()
+        dispatch(cleanOrderInfo())
       }
     };
 
@@ -19,7 +23,7 @@ const Modal: FC<IModalProps> = ({handlePopupClose, children, title = ''}) => {
     return () => {
       document.removeEventListener('keyup', handleEscapeClose);
     };
-  }, [handlePopupClose])
+  }, [handlePopupClose, dispatch])
 
   return createPortal(
     <>

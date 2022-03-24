@@ -21,6 +21,7 @@ import Loader from "../loader/loader";
 import Feed from "../../pages/feed/feed";
 import OrderFullInfo from "../order-full-info/order-full-info";
 import {useDispatch, useSelector} from "../../services/hooks/hooks";
+import {cleanOrderInfo} from "../../services/actions/orders";
 
 const ModalSwitch = () => {
   const dispatch = useDispatch();
@@ -46,6 +47,7 @@ const ModalSwitch = () => {
   const handleOrderPopupClose = () => {
     dispatch(changeOrderPopupState(false));
     background && history.goBack();
+    dispatch(cleanOrderInfo())
   }
 
   return (
@@ -83,12 +85,12 @@ const ModalSwitch = () => {
           </Route>
         }
         {
-          <Route path="/feed/:order_number">
+          <Route path="/feed/:orderNumber">
             <OrderFullInfo isPopup={false}/>
           </Route>
         }
         {
-          <Route path="/profile/orders/:order_number">
+          <Route path="/profile/orders/:orderNumber">
             <OrderFullInfo isPopup={false}/>
           </Route>
         }
@@ -125,7 +127,7 @@ const ModalSwitch = () => {
 
       {background && (
         <Route
-          path="/feed/:order_number"
+          path="/feed/:orderNumber"
           children={
             <Modal
               handlePopupClose={handleOrderPopupClose}
@@ -138,7 +140,7 @@ const ModalSwitch = () => {
 
       {background && (
         <Route
-          path="/profile/orders/:order_number"
+          path="/profile/orders/:orderNumber"
           children={
             <Modal
               handlePopupClose={handleOrderPopupClose}

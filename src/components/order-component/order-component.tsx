@@ -7,7 +7,7 @@ import {useSelector} from "../../services/hooks/hooks";
 
 const OrderComponent: FC<IOrderComponentProps> = ({order, isHistory = false}) => {
   const location = useLocation();
-  const {status, number, createdAt, name, ingredients, _id} = order;
+  const {status, number, createdAt, name, ingredients} = order;
   const orderIngredients = useSelector((state) => state.ingredientsData.ingredients)
 
   const findIngredient = (ingredient: string, ingredients: IIngredient[]) => {

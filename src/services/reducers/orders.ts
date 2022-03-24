@@ -6,7 +6,11 @@ import {
   WS_GET_USER_ORDERS,
   WS_USER_ORDERS_CONNECTION_SUCCESS,
   WS_USER_ORDERS_CONNECTION_ERROR,
-  WS_USER_ORDERS_CONNECTION_CLOSED
+  WS_USER_ORDERS_CONNECTION_CLOSED,
+  GET_ORDER_INFO,
+  GET_ORDER_INFO_SUCCESS,
+  GET_ORDER_INFO_FAILED,
+  CLEAN_ORDER_INFO
 } from '../actions/orders';
 import {IOrdersState} from "../types/types";
 import {AnyAction} from "redux";
@@ -18,6 +22,9 @@ const initialState: IOrdersState = {
   userOrders: [],
   total: 0,
   totalToday: 0,
+  orderInfoRequest: false,
+  orderInfoFailed: false,
+  orderInfo: null,
 };
 
 export const orders = (state = initialState, action: AnyAction): IOrdersState => {
@@ -84,6 +91,31 @@ export const orders = (state = initialState, action: AnyAction): IOrdersState =>
         ...state,
         allOrdersError: undefined,
         userOrders: action.payload.orders,
+      }
+    case GET_ORDER_INFO: 
+      return {
+        ...state,
+        orderInfoRequest: true,
+        orderInfoFailed: false,
+      }
+    case GET_ORDER_INFO_SUCCESS: 
+      return {
+        ...state,
+        orderInfoRequest: true,
+        orderInfo: action.payload,
+      }
+    case GET_ORDER_INFO_FAILED:
+      return {
+        ...state,
+        orderInfoRequest: false,
+        orderInfoFailed: true,
+      }
+    case CLEAN_ORDER_INFO:
+      return {
+        ...state,
+        orderInfoRequest: false,
+        orderInfoFailed: false,
+        orderInfo: null,
       }
     default:
       return state;

@@ -141,6 +141,9 @@ export interface IOrdersState {
   userOrdersError?: Event,
   total: number,
   totalToday: number,
+  orderInfoRequest: boolean,
+  orderInfoFailed: boolean,
+  orderInfo: IOrder | null,
 }
 
 export interface IIngredientsState {

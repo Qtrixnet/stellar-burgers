@@ -1,25 +1,21 @@
-import {FC, useEffect, useState} from 'react';
+import {FC, useEffect} from 'react';
 import OrderFullInfoStyles from './order-full-info.module.css';
 import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useParams} from 'react-router-dom';
 import {IIngredient, IOrderFullInfoProps} from '../../services/types/types';
-import {useSelector} from "../../services/hooks/hooks";
-import mainApi from "../../utils/Api";
+import {useDispatch, useSelector} from "../../services/hooks/hooks";
 import Loader from "../loader/loader";
+import {getOrderInfo} from "../../services/actions/orders";
 
 const OrderFullInfo: FC<IOrderFullInfoProps> = ({isPopup}) => {
-  const {order_number} = useParams();
-  const [foundOrder, setFoundOrder] = useState({
-    number: false,
-    name: '',
-    status: '',
-    createdAt: '',
-    ingredients: []
-  })
+  const dispatch = useDispatch()
+  const {orderNumber} = useParams();
+  
+  const orderInfo = useSelector(state => state.ordersData.orderInfo)
 
   const allIngredients = useSelector((state) => state.ingredientsData.ingredients)
 
-  const foundIngredients = foundOrder?.ingredients.map((orderIngredient: string) => allIngredients.find((ingredient: IIngredient) => ingredient._id === orderIngredient))
+  const foundIngredients = orderInfo?.ingredients.map((orderIngredient: string) => allIngredients.find((ingredient: IIngredient) => ingredient._id === orderIngredient))
 
   const calculateSum = (): number => {
     let sum = 0;
@@ -55,26 +51,26 @@ const OrderFullInfo: FC<IOrderFullInfoProps> = ({isPopup}) => {
   }
 
   useEffect(() => {
-    order_number && mainApi.getOrderInfo(+order_number).then(res => setFoundOrder(res.orders[0]))
-  }, [])
+    orderNumber && dispatch(getOrderInfo(+orderNumber));
+  }, [dispatch, orderNumber])
 
   return (
     <>
       {
-        foundOrder.number ? (
+        orderInfo?.number ? (
           <div className={OrderFullInfoStyles.container} style={!isPopup ? {marginTop: '120px'} : {}}>
             <div className={OrderFullInfoStyles.order_info}>
               <p
                 className={`text text_type_digits-default pb-10 ${OrderFullInfoStyles.order_number}`}>#{
-                foundOrder && foundOrder.number
+                orderInfo && orderInfo.number
               }</p>
               <h2 className="text text_type_main-medium pb-3">{
-                foundOrder && foundOrder.name
+                orderInfo && orderInfo.name
               }</h2>
               <p className={`text text_type_main-default pb-15 ${OrderFullInfoStyles.order_status}`}
-                 style={checkStyles(foundOrder?.status)}
+                 style={checkStyles(orderInfo?.status)}
               >{
-                checkStatus(foundOrder?.status)
+                checkStatus(orderInfo?.status)
               }</p>
               <p className="text text_type_main-medium pb-6">Состав:</p>
               <ul className={OrderFullInfoStyles.list}>
@@ -104,7 +100,7 @@ const OrderFullInfo: FC<IOrderFullInfoProps> = ({isPopup}) => {
               </ul>
               <div className={OrderFullInfoStyles.footer}>
                 <p className="text text_type_main-default text_color_inactive">{
-                  formatDate(foundOrder?.createdAt)
+                  formatDate(orderInfo?.createdAt)
                 }</p>
                 <div className={OrderFullInfoStyles.currency_container}>
                   <span className="text text_type_digits-default">{
