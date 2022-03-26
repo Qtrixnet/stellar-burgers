@@ -5,14 +5,15 @@ import {
   DELETE_ORDER_DATA
 } from '../actions/order';
 import { AnyAction } from 'redux';
+import {IOrderState} from "../types/types";
 
-const initialState = {
+const initialState: IOrderState = {
   orderDetails: null,
   orderRequest: false,
   orderFailed: false,
 };
 
-export const orderReducer = (state = initialState, action: AnyAction) => {
+export const orderReducer = (state = initialState, action: AnyAction): IOrderState => {
 
   switch (action.type) {
     case GET_ORDER_DATA: {

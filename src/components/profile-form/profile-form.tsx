@@ -1,12 +1,12 @@
 import ProfileFormStyles from './profile-form.module.css';
 import {FC, useState, useRef, useEffect, ChangeEvent, FormEvent} from "react";
-import {useSelector, useDispatch, RootStateOrAny} from "react-redux";
 import {sendUserData} from "../../services/actions/user";
 import {Input, Button} from "@ya.praktikum/react-developer-burger-ui-components";
+import {useDispatch, useSelector} from "../../services/hooks/hooks";
 
 const ProfileForm: FC = () => {
-  const userData = useSelector((state: RootStateOrAny) => state.userData.userData);
-  const accessToken = useSelector((state: RootStateOrAny) => state.userData.accessToken);
+  const userData = useSelector((state) => state.userData.userData);
+  const accessToken = useSelector((state) => state.userData.accessToken);
   const dispatch = useDispatch();
 
   const [nameValue, setNameValue] = useState("?");
@@ -26,12 +26,14 @@ const ProfileForm: FC = () => {
   const onNameChange = (evt: ChangeEvent<HTMLInputElement>) => {
     const value = evt.target.value
     setNameValue(value)
+    // @ts-ignore
     value === userData.name ? setIsDataChanged(false) : setIsDataChanged(true)
   }
 
   const onEmailChange = (evt: ChangeEvent<HTMLInputElement>) => {
     const value = evt.target.value
     setLoginValue(value)
+    // @ts-ignore
     value === userData.email ? setIsDataChanged(false) : setIsDataChanged(true)
   }
 
@@ -47,14 +49,18 @@ const ProfileForm: FC = () => {
   }
 
   const onCancelEditing = () => {
+    // @ts-ignore
     setNameValue(userData.name)
+    // @ts-ignore
     setLoginValue(userData.email)
     setPasswordValue('')
   }
 
   useEffect(() => {
     if (userData) {
+      // @ts-ignore
       setLoginValue(userData.email);
+      // @ts-ignore
       setNameValue(userData.name);
       setPasswordValue('');
     }

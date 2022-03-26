@@ -7,7 +7,7 @@ import {
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { resetPassword, setForgotPasswordState } from "../../services/actions/user";
-import {RootStateOrAny, useDispatch, useSelector} from 'react-redux';
+import {useDispatch, useSelector} from "../../services/hooks/hooks";
 
 const ResetPassword: FC = () => {
   const [codeValue, setCodeValue] = useState("");
@@ -15,9 +15,9 @@ const ResetPassword: FC = () => {
   const inputRef = useRef(null);
   const dispatch = useDispatch();
   const history = useHistory();
-  const isPasswordForgot = useSelector((state: RootStateOrAny) => state.userData.isPasswordForgot);
+  const isPasswordForgot = useSelector((state) => state.userData.isPasswordForgot);
   const location = useLocation();
-  const userData = useSelector((state: RootStateOrAny) => state.userData.userData);
+  const userData = useSelector((state) => state.userData.userData);
 
   const onPasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
     setPasswordValue(e.target.value);

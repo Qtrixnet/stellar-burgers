@@ -1,6 +1,5 @@
 import modalSwitchStyles from "./modal-switch.module.css";
 import {useLocation, Switch, Route, useHistory} from "react-router-dom";
-import {useDispatch, useSelector, RootStateOrAny} from "react-redux";
 import Login from "../../pages/login/login";
 import Register from "../../pages/register/register";
 import ForgotPassword from "../../pages/forgot-password/forgot-password";
@@ -10,7 +9,7 @@ import NotFound from "../../pages/not-found/not-found";
 import ProtectedRoute from "../protected-route/protected-route";
 import {
   changeOrderDetailsPopupState,
-  changeIngredientsPopupState,
+  changeIngredientsPopupState, changeOrderPopupState,
 } from "../../services/actions/popup";
 import {deleteSelectedIngredient} from "../../services/actions/ingredients";
 import {deleteOrderData} from "../../services/actions/order";
@@ -19,13 +18,17 @@ import Modal from "../modal/modal";
 import OrderDetails from "../order-details/order-details";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import Loader from "../loader/loader";
+import Feed from "../../pages/feed/feed";
+import OrderFullInfo from "../order-full-info/order-full-info";
+import {useDispatch, useSelector} from "../../services/hooks/hooks";
+import {cleanOrderInfo} from "../../services/actions/orders";
 
 const ModalSwitch = () => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const orderData = useSelector((state: RootStateOrAny) => state.orderData.orderDetails);
+  const orderData = useSelector((state) => state.orderData.orderDetails);
   const isOrderDetailsPopupOpen = useSelector(
-    (state: RootStateOrAny) => state.popupState.isOrderDetailsPopupOpen
+    (state) => state.popupState.isOrderDetailsPopupOpen
   );
   const location = useLocation();
   const background = location.state && location.state.background;
@@ -39,6 +42,12 @@ const ModalSwitch = () => {
     dispatch(changeIngredientsPopupState(false));
     dispatch(deleteSelectedIngredient());
     background && history.goBack();
+  }
+
+  const handleOrderPopupClose = () => {
+    dispatch(changeOrderPopupState(false));
+    background && history.goBack();
+    dispatch(cleanOrderInfo())
   }
 
   return (
@@ -75,11 +84,22 @@ const ModalSwitch = () => {
             <IngredientDetails title="Детали ингредиента"/>
           </Route>
         }
-        <ProtectedRoute
-          path="/profile"
-        >
+        {
+          <Route path="/feed/:orderNumber">
+            <OrderFullInfo isPopup={false}/>
+          </Route>
+        }
+        {
+          <Route path="/profile/orders/:orderNumber">
+            <OrderFullInfo isPopup={false}/>
+          </Route>
+        }
+        <ProtectedRoute path="/profile">
           <Profile/>
         </ProtectedRoute>
+        <Route path="/feed">
+          <Feed/>
+        </Route>
         <Route path="*">
           <NotFound/>
         </Route>
@@ -104,8 +124,36 @@ const ModalSwitch = () => {
           }
         />
       )}
+
+      {background && (
+        <Route
+          path="/feed/:orderNumber"
+          children={
+            <Modal
+              handlePopupClose={handleOrderPopupClose}
+            >
+              <OrderFullInfo isPopup={true}/>
+            </Modal>
+          }
+        />
+      )}
+
+      {background && (
+        <Route
+          path="/profile/orders/:orderNumber"
+          children={
+            <Modal
+              handlePopupClose={handleOrderPopupClose}
+            >
+              <OrderFullInfo isPopup={true}/>
+            </Modal>
+          }
+        />
+      )}
     </div>
   );
 };
 
 export default ModalSwitch;
+
+

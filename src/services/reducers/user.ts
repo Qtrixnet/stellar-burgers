@@ -26,8 +26,9 @@ import {
   SET_FORGOT_PASSWORD_STATE
 } from '../actions/user';
 import {AnyAction} from 'redux';
+import {IUserState} from "../types/types";
 
-const initialState = {
+const initialState: IUserState = {
   registrationRequest: false,
   registrationRequestFailed: false,
   loginRequest: false,
@@ -49,7 +50,7 @@ const initialState = {
   userData: null
 };
 
-export const userReducer = (state = initialState, action: AnyAction) => {
+export const userReducer = (state = initialState, action: AnyAction): IUserState => {
 
   switch (action.type) {
     case REGISTRATION: {

@@ -1,5 +1,4 @@
 import ingredientStyles from "./ingredient.module.css";
-import {useSelector, useDispatch, RootStateOrAny} from "react-redux";
 import {
   CurrencyIcon,
   Counter,
@@ -13,6 +12,7 @@ import {changeIngredientsPopupState} from "../../services/actions/popup";
 import {Link, useLocation} from 'react-router-dom';
 import {FC, MouseEvent} from 'react';
 import {IIngredient, IIngredientProps} from "../../services/types/types";
+import {useDispatch, useSelector} from "../../services/hooks/hooks";
 
 const Ingredient: FC<IIngredientProps> = ({ingredient}) => {
   const {image, price, name, _id} = ingredient;
@@ -21,10 +21,10 @@ const Ingredient: FC<IIngredientProps> = ({ingredient}) => {
 
   const dispatch = useDispatch();
   const chosenIngredients = useSelector(
-    (state: RootStateOrAny) => state.ingredientsData.chosenIngredients
+    (state) => state.ingredientsData.chosenIngredients
   );
   const initialIngredients = useSelector(
-    (state: RootStateOrAny) => state.ingredientsData.ingredients
+    (state) => state.ingredientsData.ingredients
   );
 
   const [{isDrag}, dragRef] = useDrag({
@@ -53,13 +53,15 @@ const Ingredient: FC<IIngredientProps> = ({ingredient}) => {
     const selectedBun = chosenIngredients.find(
       (ingredient: IIngredient) => ingredient.type === "bun"
     );
+    // @ts-ignore
     const selectedBunIndex = chosenIngredients.indexOf(selectedBun);
 
-    if (targetIngredient.type === "bun" && selectedBun) {
+    if (targetIngredient?.type === "bun" && selectedBun) {
       const chosenIngredientsClone = chosenIngredients.slice();
       chosenIngredientsClone.splice(selectedBunIndex, 1, targetIngredient);
       dispatch(addIngredient(chosenIngredientsClone));
     } else {
+      // @ts-ignore
       dispatch(addIngredient([...chosenIngredients, targetIngredient]));
     }
   };
@@ -69,6 +71,7 @@ const Ingredient: FC<IIngredientProps> = ({ingredient}) => {
     const foundIngredient = initialIngredients.find(
       (ingredient: IIngredient) => ingredient._id === id
     );
+    // @ts-ignore
     dispatch(selectIngredient(foundIngredient));
     dispatch(changeIngredientsPopupState(true));
   };

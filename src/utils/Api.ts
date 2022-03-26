@@ -1,8 +1,10 @@
-import { BASE_URL } from './constants';
+import {BASE_URL} from './constants';
+import {TIngredientId} from "../services/types/types";
 
 //* Класс для взаимодействия с сервером
 class Api {
   private _baseUrl: string;
+
   constructor(data: string) {
     this._baseUrl = data;
   }
@@ -22,18 +24,22 @@ class Api {
   }
 
   //* Отправка данных заказа
-  sendIngredients(ingredientsIds: Array<string>) {
-    const burgerData = {
-      'ingredients': ingredientsIds
-    }
-
+  sendIngredients(ingredientsIds: TIngredientId[], token: string) {
     return fetch(`${this._baseUrl}/orders`, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json;charset=utf-8'
+        'Content-Type': 'application/json;charset=utf-8',
+        "Authorization": token,
       },
-      body: JSON.stringify(burgerData)
+      body: JSON.stringify({
+        ingredients: ingredientsIds,
+      }),
     }).then((res) => this._requestResult(res));
+  }
+
+  //* Запрос данных заказа
+  getOrderInfo(order_number: number) {
+    return fetch(`${this._baseUrl}/orders/${order_number}`).then((res) => this._requestResult(res));
   }
 
   //* Запрос на восстановление пароля
@@ -133,7 +139,7 @@ class Api {
   }
 
   //* Запрос на выход из системы
-  logout(refreshToken: string) {
+  logout(refreshToken: string | null) {
     return fetch(`${this._baseUrl}/auth/logout`, {
       method: "POST",
       headers: {

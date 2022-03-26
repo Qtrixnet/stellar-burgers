@@ -1,6 +1,5 @@
 import {FC, useCallback, useMemo} from "react";
 import {useHistory} from "react-router-dom";
-import {useDispatch, useSelector, RootStateOrAny} from "react-redux";
 import {Button, ConstructorElement, CurrencyIcon,} from "@ya.praktikum/react-developer-burger-ui-components";
 import burgerConstructorStyle from "./burger-constructor.module.css";
 import {getOrderData} from "../../services/actions/order";
@@ -11,16 +10,18 @@ import update from "immutability-helper";
 import {sortIngredients} from "../../services/actions/ingredients";
 import {changeOrderDetailsPopupState} from "../../services/actions/popup";
 import {IBurgerConstructorProps, IIngredient, TIngredientType} from "../../services/types/types";
+import {useDispatch, useSelector} from "../../services/hooks/hooks";
 
 const BurgerConstructor: FC<IBurgerConstructorProps> = ({onDropHandler}) => {
   const dispatch = useDispatch();
   const history = useHistory();
 
   const chosenIngredients = useSelector(
-    (state: RootStateOrAny) => state.ingredientsData.chosenIngredients
+    (state) => state.ingredientsData.chosenIngredients
   );
 
-  const userData = useSelector((state: RootStateOrAny) => state.userData.userData);
+  const userData = useSelector((state) => state.userData.userData);
+  const accessToken = useSelector((state) => state.userData.accessToken);
 
   const totalSum = useMemo(
     () =>
@@ -77,7 +78,7 @@ const BurgerConstructor: FC<IBurgerConstructorProps> = ({onDropHandler}) => {
     );
 
     if (userData) {
-      dispatch(getOrderData(ingredientsIds));
+      dispatch(getOrderData(ingredientsIds, accessToken));
       dispatch(changeOrderDetailsPopupState(true));
     } else {
       history.push('/login')

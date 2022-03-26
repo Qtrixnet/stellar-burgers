@@ -6,7 +6,7 @@ import {
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { forgotPassword, setForgotPasswordState } from "../../services/actions/user";
-import { useDispatch } from 'react-redux';
+import {useDispatch} from "../../services/hooks/hooks";
 
 const ForgotPassword:FC = () => {
   const [emailValue, setEmailValue] = useState("");

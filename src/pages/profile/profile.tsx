@@ -1,10 +1,10 @@
 import ProfileStyles from "./profile.module.css";
 import {NavLink, Route, useRouteMatch} from "react-router-dom";
-import {useDispatch,} from "react-redux";
 import {logout} from "../../services/actions/user";
 import ProfileForm from '../../components/profile-form/profile-form';
 import OrderHistory from '../../components/order-history/order-history';
 import {FC} from 'react';
+import {useDispatch} from "../../services/hooks/hooks";
 
 const Profile:FC = () => {
   const dispatch = useDispatch();
