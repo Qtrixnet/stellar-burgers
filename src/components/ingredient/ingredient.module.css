@@ -5,6 +5,11 @@
   transition: all 0.2s ease;
 }
 
+.list_item_disabled {
+  filter: grayscale(1);
+  pointer-events: none;
+}
+
 .moving {
   filter: grayscale(100);
 }

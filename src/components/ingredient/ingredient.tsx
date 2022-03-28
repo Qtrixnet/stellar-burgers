@@ -10,12 +10,13 @@ import {
 } from "../../services/actions/ingredients";
 import {changeIngredientsPopupState} from "../../services/actions/popup";
 import {Link, useLocation} from 'react-router-dom';
-import {FC, MouseEvent} from 'react';
+import {FC, MouseEvent, useEffect, useState} from 'react';
 import {IIngredient, IIngredientProps} from "../../services/types/types";
 import {useDispatch, useSelector} from "../../services/hooks/hooks";
 
 const Ingredient: FC<IIngredientProps> = ({ingredient}) => {
-  const {image, price, name, _id} = ingredient;
+  const {image, price, name, _id, type} = ingredient;
+  const [isDisabled, setIsDisabled] = useState(true);
 
   const location = useLocation();
 
@@ -75,6 +76,14 @@ const Ingredient: FC<IIngredientProps> = ({ingredient}) => {
     dispatch(selectIngredient(foundIngredient));
     dispatch(changeIngredientsPopupState(true));
   };
+  
+  useEffect(() => {
+    if(type !== 'bun' && !chosenIngredients.some(ingredient => ingredient.type === 'bun')) {
+      setIsDisabled(true)
+    } else {
+      setIsDisabled(false)
+    }
+  }, [chosenIngredients, type])
 
   return (
     <li
@@ -82,7 +91,7 @@ const Ingredient: FC<IIngredientProps> = ({ingredient}) => {
       onContextMenu={handleChoseIngredient}
       onClick={handleIngredientExplore}
       className={`${ingredientStyles.list_item} ${isDrag && ingredientStyles.moving
-      }`}
+      } ${type !== 'bun' ? isDisabled && ingredientStyles.list_item_disabled : ''}`}
       ref={dragRef}
     >
       <Link className={ingredientStyles.link} to={{
