@@ -123,7 +123,7 @@ const BurgerConstructor: FC<IBurgerConstructorProps> = ({onDropHandler}) => {
             <p className="text text_type_main-large pt-3">Выберите булку</p>
           )}
         </div>
-        <ul className={`${burgerConstructorStyle.list} pl-4 pr-4`}>
+        <ul className={`${burgerConstructorStyle.list} order-ingredients-list pl-4 pr-4`}>
           {chosenIngredients.map(
             (ingredient: IIngredient, idx: number) =>
               ingredient.type !== "bun" && (
