@@ -1,4 +1,4 @@
-# Demo: [stellar burgers](https://qtrixnet.github.io/)
+# Demo: [stellar burgers](https://qtrixnet.github.io/stellar-burgers/)
 
 # Getting Started with Create React App
 
