@@ -27,7 +27,7 @@ const initialState: IOrdersState = {
   orderInfo: null,
 };
 
-export const orders = (state = initialState, action: AnyAction): IOrdersState => {
+export const ordersReducer = (state = initialState, action: AnyAction): IOrdersState => {
   switch (action.type) {
     case WS_CONNECTION_SUCCESS:
       return {
@@ -101,7 +101,7 @@ export const orders = (state = initialState, action: AnyAction): IOrdersState =>
     case GET_ORDER_INFO_SUCCESS: 
       return {
         ...state,
-        orderInfoRequest: true,
+        orderInfoRequest: false,
         orderInfo: action.payload,
       }
     case GET_ORDER_INFO_FAILED:
