@@ -47,7 +47,41 @@
   align-items: center;
 }
 
-.ingredients_list_item:not(:first-child) {
+.last_ingredient {
+  border-radius: 50%;
+  width: 64px;
+  height: 64px;
+  background: linear-gradient(#1C1C21, #1C1C21) padding-box,
+  linear-gradient(45deg, #801AB2, #4C4CFF) border-box;
+  border: 2px solid transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.overlay {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  position: absolute;
+  border-radius: 50%;
+}
+
+.last_ingredient_image {
+  width: 64px;
+  height: 64px;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.last_ingredient_count {
+  z-index: 9999;
+}
+
+.ingredients_list_item:not(:first-child), .last_ingredient {
   margin-left: -20px;
 }
 

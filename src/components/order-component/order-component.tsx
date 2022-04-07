@@ -61,6 +61,13 @@ const OrderComponent: FC<IOrderComponentProps> = ({order, isHistory = false}) =>
                              alt={foundIngredient?.name}/>
                       </li>
                     )
+                  } else if (idx === 6) {
+                    return (<li key={idx} style={{zIndex: 999 - idx}} className={orderComponentStyles.last_ingredient}>
+                      <img className={orderComponentStyles.last_ingredient_image} src={foundIngredient?.image}
+                           alt={foundIngredient?.name}/>
+                      <div className={orderComponentStyles.overlay}></div>
+                      <span className={`text text_type_main-default ${orderComponentStyles.last_ingredient_count}`}>+{ingredients.length - 5}</span>
+                    </li>)
                   }
                   return null
                 }
