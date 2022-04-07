@@ -219,13 +219,11 @@ export const getUserData: AppThunk = (accessToken: string) => {
       })
       .catch((err) => {
         dispatch(setGetUserDataLoadingFailed())
-
         if (err.status === tokenExpiredError || err.status === unauthorizedError) {
+          console.log(`%c ${err.statusText} - ${err.status}. Токен недействителен, необходимо обновить токен`, 'background-color: #4c4cff; color: white; padding: 4px 8px; border-radius: 4px; margin: 4px;')
           // @ts-ignore
           dispatch(refreshToken(localStorage.getItem('refreshToken'), 'getUserData'))
         }
-
-        console.log(err)
       })
   }
 }
@@ -239,8 +237,6 @@ export const sendUserData: AppThunk = (accessToken: string, name: string, email:
         dispatch(setSendUserDataLoadingSuccess(res.user))
       })
       .catch((err) => {
-        console.log(err)
-
         if (err.status === tokenExpiredError) {
           // @ts-ignore
           dispatch(refreshToken(localStorage.getItem('refreshToken'), "getUserData"))
@@ -261,8 +257,8 @@ const refreshToken: AppThunk = (refreshToken: string) => {
         dispatch(setRefreshTokenLoadingSuccess(res.accessToken))
       })
       .catch((err) => {
+        console.log(`%c ${err.statusText} - ${err.status}. Не удалось обновить токен, необходима авторизация`, 'background-color: #4c4cff; color: white; padding: 4px 8px; border-radius: 4px; margin: 4px;');
         dispatch(setRefreshTokenLoadingFailed())
-        console.log(err)
       })
   }
 }
